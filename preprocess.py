@@ -11,17 +11,20 @@ def import_data(timestamp_list):
     results_list = []
 
     for timestamp in timestamp_list:
-        with open('comsol_results/' + timestamp + '.pkl', 'rb') as f:
-            slots = np.array(pickle.load(f))
+        print(timestamp)
+        with open('comsol_results/' + timestamp + '.pkl', 'rb') as file:
+            slots = np.array(pickle.load(file))
             slots_list.append(slots)
 
-        with open('comsol_results/' + timestamp + '.csv', 'rb') as f:
-            results = np.loadtxt(f, delimiter=",", dtype=float)
+        with open('comsol_results/' + timestamp + '.csv', 'rb') as file:
+            results = np.loadtxt(file, delimiter=",", dtype=float)
             num_sims = int(results.shape[0] / 361)
             points = [361 * x for x in np.arange(num_sims + 1)]
             sorted_x = np.array([results[i:i + 361,1] for i in points[:-1]])
             results_list.append(sorted_x)
 
+    print(np.expand_dims(np.concatenate(slots_list),axis=3).shape)
+    print(np.concatenate(results_list).shape)
     return np.expand_dims(np.concatenate(slots_list),axis=3) / 1.0, np.concatenate(results_list) / 1.0
 
 def get_next_batch(input_array, label_array, start_index, batch_size):

@@ -4,6 +4,13 @@ from lwa_angle_model import LWAPredictionModel
 from preprocess import import_data, get_next_batch
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
+import argparse
+
+parser = argparse.ArgumentParser(description='Build a deep learning model based on COMSOL simulations.')
+parser.add_argument('-t', nargs='+',
+                    help='List of timestamps that you want to import data for')
+
+args = parser.parse_args()
 
 def train(model, slots, results):
     completed = 0
@@ -56,7 +63,7 @@ def test(model, slots, results):
 
 def main():
 
-    slots, outputs = import_data('1644357752')
+    slots, outputs = import_data(args.t)
     slot_train, slot_test, results_train, results_test = train_test_split(slots, outputs, test_size=0.2)
 
     Model = LWAPredictionModel()
