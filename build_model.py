@@ -37,7 +37,7 @@ def train(model, slots, results):
 
         loss_list.append(efarx_loss)
 
-        print('Efarx training loss: ', tf.reduce_mean(loss_list))
+    print('Efarx training loss: ', tf.reduce_mean(loss_list))
 
 def test(model, slots, results):
     completed = 0
@@ -83,9 +83,9 @@ def main():
     fig = plt.figure()
     ax = fig.subplots(1,2, gridspec_kw={'width_ratios': [1, 3]})
     ax[0].imshow(slot_test[random])
-    ax[1].plot(efarx)
     ax[1].plot(truefarx)
-    ax[1].legend(['Prediction','True'])
+    ax[1].plot(efarx)
+    ax[1].legend(['True','Prediction'])
     save_str = 'results/test.png'
     fig.savefig(save_str)
 
