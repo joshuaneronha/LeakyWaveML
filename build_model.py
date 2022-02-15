@@ -89,6 +89,20 @@ def main():
     save_str = 'results/test.png'
     fig.savefig(save_str)
 
+    ones = np.array([[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1],[1,1,1,1,1,1]])
+    zeros = np.array([[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]])
+    test_array = np.concatenate([ones,zeros,ones,zeros,ones,zeros],axis=0)
+
+    efarx = Model.call(tf.expand_dims(test_array,0))
+    efarx = tf.squeeze(efarx)
+
+    fig = plt.figure()
+    ax = fig.subplots(1,2, gridspec_kw={'width_ratios': [1, 3]})
+    ax[0].imshow(test_array)
+    ax[1].plot(efarx)
+    ax[1].legend(['True','Prediction'])
+    save_str = 'results/test_periodic.png'
+    fig.savefig(save_str)
 
     pass
 
