@@ -93,12 +93,16 @@ def main():
     zeros = np.array([[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0],[0,0,0,0,0,0]])
     test_array = np.concatenate([ones,zeros,ones,zeros,ones,zeros],axis=0)
 
+    period_test = np.loadtxt('comsol_results/period_test2.csv', delimiter=",", dtype=float)
+    period_test = np.array(20*np.log10(period_test[:,1]))
+
     efarx = Model.call(tf.expand_dims(test_array,0))
     efarx = tf.squeeze(efarx)
 
     fig = plt.figure()
     ax = fig.subplots(1,2, gridspec_kw={'width_ratios': [1, 3]})
     ax[0].imshow(test_array)
+    ax[1].plot(period_test)
     ax[1].plot(efarx)
     ax[1].legend(['True','Prediction'])
     save_str = 'results/test_periodic.png'
