@@ -2,20 +2,17 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.layers import Conv2D, Dense, Flatten, MaxPooling2D, SimpleRNN, Reshape, Dropout, BatchNormalization, ReLU
 
-example = np.random.rand(50,6,36,1)
-
-
 class LWAPredictionModel(tf.keras.Model):
     def __init__(self):
         super(LWAPredictionModel, self).__init__()
 
-        self.adam_optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
-        self.batch_size = 32
-        self.epochs = 10
+        self.adam_optimizer = tf.keras.optimizers.Adam(learning_rate=0.0008)
+        self.batch_size = 8
+        self.epochs = 20
 
         self.conv_layers = tf.keras.Sequential()
-        self.conv_layers.add(Conv2D(128, 2, 1, 'same',activation='relu'))
-        self.conv_layers.add(Conv2D(256, 2, 1, 'same',activation='relu'))
+        self.conv_layers.add(Conv2D(512, (5,2), 1, 'same',activation='relu'))
+        self.conv_layers.add(Conv2D(1024, (5,2), 1, 'same',activation='relu'))
         self.conv_layers.add(BatchNormalization())
         # self.conv_layers.add(MaxPooling2D((6,1)))
         # self.conv_layers.add(Conv2D(128, 2, 1, 'same',activation='relu'))
@@ -29,7 +26,7 @@ class LWAPredictionModel(tf.keras.Model):
         # self.dense_layers.add(Dropout(0.2))
         self.dense_layers.add(Dense(600, activation = 'relu'))
         # self.dense_layers.add(Dropout(0.2))
-        self.dense_layers.add(Dense(450, activation = 'relu'))
+        self.dense_layers.add(Dense(400, activation = 'relu'))
         # self.dense_layers.add(Dropout(0.2))
         self.dense_layers.add(Dense(361))
 

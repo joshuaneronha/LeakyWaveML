@@ -4,16 +4,18 @@ from tensorflow.keras.layers import Conv2D, Dense, Flatten, MaxPooling2D, Simple
 
 
 class LWAPredictionModel(tf.keras.Model):
-    def __init__(self):
+    def __init__(self, lr = 0.001, f = 128, k = 3, d = 100, b = 32):
         super(LWAPredictionModel, self).__init__()
 
-        self.adam_optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
-        self.batch_size = 32
+        self.adam_optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
+        self.batch_size = b
         self.epochs = 20
 
         self.conv_layers = tf.keras.Sequential()
-        self.conv_layers.add(Conv2D(128, (3,1), 1, 'same',activation='relu'))
-        self.conv_layers.add(Conv2D(256, (3,1), 1, 'same',activation='relu')) #is just one or two layers beter?
+        # self.conv_layers.add(Conv2D(64, (3,1), 1, 'same',activation='relu'))
+        self.conv_layers.add(Conv2D(int(f), (k,1), 1, 'same',activation='relu'))
+        self.conv_layers.add(Conv2D(int(f*2), (k,1), 1, 'same',activation='relu')) #is just one or two layers beter?
+        # self.conv_layers.add(Conv2D(512, (3,1), 1, 'same',activation='relu'))
         # self.conv_layers.add(BatchNormalization())
         # self.conv_layers.add(MaxPooling2D((3,1)))
         # self.conv_layers.add(Conv2D(128, 2, 1, 'same',activation='relu'))
@@ -21,13 +23,13 @@ class LWAPredictionModel(tf.keras.Model):
         #
         self.dense_layers = tf.keras.Sequential()
         self.dense_layers.add(Flatten())
-        self.dense_layers.add(Dense(1000, activation = 'relu'))
+        self.dense_layers.add(Dense(int(d*10), activation = 'relu'))
         # self.dense_layers.add(Dropout(0.2))
-        self.dense_layers.add(Dense(800, activation = 'relu'))
+        self.dense_layers.add(Dense(int(d*8), activation = 'relu'))
         # self.dense_layers.add(Dropout(0.2))
-        self.dense_layers.add(Dense(600, activation = 'relu'))
+        self.dense_layers.add(Dense(int(d*6), activation = 'relu'))
         # self.dense_layers.add(Dropout(0.2))
-        self.dense_layers.add(Dense(450, activation = 'relu'))
+        self.dense_layers.add(Dense(int(d*4), activation = 'relu'))
         # self.dense_layers.add(Dropout(0.2))
         self.dense_layers.add(Dense(361))
 
