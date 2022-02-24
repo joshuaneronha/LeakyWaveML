@@ -1,7 +1,7 @@
 import numpy as np
 import tensorflow as tf
 import tensorflow_probability as tfp
-from tensorflow.keras.layers import Conv2D, Dense, Flatten, MaxPooling2D, SimpleRNN, Reshape, Dropout, BatchNormalization, ReLU
+from tensorflow.keras.layers import Conv1D, Dense, Flatten, MaxPooling1D, SimpleRNN, Reshape, Dropout, BatchNormalization, ReLU
 
 
 class LWAPredictionModel(tf.keras.Model):
@@ -13,26 +13,27 @@ class LWAPredictionModel(tf.keras.Model):
         self.epochs = 20
 
         self.conv_layers = tf.keras.Sequential()
-        # self.conv_layers.add(Conv2D(64, (3,1), 1, 'same',activation='relu'))
-        self.conv_layers.add(Conv2D(int(f), (k,1), 1, 'same',activation='relu'))
-        self.conv_layers.add(Conv2D(int(f*2), (k,1), 1, 'same',activation='relu')) #is just one or two layers beter?
-        # self.conv_layers.add(Conv2D(512, (3,1), 1, 'same',activation='relu'))
-        # self.conv_layers.add(BatchNormalization())
-        # self.conv_layers.add(MaxPooling2D((3,1)))
-        # self.conv_layers.add(Conv2D(128, 2, 1, 'same',activation='relu'))
-        # self.conv_layers.add(MaxPooling2D((2,2)))
+
+        self.conv_layers.add(Conv1D(f, k, 1, 'same', activation='relu'))
+        self.conv_layers.add(MaxPooling1D())
+        self.conv_layers.add(Conv1D(f, k, 1, 'same', activation='relu'))
+        self.conv_layers.add(MaxPooling1D())
+        self.conv_layers.add(Conv1D(f, k, 1, 'same', activation='relu'))
+        self.conv_layers.add(MaxPooling1D())
+
+
         #
         self.dense_layers = tf.keras.Sequential()
         self.dense_layers.add(Flatten())
-        self.dense_layers.add(Dense(int(d*10), activation = 'relu'))
+        self.dense_layers.add(Dense(int(d*20), activation = 'relu'))
         # self.dense_layers.add(Dropout(0.2))
-        self.dense_layers.add(Dense(int(d*8), activation = 'relu'))
+        self.dense_layers.add(Dense(int(d*12), activation = 'relu'))
         # self.dense_layers.add(Dropout(0.2))
         self.dense_layers.add(Dense(int(d*6), activation = 'relu'))
         # self.dense_layers.add(Dropout(0.2))
-        self.dense_layers.add(Dense(int(d*4), activation = 'relu'))
+        self.dense_layers.add(Dense(int(d), activation = 'relu'))
         # self.dense_layers.add(Dropout(0.2))
-        self.dense_layers.add(Dense(361))
+        self.dense_layers.add(Dense(36, activation = 'sigmoid'))
 
         # self.dense_only = tf.keras.Sequential()
         # self.dense_only.add(Flatten())
@@ -54,11 +55,12 @@ class LWAPredictionModel(tf.keras.Model):
         return post_dense
 
     def loss_function(self, prediction, true):
-        mse = tf.keras.losses.MeanSquaredError()
+        # mse = tf.keras.losses.MeanSquaredError()
+        bce = tf.keras.losses.BinaryCrossentropy()
         # huber = tf.keras.losses.Huber()
         # lcosh = tf.keras.losses.LogCosh(reduction="auto", name="log_cosh")
         # return mse(true, prediction)
-        return mse(true, prediction)
+        return bce(true, prediction)
 
     # def signal_similarity(self,prediction, true):
     #
@@ -96,33 +98,33 @@ class LWAPredictionModel(tf.keras.Model):
     #
     #     return -1*tf.reduce_mean((0.333 * time_corr) + (0.333 * freq_corr) + (0.333 * amp_match))
 
-    def signal_loss_function(self,prediction,true):
-        prediction = tf.cast(prediction, tf.float32)
-        true = tf.cast(true, tf.float32)
-
-        prediction_complex = tf.cast(prediction,tf.complex64)
-        true_complex = tf.cast(true,tf.complex64)
-
-        def np_corr(first,second):
-            return tf.convert_to_tensor([np.correlate(first[i],second[i])[0] for i in np.arange(len(first))])
-
-        time_corr = tf.numpy_function(np_corr, [true, prediction], tf.float32)
-        time_corr_ref = tf.numpy_function(np_corr, [true, true], tf.float32)
-        diff_time_corr = tf.abs(time_corr - time_corr_ref)
-
-        fft_corr = tf.cast(tf.numpy_function(np_corr, [tf.signal.fft(true_complex), tf.signal.fft(prediction_complex)], tf.float32), tf.float32)
-        fft_corr_ref = tf.cast(tf.numpy_function(np_corr, [tf.signal.fft(true_complex), tf.signal.fft(true_complex)], tf.float32), tf.float32)
-        diff_fft_corr = tf.cast(tf.abs(fft_corr - fft_corr_ref), tf.float32)
-
-        amp_corr = tf.abs(tf.reduce_sum(prediction ** 2,axis = 1) - tf.reduce_sum(true ** 2,axis = 1))
-
-        # print(diff_time_corr.shape, diff_fft_corr.shape, amp_corr.shape)
-        # print(diff_time_corr)
-        # print(diff_fft_corr)
-        # print(amp_corr)
-
-        # print(tf.reduce_sum((0.5 * time_corr) + (0.5 * freq_corr)))
-
-        mse = tf.keras.losses.MeanSquaredError()
-
-        return tf.reduce_mean((0.500 * diff_time_corr) + (0 * diff_fft_corr) + (0.500 * amp_corr) + (0 * mse(true, prediction)))
+    # def signal_loss_function(self,prediction,true):
+    #     prediction = tf.cast(prediction, tf.float32)
+    #     true = tf.cast(true, tf.float32)
+    #
+    #     prediction_complex = tf.cast(prediction,tf.complex64)
+    #     true_complex = tf.cast(true,tf.complex64)
+    #
+    #     def np_corr(first,second):
+    #         return tf.convert_to_tensor([np.correlate(first[i],second[i])[0] for i in np.arange(len(first))])
+    #
+    #     time_corr = tf.numpy_function(np_corr, [true, prediction], tf.float32)
+    #     time_corr_ref = tf.numpy_function(np_corr, [true, true], tf.float32)
+    #     diff_time_corr = tf.abs(time_corr - time_corr_ref)
+    #
+    #     fft_corr = tf.cast(tf.numpy_function(np_corr, [tf.signal.fft(true_complex), tf.signal.fft(prediction_complex)], tf.float32), tf.float32)
+    #     fft_corr_ref = tf.cast(tf.numpy_function(np_corr, [tf.signal.fft(true_complex), tf.signal.fft(true_complex)], tf.float32), tf.float32)
+    #     diff_fft_corr = tf.cast(tf.abs(fft_corr - fft_corr_ref), tf.float32)
+    #
+    #     amp_corr = tf.abs(tf.reduce_sum(prediction ** 2,axis = 1) - tf.reduce_sum(true ** 2,axis = 1))
+    #
+    #     # print(diff_time_corr.shape, diff_fft_corr.shape, amp_corr.shape)
+    #     # print(diff_time_corr)
+    #     # print(diff_fft_corr)
+    #     # print(amp_corr)
+    #
+    #     # print(tf.reduce_sum((0.5 * time_corr) + (0.5 * freq_corr)))
+    #
+    #     mse = tf.keras.losses.MeanSquaredError()
+    #
+    #     return tf.reduce_mean((0.500 * diff_time_corr) + (0 * diff_fft_corr) + (0.500 * amp_corr) + (0 * mse(true, prediction)))
