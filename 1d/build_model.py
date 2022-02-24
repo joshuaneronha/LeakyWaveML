@@ -31,7 +31,7 @@ def train(model, slots, results):
 
         with tf.GradientTape() as tape:
             efarx = model.call(slot_batch)
-            efarx_loss = model.loss_function(efarx, results_batch) #slots serves as the mask here
+            efarx_loss = model.signal_loss_function(efarx, results_batch) #slots serves as the mask here
 
         gradients = tape.gradient(efarx_loss, model.trainable_variables)
         model.adam_optimizer.apply_gradients(zip(gradients, model.trainable_variables))
@@ -57,7 +57,7 @@ def test(model, slots, results):
         completed += our_size
 
         efarx = model.call(slot_batch)
-        efarx_loss = model.loss_function(efarx, results_batch)
+        efarx_loss = model.signal_loss_function(efarx, results_batch)
 
         loss_list.append(efarx_loss)
     print('Efarx testing loss: ', tf.reduce_mean(loss_list))
@@ -67,7 +67,8 @@ def main():
     slots, outputs = import_data(args.t)
     slot_train, slot_test, results_train, results_test = train_test_split(slots, outputs, test_size=0.2)
 
-    Model = LWAPredictionModel(lr = 0.0008, f=512, k=5, d=100, b=8)
+    # Model = LWAPredictionModel(lr = 0.0008, f=512, k=5, d=100, b=8)
+    Model = LWAPredictionModel(lr = 0.0008, f=128, k=5, d=100, b=32)
 
     for i in np.arange(Model.epochs):
         print(i)
@@ -91,7 +92,7 @@ def main():
         ax[1].plot(truefarx)
         ax[1].plot(efarx)
         ax[1].legend(['True','Prediction'])
-        save_str = '1d/results/array/test_2_' + str(i) + '.png'
+        save_str = '1d/results/array/test_sigloss_' + str(i) + '.png'
         fig.savefig(save_str)
 
         peak_sim.append([truefarx, efarx])
