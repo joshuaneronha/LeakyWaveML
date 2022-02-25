@@ -10,28 +10,34 @@ class LWAPredictionModel(tf.keras.Model):
 
         self.adam_optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
         self.batch_size = b
-        self.epochs = 20
+        self.epochs = 10
 
         self.conv_layers = tf.keras.Sequential()
 
-        self.conv_layers.add(Conv1D(f, k, 1, 'same', activation='relu'))
+        self.conv_layers.add(Conv1D(int(f/16), k, 1, 'same', activation='relu'))
         self.conv_layers.add(MaxPooling1D())
-        self.conv_layers.add(Conv1D(f, k, 1, 'same', activation='relu'))
+        self.conv_layers.add(BatchNormalization())
+        self.conv_layers.add(Conv1D(int(f/8), k, 1, 'same', activation='relu'))
         self.conv_layers.add(MaxPooling1D())
-        self.conv_layers.add(Conv1D(f, k, 1, 'same', activation='relu'))
+        self.conv_layers.add(BatchNormalization())
+        self.conv_layers.add(Conv1D(int(f/4), k, 1, 'same', activation='relu'))
         self.conv_layers.add(MaxPooling1D())
+        self.conv_layers.add(BatchNormalization())
+
+
+
 
 
         #
         self.dense_layers = tf.keras.Sequential()
         self.dense_layers.add(Flatten())
-        self.dense_layers.add(Dense(int(d*20), activation = 'relu'))
-        # self.dense_layers.add(Dropout(0.2))
-        self.dense_layers.add(Dense(int(d*12), activation = 'relu'))
-        # self.dense_layers.add(Dropout(0.2))
-        self.dense_layers.add(Dense(int(d*6), activation = 'relu'))
-        # self.dense_layers.add(Dropout(0.2))
-        self.dense_layers.add(Dense(int(d), activation = 'relu'))
+        # self.dense_layers.add(Dense(int(d*20), activation = 'relu'))
+        # # self.dense_layers.add(Dropout(0.2))
+        # self.dense_layers.add(Dense(int(d*12), activation = 'relu'))
+        # # self.dense_layers.add(Dropout(0.2))
+        # self.dense_layers.add(Dense(int(d*6), activation = 'relu'))
+        # # self.dense_layers.add(Dropout(0.2))
+        # self.dense_layers.add(Dense(int(d), activation = 'relu'))
         # self.dense_layers.add(Dropout(0.2))
         self.dense_layers.add(Dense(36, activation = 'sigmoid'))
 
@@ -61,6 +67,12 @@ class LWAPredictionModel(tf.keras.Model):
         # lcosh = tf.keras.losses.LogCosh(reduction="auto", name="log_cosh")
         # return mse(true, prediction)
         return bce(true, prediction)
+
+    def accuracy(self, prediction, true):
+        ba = tf.keras.metrics.BinaryAccuracy()
+        prediction = tf.round(prediction)
+        true = tf.round(true)
+        return ba(prediction, true)
 
     # def signal_similarity(self,prediction, true):
     #
