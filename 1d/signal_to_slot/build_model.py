@@ -67,7 +67,7 @@ def test(model, slots, results):
         acc_list.append(model.accuracy(efarx, slot_batch))
 
 
-    print('Efarx testing loss: ', tf.reduce_mean(loss_list))
+    # print('Efarx testing loss: ', tf.reduce_mean(loss_list))
     print('Efarx testing accuracy:', tf.reduce_mean(acc_list))
 
 def main():

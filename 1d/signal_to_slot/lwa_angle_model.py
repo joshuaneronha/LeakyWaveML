@@ -14,13 +14,13 @@ class LWAPredictionModel(tf.keras.Model):
 
         self.conv_layers = tf.keras.Sequential()
 
-        self.conv_layers.add(Conv1D(int(f/32), k, 1, 'same', activation='relu'))
-        self.conv_layers.add(Conv1D(int(f/16), k, 1, 'same', activation='relu'))
+        self.conv_layers.add(Conv1D(int(f/32), 3, 1, 'same', activation='relu'))
+        self.conv_layers.add(Conv1D(int(f/16), 5, 1, 'same', activation='relu'))
         self.conv_layers.add(MaxPooling1D())
         self.conv_layers.add(BatchNormalization())
 
-        self.conv_layers.add(Conv1D(int(f/8), k, 1, 'same', activation='relu'))
-        self.conv_layers.add(Conv1D(int(f/4), k, 1, 'same', activation='relu'))
+        self.conv_layers.add(Conv1D(int(f/8), 7, 1, 'same', activation='relu'))
+        self.conv_layers.add(Conv1D(int(f/4), 9, 1, 'same', activation='relu'))
         self.conv_layers.add(MaxPooling1D())
         self.conv_layers.add(BatchNormalization())
 
