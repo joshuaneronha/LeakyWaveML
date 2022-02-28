@@ -7,6 +7,8 @@ from scipy import signal
 import tensorflow as tf
 import tensorflow_probability as tfp
 
+tf.expand_dims(efarx[0],axis=1).shape
+
 shapes, efarx = import_data(['1645299750'])
 
 np.correlate(efarx[0],efarx[0])
