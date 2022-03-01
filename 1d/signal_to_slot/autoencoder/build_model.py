@@ -28,6 +28,7 @@ def train(model, slots, results):
 
         slot_batch, results_batch = get_next_batch(slots, results, completed, our_size)
 
+
         completed += our_size
 
         with tf.GradientTape() as tape:
@@ -101,9 +102,9 @@ def main():
         fig = plt.figure()
         ax = fig.subplots(1,3, gridspec_kw={'width_ratios': [3, 1, 1]})
         ax[0].plot(results_test[random])
-        ax[1].imshow(truedesign)
+        ax[1].imshow(tf.squeeze(truedesign, axis = 2))
         ax[2].imshow(tf.round(tf.expand_dims(efarx,axis=1)))
-        save_str = '1d/signal_to_slot/results/' + str(i) + '.png'
+        save_str = '1d/signal_to_slot/autoencoder/results/' + str(i) + '.png'
         fig.savefig(save_str)
 
     #     peak_sim.append([truefarx, efarx])

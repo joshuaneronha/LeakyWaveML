@@ -24,7 +24,7 @@ def import_data(timestamp_list):
             results_list.append(sorted_x)
 
     # print((np.expand_dims(np.concatenate(slots_list),axis=[2,3]) / 1.0).shape)
-    return np.expand_dims(np.concatenate(slots_list),axis=[2,3]) / 1.0, np.concatenate(results_list) / 1.0
+    return np.expand_dims(np.concatenate(slots_list),axis=[2]) / 1.0, np.expand_dims(np.concatenate(results_list), axis = [2] )/ 1.0
 
 def get_next_batch(input_array, label_array, start_index, batch_size):
     """
