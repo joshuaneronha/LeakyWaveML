@@ -31,7 +31,7 @@ def train(model, slots, results):
 
         with tf.GradientTape() as tape:
             efarx = model.call(slot_batch)
-            efarx_loss = model.signal_loss_function(efarx, results_batch) #slots serves as the mask here
+            efarx_loss = model.loss_function(efarx, results_batch) #slots serves as the mask here
 
         gradients = tape.gradient(efarx_loss, model.trainable_variables)
         model.adam_optimizer.apply_gradients(zip(gradients, model.trainable_variables))
@@ -57,7 +57,7 @@ def test(model, slots, results):
         completed += our_size
 
         efarx = model.call(slot_batch)
-        efarx_loss = model.signal_loss_function(efarx, results_batch)
+        efarx_loss = model.loss_function(efarx, results_batch)
 
         loss_list.append(efarx_loss)
     print('Efarx testing loss: ', tf.reduce_mean(loss_list))
@@ -88,16 +88,16 @@ def main():
         truefarx = tf.squeeze(results_test[random])
         fig = plt.figure()
         ax = fig.subplots(1,2, gridspec_kw={'width_ratios': [1, 3]})
-        ax[0].imshow(slot_test[random])
+        ax[0].imshow(tf.squeeze(slot_test[random],axis=2))
         ax[1].plot(truefarx)
         ax[1].plot(efarx)
         ax[1].legend(['True','Prediction'])
-        save_str = '1d/results/array/test_sigloss_' + str(i) + '.png'
+        save_str = '1d/slot_to_signal/results/array/test_forexs_' + str(i) + '.png'
         fig.savefig(save_str)
 
         peak_sim.append([truefarx, efarx])
 
-    with open('for_comparison.pkl', 'wb') as f:
+    with open('ten_examples.pkl', 'wb') as f:
         pickle.dump(peak_sim, f)
 
     pass

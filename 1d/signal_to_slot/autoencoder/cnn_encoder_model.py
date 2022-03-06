@@ -9,23 +9,23 @@ class CNNAutoEncoder(tf.keras.Model):
 
         self.adam_optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)  #.01 originally, improved w/ .004
         self.batch_size = 32 #was 32 originally
-        self.epochs = 10  #originally 25 dec5
+        self.epochs = 6  #originally 25 dec5
 
         self.encoder = tf.keras.Sequential()
         self.encoder.add(Conv1D(32, 3, 2, 'same', activation='relu'))
-        self.encoder.add(Conv1D(64, 5, 2, 'same', activation='relu'))
-        self.encoder.add(Conv1D(128, 7, 3, 'same', activation='relu'))
-        self.encoder.add(Conv1D(256, 9, 5, 'same', activation='relu'))
+        self.encoder.add(Conv1D(64, 4, 2, 'same', activation='relu'))
+        self.encoder.add(Conv1D(128, 5, 3, 'same', activation='relu'))
+        self.encoder.add(Conv1D(256, 6, 5, 'same', activation='relu'))
 
         self.dense = tf.keras.Sequential()
         self.dense.add(tf.keras.layers.Dense(512, activation = 'relu'))
 
         self.decoder = tf.keras.Sequential()
         # self.decoder.add(Conv1DTranspose(512, 4, 1, 'same',activation='relu'))
-        self.decoder.add(Conv1DTranspose(256, 4, 1, 'same',activation='relu'))
+        self.decoder.add(Conv1DTranspose(256, 3, 1, 'same',activation='relu'))
         self.decoder.add(Conv1DTranspose(128, 4, 3, 'same',activation='relu'))
-        self.decoder.add(Conv1DTranspose(64, 4, 1, 'same',activation='relu'))
-        self.decoder.add(Conv1DTranspose(1, 4, 2, 'same', activation = 'sigmoid'))
+        self.decoder.add(Conv1DTranspose(64, 5, 1, 'same',activation='relu'))
+        self.decoder.add(Conv1DTranspose(1, 6, 2, 'same', activation = 'sigmoid'))
 
 
     def call(self, input):

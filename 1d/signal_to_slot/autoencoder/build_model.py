@@ -88,7 +88,7 @@ def main():
 
     # test(Model, slot_test, results_test)
 
-    # peak_sim = []
+    peak_sim = []
 
     for i in np.arange(10):
 
@@ -104,13 +104,13 @@ def main():
         ax[0].plot(results_test[random])
         ax[1].imshow(tf.squeeze(truedesign, axis = 2))
         ax[2].imshow(tf.round(tf.expand_dims(efarx,axis=1)))
-        save_str = '1d/signal_to_slot/autoencoder/results/' + str(i) + '.png'
+        save_str = '1d/signal_to_slot/ae_results/' + str(i) + '.png'
         fig.savefig(save_str)
 
-    #     peak_sim.append([truefarx, efarx])
-    #
-    # with open('for_comparison.pkl', 'wb') as f:
-    #     pickle.dump(peak_sim, f)
+        peak_sim.append([results_test[random],truedesign, efarx])
+
+    with open('generated_slots_ae.pkl', 'wb') as f:
+        pickle.dump(peak_sim, f)
 
     pass
 

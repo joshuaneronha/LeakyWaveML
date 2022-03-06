@@ -87,7 +87,7 @@ def main():
 
     # test(Model, slot_test, results_test)
 
-    # peak_sim = []
+    peak_sim = []
 
     for i in np.arange(10):
 
@@ -106,10 +106,10 @@ def main():
         save_str = '1d/signal_to_slot/results/' + str(i) + '.png'
         fig.savefig(save_str)
 
-    #     peak_sim.append([truefarx, efarx])
-    #
-    # with open('for_comparison.pkl', 'wb') as f:
-    #     pickle.dump(peak_sim, f)
+        peak_sim.append([results_test[random],truedesign, efarx])
+
+    with open('generated_slots.pkl', 'wb') as f:
+        pickle.dump(peak_sim, f)
 
     pass
 

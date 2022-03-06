@@ -1,5 +1,5 @@
 import numpy as np
-import tensorflow as tf
+# import tensorflow as tf
 import pickle
 
 def import_data(timestamp_list):
@@ -20,7 +20,8 @@ def import_data(timestamp_list):
             results = np.loadtxt(file, delimiter=",", dtype=float)
             num_sims = int(results.shape[0] / 361)
             points = [361 * x for x in np.arange(num_sims + 1)]
-            sorted_x = np.array([20*np.log10(results[i:i + 361,1]) for i in points[:-1]])
+            # sorted_x = np.array([20*np.log10(results[i:i + 361,1]) for i in points[:-1]])
+            sorted_x = np.array([results[i:i + 361,1] for i in points[:-1]])
             results_list.append(sorted_x)
 
     # print((np.expand_dims(np.concatenate(slots_list),axis=[2,3]) / 1.0).shape)

@@ -7,6 +7,26 @@ from scipy import signal
 import tensorflow as tf
 import tensorflow_probability as tfp
 
+with open('ten_examples.pkl','rb') as f:
+    data = pickle.load(f)
+
+data[0][0].shape
+
+sim = data[1][0]
+ml = data[1][1]
+
+plt.plot(np.arange(361),sim,ml)
+
+def findpeaks(which):
+    peaks, props = signal.find_peaks(np.array(which), prominence = 5, width=8)
+
+    print(peaks)
+
+    plt.plot(np.array(which))
+    plt.plot(peaks, np.array(which)[peaks], "x")
+
+findpeaks(sim)
+findpeaks(ml)
 tf.expand_dims(efarx[0],axis=1).shape
 
 shapes, efarx = import_data(['1645299750'])
