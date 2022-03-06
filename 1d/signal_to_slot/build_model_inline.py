@@ -1,17 +1,17 @@
 import numpy as np
 import tensorflow as tf
 from lwa_angle_model import LWAPredictionModel
-from preprocess import import_data, get_next_batch
+from our_preprocess import import_data, get_next_batch
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import argparse
 import pickle
 
-parser = argparse.ArgumentParser(description='Build a deep learning model based on COMSOL simulations.')
-parser.add_argument('-t', nargs='+',
-                    help='List of timestamps that you want to import data for')
-
-args = parser.parse_args()
+# parser = argparse.ArgumentParser(description='Build a deep learning model based on COMSOL simulations.')
+# parser.add_argument('-t', nargs='+',
+#                     help='List of timestamps that you want to import data for')
+#
+# args = parser.parse_args()
 
 def train(model, slots, results):
     completed = 0
@@ -70,9 +70,9 @@ def test(model, slots, results):
     # print('Efarx testing loss: ', tf.reduce_mean(loss_list))
     print('Efarx testing accuracy:', tf.reduce_mean(acc_list))
 
-def main():
+def main(times):
 
-    slots, outputs = import_data(args.t)
+    slots, outputs = import_data(times)
 
     slot_train, slot_test, results_train, results_test = train_test_split(slots, outputs, test_size=0.2)
 
@@ -114,6 +114,6 @@ def main():
     return Model
 
 
-
-if __name__ == '__main__':
-	main()
+#
+# if __name__ == '__main__':
+# 	main()
