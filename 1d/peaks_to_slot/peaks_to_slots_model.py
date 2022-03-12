@@ -9,15 +9,16 @@ class LWAPredictionModel(tf.keras.Model):
         super(LWAPredictionModel, self).__init__()
 
         self.adam_optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
-        self.batch_size = 50
-        self.epochs = 10
+        self.batch_size = 100
+        self.epochs = 50
 
         self.dense_layers = tf.keras.Sequential()
         self.dense_layers.add(Flatten())
+        self.dense_layers.add(Dense(1000, activation = 'relu'))
+        self.dense_layers.add(Dense(800, activation = 'relu'))
         self.dense_layers.add(Dense(600, activation = 'relu'))
         self.dense_layers.add(Dense(400, activation = 'relu'))
-        self.dense_layers.add(Dense(250, activation = 'relu'))
-        self.dense_layers.add(Dense(125, activation = 'relu'))
+        self.dense_layers.add(Dense(200, activation = 'relu'))
         self.dense_layers.add(Dense(36, activation = 'sigmoid'))
 
     def call(self, input):

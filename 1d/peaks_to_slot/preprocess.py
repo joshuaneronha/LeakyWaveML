@@ -12,6 +12,7 @@ def import_data(timestamp_list):
 
     slots_list = []
     peaks_list = []
+    max_list = []
 
     for timestamp in timestamp_list:
         with open('comsol_results/1d/' + timestamp + '.pkl', 'rb') as file:
@@ -25,15 +26,15 @@ def import_data(timestamp_list):
             points = [361 * x for x in np.arange(num_sims + 1)]
             sorted_x = np.array([20*np.log10(results[i:i + 361,1]) for i in points[:-1]])
             peaks = sorted_x[:,floquet_back + floquet_forward]
-            peaks_list.append(peaks / peaks.max(axis=1)[:,None])
-            # peaks_list.append(peaks)
+            max = peaks.max(axis=1)[:,None]
+            normalized = peaks / max
+            peaks_list.append(normalized)
+            max_list.append(max)
 
 
-    return np.concatenate(slots_list), np.concatenate(peaks_list) / 1.0
+    return np.concatenate(slots_list), np.concatenate([np.concatenate(peaks_list) / 1.0, np.concatenate(max_list)],axis=1)
 
-shapes, peaks = import_data(['1645299750'])
 
-peaks.shape
 
 def get_next_batch(input_array, label_array, start_index, batch_size):
     """
