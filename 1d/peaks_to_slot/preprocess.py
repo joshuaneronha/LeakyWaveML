@@ -28,12 +28,14 @@ def import_data(timestamp_list):
             peaks = sorted_x[:,floquet_back + floquet_forward]
             max = peaks.max(axis=1)[:,None]
             normalized = peaks / max
+            # peaks_list.append(normalized)
             peaks_list.append(normalized)
-            max_list.append(max)
+            # max_list.append(np.concatenate([max,max,max,max,max,max],axis=1))
 
 
-    return np.concatenate(slots_list), np.concatenate([np.concatenate(peaks_list) / 1.0, np.concatenate(max_list)],axis=1)
-
+    # return np.concatenate(slots_list), np.concatenate([np.concatenate(peaks_list), np.concatenate(max_list)],axis=1)
+    return np.concatenate(slots_list), np.concatenate(peaks_list)
+#
 
 
 def get_next_batch(input_array, label_array, start_index, batch_size):

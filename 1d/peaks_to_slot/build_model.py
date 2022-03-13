@@ -33,6 +33,7 @@ def train(model, slots, peaks):
         with tf.GradientTape() as tape:
             efarx = model.call(peaks_batch)
             efarx_loss = model.loss_function(efarx, slot_batch) #slots serves as the mask here
+            # print(efarx_loss)
 
         gradients = tape.gradient(efarx_loss, model.trainable_variables)
         model.adam_optimizer.apply_gradients(zip(gradients, model.trainable_variables))
