@@ -15,10 +15,6 @@ def import_data(timestamp_list):
     max_list = []
 
     for timestamp in timestamp_list:
-        with open('comsol_results/1d/' + timestamp + '.pkl', 'rb') as file:
-            slots = np.array(pickle.load(file))
-            # print(slots.shape)
-            slots_list.append(slots)
 
         with open('comsol_results/1d/' + timestamp + '.csv', 'rb') as file:
             results = np.loadtxt(file, delimiter=",", dtype=float)
@@ -26,16 +22,25 @@ def import_data(timestamp_list):
             points = [361 * x for x in np.arange(num_sims + 1)]
             sorted_x = np.array([20*np.log10(results[i:i + 361,1]) for i in points[:-1]])
             peaks = sorted_x[:,floquet_back + floquet_forward]
+
+            past_thresh = [index for index,x in enumerate(peaks) if x.max() > 29]
+
             # max = peaks.max(axis=1)[:,None]
             # normalized = peaks / np.max(peaks,axis=0)
             # peaks_list.append(normalized)
             # peaks_list.append(normalized)
-            peaks_list.append(peaks)
+            peaks_list.append(peaks[past_thresh])
             # max_list.append(np.concatenate([max,max,max,max,max,max],axis=1))
 
+        with open('comsol_results/1d/' + timestamp + '.pkl', 'rb') as file:
+            slots = np.array(pickle.load(file))
+            # print(slots.shape)
+            slots_list.append(slots[past_thresh])
 
     # return np.concatenate(slots_list), np.concatenate([np.concatenate(peaks_list), np.concatenate(max_list)],axis=1)
     return np.concatenate(slots_list), np.concatenate(peaks_list)
+
+
 
 
 def get_next_batch(input_array, label_array, start_index, batch_size):
