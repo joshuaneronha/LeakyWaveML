@@ -1,25 +1,41 @@
 import numpy as np
 import tensorflow as tf
 import tensorflow_probability as tfp
-from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, ReLU, Flatten
+from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, ReLU, Flatten, LeakyReLU
 
 
 class LWAPredictionModel(tf.keras.Model):
-    def __init__(self, lr = 0.001, b = 32):
+    def __init__(self, lr = 1e-5, b = 32):
         super(LWAPredictionModel, self).__init__()
 
         self.adam_optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
-        self.batch_size = 32
-        self.epochs = 10
+        self.batch_size = 128
+        self.epochs = 100
 
         self.dense_layers = tf.keras.Sequential()
         self.dense_layers.add(Flatten())
         # self.dense_layers.add(Dense(1000, activation = 'relu'))
         # self.dense_layers.add(Dense(800, activation = 'relu'))
-        self.dense_layers.add(Dense(600, activation = 'relu'))
-        self.dense_layers.add(Dense(400, activation = 'relu'))
-        self.dense_layers.add(Dense(200, activation = 'relu'))
-        self.dense_layers.add(Dense(36, activation = 'sigmoid'))
+        self.dense_layers.add(Dense(500))
+        # self.dense_layers.add(LeakyReLU(0.2))
+        self.dense_layers.add(ReLU())
+        self.dense_layers.add(Dense(500))
+        # self.dense_layers.add(LeakyReLU(0.2))
+        self.dense_layers.add(ReLU())
+        self.dense_layers.add(Dense(500))
+        # self.dense_layers.add(LeakyReLU(0.2))
+        self.dense_layers.add(ReLU())
+        self.dense_layers.add(Dense(500))
+        # self.dense_layers.add(LeakyReLU(0.2))
+        self.dense_layers.add(ReLU())
+        self.dense_layers.add(Dense(500))
+        # self.dense_layers.add(LeakyReLU(0.2))
+        self.dense_layers.add(ReLU())
+        self.dense_layers.add(Dense(500))
+        # self.dense_layers.add(LeakyReLU(0.2))
+        # self.dense_layers.add(Dropout(0.1))
+        self.dense_layers.add(ReLU())
+        self.dense_layers.add(Dense(36,activation='sigmoid'))
 
     def call(self, input):
 
@@ -33,7 +49,8 @@ class LWAPredictionModel(tf.keras.Model):
         total_slots = tf.math.abs(tf.math.subtract(tf.cast(tf.reduce_sum(tf.round(true), axis=1),tf.float32),tf.cast(tf.reduce_sum(tf.round(prediction), axis=1),tf.float32)))
         normalized = total_slots / tf.cast(tf.reduce_sum(tf.round(true),axis=1),tf.float32)
         # print(normalized)
-        return bce(true, prediction) + (3*tf.reduce_mean(normalized))
+        return bce(true, prediction) + (0*tf.reduce_mean(normalized))
+        # return bce(true,prediction)
         # return
 
     def accuracy(self, prediction, true):
