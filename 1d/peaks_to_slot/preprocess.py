@@ -27,10 +27,10 @@ def import_data(timestamp_list):
             sorted_x = np.array([20*np.log10(results[i:i + 361,1]) for i in points[:-1]])
             peaks = sorted_x[:,floquet_back + floquet_forward]
             # max = peaks.max(axis=1)[:,None]
-            normalized = peaks / np.max(peaks,axis=0)
+            # normalized = peaks / np.max(peaks,axis=0)
             # peaks_list.append(normalized)
-            peaks_list.append(normalized)
-            # peaks_list.append(peaks)
+            # peaks_list.append(normalized)
+            peaks_list.append(peaks)
             # max_list.append(np.concatenate([max,max,max,max,max,max],axis=1))
 
 
