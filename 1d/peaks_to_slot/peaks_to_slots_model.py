@@ -10,7 +10,7 @@ class LWAPredictionModel(tf.keras.Model):
 
         self.adam_optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
         self.batch_size = 128
-        self.epochs = 100
+        self.epochs = 250
 
         self.dense_layers = tf.keras.Sequential()
         self.dense_layers.add(Flatten())
@@ -19,42 +19,48 @@ class LWAPredictionModel(tf.keras.Model):
         self.dense_layers.add(Dense(1000))
         # self.dense_layers.add(LeakyReLU(0.2))
         self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(1000))
+        self.dense_layers.add(Dense(600))
         # self.dense_layers.add(LeakyReLU(0.2))
         self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(1000))
+        self.dense_layers.add(Dense(250))
         # self.dense_layers.add(LeakyReLU(0.2))
         self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(1000))
+        self.dense_layers.add(Dense(6))
         # self.dense_layers.add(LeakyReLU(0.2))
-        self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(1000))
-        # self.dense_layers.add(LeakyReLU(0.2))
-        self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(1000))
+        # self.dense_layers.add(ReLU())
+        # self.dense_layers.add(Dense(1000))
+        # # self.dense_layers.add(LeakyReLU(0.2))
+        # self.dense_layers.add(ReLU())
+        # self.dense_layers.add(Dense(1000))
         # self.dense_layers.add(LeakyReLU(0.2))
         # self.dense_layers.add(Dropout(0.1))
         self.dense_layers.add(ReLU())
-        # self.dense_layers.add(Conv1DTranspose(256, 3, 1, 'same',activation='relu'))
-        # self.dense_layers.add(Conv1DTranspose(128, 4, 3, 'same',activation='relu'))
-        # self.dense_layers.add(Conv1DTranspose(64, 5, 1, 'same',activation='relu'))
-        # self.dense_layers.add(Conv1DTranspose(1, 6, 2, 'same', activation = 'sigmoid'))
-        self.dense_layers.add(Dense(36,activation='sigmoid'))
+
+        self.conv_layers = tf.keras.Sequential()
+
+        self.conv_layers.add(Conv1DTranspose(256, 3, 1, 'same',activation='relu'))
+        self.conv_layers.add(Conv1DTranspose(128, 4, 3, 'same',activation='relu'))
+        self.conv_layers.add(Conv1DTranspose(64, 5, 1, 'same',activation='relu'))
+        self.conv_layers.add(Conv1DTranspose(1, 6, 2, 'same', activation = 'sigmoid'))
+        # self.conv_layers.add(Dense(36,activation='sigmoid'))
 
     def call(self, input):
 
-        return self.dense_layers(input)
+        post_dense = self.dense_layers(input)
+        # print(tf.expand_dims(post_dense, axis = 2).shape)
+        return tf.squeeze(self.conv_layers(tf.expand_dims(post_dense, axis = 2)))
 
     def loss_function(self, prediction, true):
 
 
         bce = tf.keras.losses.BinaryCrossentropy()
         # bfce = tf.keras.losses.BinaryFocalCrossentropy()
-        total_slots = tf.math.abs(tf.math.subtract(tf.cast(tf.reduce_sum(tf.round(true), axis=1),tf.float32),tf.cast(tf.reduce_sum(tf.round(prediction), axis=1),tf.float32)))
-        normalized = total_slots / tf.cast(tf.reduce_sum(tf.round(true),axis=1),tf.float32)
+        # total_slots = tf.math.abs(tf.math.subtract(tf.cast(tf.reduce_sum(tf.round(true), axis=1),tf.float32),tf.cast(tf.reduce_sum(tf.round(prediction), axis=1),tf.float32)))
+        # normalized = total_slots / tf.cast(tf.reduce_sum(tf.round(true),axis=1),tf.float32)
         # print(normalized)
-        return bce(true, prediction) + (0*tf.reduce_mean(normalized))
-        # return bce(true,prediction)
+
+        # return bce(true, prediction) + (0*tf.reduce_mean(normalized))
+        return bce(true,prediction)
         # return
 
     def accuracy(self, prediction, true):
