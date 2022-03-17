@@ -1,7 +1,7 @@
 import numpy as np
 import tensorflow as tf
 import tensorflow_probability as tfp
-from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, ReLU, Flatten, LeakyReLU
+from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, ReLU, Flatten, LeakyReLU, Conv1DTranspose
 
 
 class LWAPredictionModel(tf.keras.Model):
@@ -16,25 +16,29 @@ class LWAPredictionModel(tf.keras.Model):
         self.dense_layers.add(Flatten())
         # self.dense_layers.add(Dense(1000, activation = 'relu'))
         # self.dense_layers.add(Dense(800, activation = 'relu'))
-        self.dense_layers.add(Dense(500))
+        self.dense_layers.add(Dense(1000))
         # self.dense_layers.add(LeakyReLU(0.2))
         self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(500))
+        self.dense_layers.add(Dense(1000))
         # self.dense_layers.add(LeakyReLU(0.2))
         self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(500))
+        self.dense_layers.add(Dense(1000))
         # self.dense_layers.add(LeakyReLU(0.2))
         self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(500))
+        self.dense_layers.add(Dense(1000))
         # self.dense_layers.add(LeakyReLU(0.2))
         self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(500))
+        self.dense_layers.add(Dense(1000))
         # self.dense_layers.add(LeakyReLU(0.2))
         self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(500))
+        self.dense_layers.add(Dense(1000))
         # self.dense_layers.add(LeakyReLU(0.2))
         # self.dense_layers.add(Dropout(0.1))
         self.dense_layers.add(ReLU())
+        # self.dense_layers.add(Conv1DTranspose(256, 3, 1, 'same',activation='relu'))
+        # self.dense_layers.add(Conv1DTranspose(128, 4, 3, 'same',activation='relu'))
+        # self.dense_layers.add(Conv1DTranspose(64, 5, 1, 'same',activation='relu'))
+        # self.dense_layers.add(Conv1DTranspose(1, 6, 2, 'same', activation = 'sigmoid'))
         self.dense_layers.add(Dense(36,activation='sigmoid'))
 
     def call(self, input):
