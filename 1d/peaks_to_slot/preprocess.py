@@ -41,8 +41,6 @@ def import_data(timestamp_list):
     return np.concatenate(slots_list), np.concatenate(peaks_list)
 
 
-
-
 def get_next_batch(input_array, label_array, start_index, batch_size):
     """
     Accepts an array of inputs and labels along with a starting index and batch
