@@ -99,10 +99,11 @@ def main():
         truedesign = tf.expand_dims(slot_test[random],axis = 1)
 
         fig = plt.figure()
-        ax = fig.subplots(1,3, gridspec_kw={'width_ratios': [3, 1, 1]})
+        ax = fig.subplots(1,4, gridspec_kw={'width_ratios': [3, 1, 1, 1]})
         ax[0].plot(peaks_test[random])
         ax[1].imshow(truedesign)
-        ax[2].imshow(tf.round(tf.expand_dims(efarx,axis=1)))
+        ax[2].imshow(tf.expand_dims(efarx,axis=1))
+        ax[3].imshow(tf.round(tf.expand_dims(efarx,axis=1)))
         save_str = '1d/peaks_to_slot/results/' + str(i) + '.png'
         fig.savefig(save_str)
 
