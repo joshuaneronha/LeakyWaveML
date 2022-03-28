@@ -29,7 +29,7 @@ def plot_rounded(which):
     ax[2].imshow(tf.expand_dims(pred,1),cmap = 'GnBu')
     ax[3].imshow(tf.expand_dims(naive,1),cmap = 'GnBu')
 
-plot_rounded(8)
+plot_rounded(1)
 
 
 

@@ -52,7 +52,7 @@ class LWAPredictionModel(tf.keras.Model):
         total_slots = tf.math.abs(tf.math.subtract(tf.cast(tf.reduce_sum(tf.round(true), axis=1),tf.float32),tf.cast(tf.reduce_sum(tf.round(prediction), axis=1),tf.float32)))
         normalized = total_slots / tf.cast(tf.reduce_sum(tf.round(true),axis=1),tf.float32)
         # print(normalized)
-        return bce(true, prediction) + (2*tf.reduce_mean(normalized))
+        return bce(true, prediction) + (0*tf.reduce_mean(normalized))
         # return bce(true,prediction)
         # return
 
