@@ -92,6 +92,7 @@ def main():
 
     peak_sim = []
 
+    # for random in [36, 185, 234, 368, 492, 567, 698, 722, 813, 922]:
     for i in np.arange(10):
 
         random = np.random.randint(0,slot_test.shape[0])
