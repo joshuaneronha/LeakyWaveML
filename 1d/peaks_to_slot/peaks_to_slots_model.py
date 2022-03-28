@@ -44,17 +44,33 @@ class LWAPredictionModel(tf.keras.Model):
 
         return self.dense_layers(input)
 
+    def assump_accuracy(self, prediction, true):
+        ba = tf.keras.metrics.BinaryAccuracy()
+        total_slots = 36 - tf.reduce_sum(true,axis=1)
+
+        prediction_sorted = tf.argsort(prediction, axis=1)
+
+        gathered = tf.gather(prediction_sorted, total_slots,axis=1,batch_dims=1)
+                # print(gathered.shape)
+                # print(gathered)
+
+        minny = tf.repeat(tf.expand_dims(tf.gather(prediction, gathered, axis=1,batch_dims=1),axis=1),axis=1,repeats = true.shape[1])
+                # print(prediction.shape)
+                # print(minny.shape)
+
+        rounded = tf.greater_equal(prediction,minny)
+
+        return ba(tf.cast(rounded,tf.float32),true)
+
+
     def loss_function(self, prediction, true):
 
-
+        # print(prediction)
         bce = tf.keras.losses.BinaryCrossentropy()
-        # bfce = tf.keras.losses.BinaryFocalCrossentropy()
-        total_slots = tf.math.abs(tf.math.subtract(tf.cast(tf.reduce_sum(tf.round(true), axis=1),tf.float32),tf.cast(tf.reduce_sum(tf.round(prediction), axis=1),tf.float32)))
-        normalized = total_slots / tf.cast(tf.reduce_sum(tf.round(true),axis=1),tf.float32)
-        # print(normalized)
-        return bce(true, prediction) + (0*tf.reduce_mean(normalized))
-        # return bce(true,prediction)
-        # return
+        # ba = tf.keras.losses.BinaryCrossentropy()
+
+
+        return bce(true,prediction)
 
     def accuracy(self, prediction, true):
         ba = tf.keras.metrics.BinaryAccuracy()

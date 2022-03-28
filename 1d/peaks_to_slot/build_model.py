@@ -49,6 +49,7 @@ def test(model, slots, peaks):
 
     loss_list = []
     acc_list = []
+    assump_acc_list = []
 
     while completed < len(slots):
 
@@ -66,10 +67,12 @@ def test(model, slots, peaks):
 
         loss_list.append(efarx_loss)
         acc_list.append(model.accuracy(efarx, slot_batch))
+        assump_acc_list.append(model.assump_accuracy(efarx,slot_batch))
 
 
     # print('Efarx testing loss: ', tf.reduce_mean(loss_list))
     print('Efarx testing accuracy:', tf.reduce_mean(acc_list))
+    print('Efarx testing assumption accuracy:', tf.reduce_mean(assump_acc_list))
 
 def main():
 

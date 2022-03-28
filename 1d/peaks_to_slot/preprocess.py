@@ -28,7 +28,7 @@ def import_data(timestamp_list):
             # max = peaks[past_thresh].max(axis=1)
             # print(max.shape)
             # normalized = np.divide(peaks[past_thresh].T,np.max(peaks[past_thresh],axis=1)).T
-            # normalized = peaks[past_thresh] / peaks[past_thresh].max(axis=0)
+            # normalized = (peaks[past_thresh].T / peaks[past_thresh].max(axis=1)).T# TEMP:
             # peaks_list.append(normalized)
             # peaks_list.append(normalized)
             peaks_list.append(peaks[past_thresh])
