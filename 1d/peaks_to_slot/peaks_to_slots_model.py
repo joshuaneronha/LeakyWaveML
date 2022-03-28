@@ -79,7 +79,7 @@ class LWAPredictionModel(tf.keras.Model):
         pred_pooled_2 = tf.nn.pool(pred_pooled,(2,),'AVG',(2,))
         true_pooled_2 = tf.nn.pool(true_pooled,(2,),'AVG',(2,))
 
-        return bce(true,prediction) + bce_exp(true_pooled, pred_pooled) + (0*bce_exp2(true_pooled_2, pred_pooled_2))
+        return bce(true,prediction) + 0.5*bce_exp(true_pooled, pred_pooled) + (0*bce_exp2(true_pooled_2, pred_pooled_2))
 
     def accuracy(self, prediction, true):
         ba = tf.keras.metrics.BinaryAccuracy()
