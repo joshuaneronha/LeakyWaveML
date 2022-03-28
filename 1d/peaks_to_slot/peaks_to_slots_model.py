@@ -67,10 +67,19 @@ class LWAPredictionModel(tf.keras.Model):
 
         # print(prediction)
         bce = tf.keras.losses.BinaryCrossentropy()
-        # ba = tf.keras.losses.BinaryCrossentropy()
+        bce_exp = tf.keras.losses.BinaryCrossentropy()
+        bce_exp2 = tf.keras.losses.BinaryCrossentropy()
 
+        pred_exp = tf.cast(tf.expand_dims(prediction, 2),tf.float32)
+        true_exp = tf.cast(tf.expand_dims(true, 2),tf.float32)
 
-        return bce(true,prediction)
+        pred_pooled = tf.nn.pool(pred_exp,(2,),'AVG',(2,))
+        true_pooled = tf.nn.pool(true_exp,(2,),'AVG',(2,))
+
+        pred_pooled_2 = tf.nn.pool(pred_pooled,(2,),'AVG',(2,))
+        true_pooled_2 = tf.nn.pool(true_pooled,(2,),'AVG',(2,))
+
+        return bce(true,prediction) + bce_exp(true_pooled, pred_pooled) + (0*bce_exp2(true_pooled_2, pred_pooled_2))
 
     def accuracy(self, prediction, true):
         ba = tf.keras.metrics.BinaryAccuracy()
