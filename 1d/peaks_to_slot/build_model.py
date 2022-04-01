@@ -79,6 +79,8 @@ def main():
     slots, peaks = import_data(args.t)
 
     slot_train, slot_test, peaks_train, peaks_test = train_test_split(slots, peaks, test_size=0.2)
+    print(peaks_train.shape)
+    print(peaks_test.shape)
 
     Model = LWAPredictionModel()
 
@@ -98,6 +100,7 @@ def main():
         random = np.random.randint(0,slot_test.shape[0])
 
         efarx = Model.call(tf.expand_dims(peaks_test[random],0))
+        print(tf.expand_dims(peaks_test[random],0).shape)
         efarx = tf.squeeze(efarx)
 
         truedesign = tf.expand_dims(slot_test[random],axis = 1)
@@ -115,6 +118,23 @@ def main():
 
     with open('1d/peaks_to_slot/results/generated_slots.pkl', 'wb') as f:
         pickle.dump(peak_sim, f)
+
+    peaks_of_interest = np.array([20,20,20,20,20,20,
+                                20,20,20,20,20,20,
+                                20,20,20,20,20,20,
+                                20,20,20,20,20,20,
+                                20,20,20,20,20,20,
+                                20,20,20,20,20
+
+    ])
+    print(tf.expand_dims(peaks_of_interest,0))
+    results = Model.call(tf.expand_dims(peaks_of_interest,0))
+
+
+    with open('1d/peaks_to_slot/results/testing_slots.pkl', 'wb') as f:
+        pickle.dump([peaks_of_interest, results], f)
+    Model.compute_output_shape(input_shape=(35,1))
+    # Model.save_weights('1d/peaks_to_slot/results/model_weights')
 
     return Model
 
