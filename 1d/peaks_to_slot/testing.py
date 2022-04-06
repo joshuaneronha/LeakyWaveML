@@ -27,10 +27,13 @@ efarx
 
 def plot_peaks(which):
     amp_list = []
-    plt.plot(np.arange(-90,0),efarx[which][270:360],color = 'blue')
-    plt.plot(np.arange(0,91),efarx[which][0:91], color = 'blue')
-    plt.scatter(floquet_back_index, efarx[which][floquet_back],color='orange')
-    plt.scatter(floquet_forward, efarx[which][floquet_forward],color='orange')
+    plt.plot(np.arange(-90,0),20*np.log10(efarx[which][270:360]),color = '#0c2c84')
+    plt.plot(np.arange(0,91),20*np.log10(efarx[which][0:91]), color = '#0c2c84')
+    plt.scatter(floquet_back_index, 20*np.log10(efarx[which][floquet_back]),color='#7fcdbb',marker='o')
+    plt.scatter(floquet_forward, 20*np.log10(efarx[which][floquet_forward]),color='#7fcdbb',marker='o')
+    plt.xlim([-90,90])
+    plt.xlabel('Angle')
+    plt.ylabel('Amplitude (dB)')
     #         amp_list.append(efarx[which][270:360][90-i])
     #     if i <= 90:
     #         plt.scatter(i, efarx[which][0:91][i],color='orange')
@@ -40,7 +43,8 @@ def plot_peaks(which):
     # return normalized
 
 
-plot_peaks(68)
+plot_peaks(61)
+
 
 
 
