@@ -2,6 +2,7 @@ import numpy as np
 import tensorflow as tf
 import tensorflow_probability as tfp
 from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, ReLU, Flatten, LeakyReLU, Conv1DTranspose
+import tensorflow_io as tfio
 
 
 class LWAPredictionModel(tf.keras.Model):
@@ -10,7 +11,7 @@ class LWAPredictionModel(tf.keras.Model):
 
         self.adam_optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
         self.batch_size = 64
-        self.epochs = 40
+        self.epochs = 20
 
         self.dense_layers = tf.keras.Sequential()
         # self.dense_layers.add(Dense(1000, activation = 'relu'))
@@ -68,20 +69,18 @@ class LWAPredictionModel(tf.keras.Model):
 
         # print(prediction)
         bce = tf.keras.losses.BinaryCrossentropy()
-        bce_exp = tf.keras.losses.BinaryCrossentropy()
-        bce_exp2 = tf.keras.losses.BinaryCrossentropy()
+        bce_laplacian = tf.keras.losses.BinaryCrossentropy()
+        # bce_exp2 = tf.keras.losses.BinaryCrossentropy()
 
-        pred_exp = tf.cast(tf.expand_dims(prediction, 2),tf.float32)
-        true_exp = tf.cast(tf.expand_dims(true, 2),tf.float32)
+        true_laplacian = tfio.experimental.filter.laplacian(tf.cast(tf.reshape(true, [-1,1,36,1]),tf.float32), ksize = [1,3])
+        pred_laplacian = tfio.experimental.filter.laplacian(tf.round(tf.cast(tf.reshape(prediction, [-1,1,36,1]),tf.float32)), ksize = [1,3])
 
-        pred_pooled = tf.nn.pool(pred_exp,(2,),'AVG',(2,))
-        true_pooled = tf.nn.pool(true_exp,(2,),'AVG',(2,))
 
-        pred_pooled_2 = tf.nn.pool(pred_pooled,(2,),'AVG',(2,))
-        true_pooled_2 = tf.nn.pool(true_pooled,(2,),'AVG',(2,))
+        # tf_data.shape
+        # plt.imshow(tf.reshape(tfio.experimental.filter.laplacian(tf.cast(tf_data,tf.float32), ksize=[1,3]),[36,1]),cmap='YlGnBu')
 
-        return bce(true,prediction) + 0.5*bce_exp(true_pooled, pred_pooled) + (0*bce_exp2(true_pooled_2, pred_pooled_2))
-        # return bce(true,prediction)
+        # return bce(true,prediction) + 0.5*bce_exp(true_pooled, pred_pooled) + (0*bce_exp2(true_pooled_2, pred_pooled_2))
+        return bce(true,prediction) + bce_laplacian(true_laplacian, pred_laplacian)
 
     def accuracy(self, prediction, true):
         ba = tf.keras.metrics.BinaryAccuracy()
