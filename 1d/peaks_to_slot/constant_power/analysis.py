@@ -157,7 +157,7 @@ def plot_rounded(which):
     ax[3].imshow(tf.expand_dims(pred,1),cmap = 'GnBu')
     ax[4].imshow(tf.expand_dims(naive,1),cmap = 'GnBu')
 
-plot_rounded(5)
+plot_rounded(8)
 
 # assump_accuracy(tf.expand_dims(tf.stack(prediction)[0],axis=0),tf.expand_dims(tf.squeeze(tf.stack(true)[9]),axis=0))
 assump_accuracy(tf.stack(prediction),tf.squeeze(tf.stack(true)))
