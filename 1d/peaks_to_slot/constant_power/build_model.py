@@ -88,33 +88,40 @@ def main():
 
     # test(Model, slot_test, peaks_test)
 
-    peak_sim = []
+    # peak_sim = []
+
+    output = Model.call(peaks_test)
+    saved_data = [peaks_test, slot_test, output]
+
+    with open('1d/peaks_to_slot/constant_power/results/test_data.pkl', 'wb') as f:
+        pickle.dump(saved_data, f)
+
 
     # for random in [36, 185, 234, 368, 492, 567, 698, 722, 813, 922]:
-    for i in np.arange(10):
-
-        random = np.random.randint(0,slot_test.shape[0])
-
-        efarx = Model.call(tf.expand_dims(peaks_test[random],0))
-        # print(tf.expand_dims(peaks_test[random],0).shape)
-        efarx = tf.squeeze(efarx)
-
-        truedesign = tf.expand_dims(slot_test[random],axis = 1)
-
-        fig = plt.figure()
-        ax = fig.subplots(1,4, gridspec_kw={'width_ratios': [3, 1, 1, 1]})
-        ax[0].plot(peaks_test[random])
-        ax[1].imshow(truedesign)
-        ax[2].imshow(tf.expand_dims(efarx,axis=1))
-        ax[3].imshow(tf.round(tf.expand_dims(efarx,axis=1)))
-        save_str = '1d/peaks_to_slot/constant_power/results/' + str(i) + '.png'
-        fig.savefig(save_str)
-
-        peak_sim.append([peaks_test[random],truedesign, efarx])
-
-    with open('1d/peaks_to_slot/constant_power/results/generated_slots.pkl', 'wb') as f:
-        pickle.dump(peak_sim, f)
+    # for i in np.arange(10):
     #
+    #     random = np.random.randint(0,slot_test.shape[0])
+    #
+    #     efarx = Model.call(tf.expand_dims(peaks_test[random],0))
+    #     # print(tf.expand_dims(peaks_test[random],0).shape)
+    #     efarx = tf.squeeze(efarx)
+    #
+    #     truedesign = tf.expand_dims(slot_test[random],axis = 1)
+
+        # fig = plt.figure()
+        # ax = fig.subplots(1,4, gridspec_kw={'width_ratios': [3, 1, 1, 1]})
+        # ax[0].plot(peaks_test[random])
+        # ax[1].imshow(truedesign)
+        # ax[2].imshow(tf.expand_dims(efarx,axis=1))
+        # ax[3].imshow(tf.round(tf.expand_dims(efarx,axis=1)))
+        # save_str = '1d/peaks_to_slot/constant_power/results/' + str(i) + '.png'
+        # fig.savefig(save_str)
+
+        # peak_sim.append([peaks_test[random],truedesign, efarx])
+
+    # with open('1d/peaks_to_slot/constant_power/results/generated_slots.pkl', 'wb') as f:
+    #     pickle.dump(peak_sim, f)
+    # #
     # peaks_of_interest = np.array([20,20,20,20,20,20,
     #                             20,20,20,20,20,20,
     #                             20,20,20,20,20,20,
