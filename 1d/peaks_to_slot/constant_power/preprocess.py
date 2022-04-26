@@ -47,6 +47,44 @@ def import_data():
     return np.concatenate(slots_list), np.concatenate(peaks_list)
 
 
+def import_val_data(path):
+    """
+    Loads in data and transposes it into proper shapes
+    """
+
+    slots_list = []
+    peaks_list = []
+    max_list = []
+
+    with open(path + '.csv', 'rb') as file:
+            results = np.loadtxt(file, delimiter=",", dtype=float)
+            num_sims = int(results.shape[0] / 361)
+            points = [361 * x for x in np.arange(num_sims + 1)]
+            sorted_x = np.array([20*np.log10(results[i:i + 361,1]) for i in points[:-1]])
+            peaks = sorted_x[:,floquet_back + floquet_forward]
+
+            # past_thresh = [index for index,x in enumerate(peaks) if x.max() > 29]
+
+            # max = peaks[past_thresh].max(axis=1)
+            # print(max.shape)
+            # normalized = np.divide(peaks[past_thresh].T,np.max(peaks[past_thresh],axis=1)).T
+            normalized = (peaks.T / peaks.max(axis=1)).T# TEMP:
+            # normalized = (peaks / peaks.max(axis=0))
+            peaks_list.append(normalized)
+            # peaks_list.append(normalized)
+            # peaks_list.append(peaks)
+            # max_list.append(np.concatenate([max,max,max,max,max,max],axis=1))
+    try:
+        with open(path + '.pkl', 'rb') as file:
+                slots = np.array(pickle.load(file))
+                # print(slots.shape)
+                slots_list.append(slots)
+    except:
+        slots_list.append([])
+
+    # return np.concatenate(slots_list), np.concatenate([np.concatenate(peaks_list), np.concatenate(max_list)],axis=1)
+    return np.concatenate(slots_list), np.concatenate(peaks_list)
+
 def get_next_batch(input_array, label_array, start_index, batch_size):
     """
     Accepts an array of inputs and labels along with a starting index and batch

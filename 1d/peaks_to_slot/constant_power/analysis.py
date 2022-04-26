@@ -3,6 +3,9 @@ import pandas as pd
 import pickle
 import tensorflow as tf
 import matplotlib.pyplot as plt
+import scipy.signal as signal
+import tensorflow_io as tfio
+import scipy
 
 with open('/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/1d/peaks_to_slot/constant_power/results/generated_slots.pkl', 'rb') as file:
     data = pickle.load(file)
@@ -13,6 +16,8 @@ prediction = [x[2] for x in data]
 floquet_forward = [5,15,24,28,31,34,48,60,61,63,65,68,70,73,76,80,84,86,88,90]
 floquet_back = [270 + (180 - x) for x in [95,99,101,103,106,109,114,117,120,122,126,128,130,132,146]]
 floquet_back_fake = [95,99,101,103,106,109,114,117,120,122,126,128,130,132,146]
+
+floquet_back
 
 def import_data():
     """
@@ -157,8 +162,67 @@ def plot_rounded(which):
     ax[3].imshow(tf.expand_dims(pred,1),cmap = 'GnBu')
     ax[4].imshow(tf.expand_dims(naive,1),cmap = 'GnBu')
 
-plot_rounded(8)
+plot_rounded(9)
 
+data[0][0]
+
+
+
+plt.imshow(np.round(np.expand_dims(data[0][1],axis=1)))
+first =
+plt.imshow(np.round(np.expand_dims(data[0][2],axis=1)))
+data[0][2].shape
+np.correlate(np.squeeze(data[0][1]), data[0][2])
+
+np.correlate(np.squeeze(data[0][1]), np.squeeze(data[0][1]))
+
+np.expand_dims(data[0][2],axis=1)
+
+plt.imshow(np.expand_dims(signal.fftconvolve(np.squeeze(data[0][1]), np.flip(data[0][2])),axis=0))
+plt.colorbar()
+
+tf_data = tf.reshape(data[0][1], [1,1,36,1])
+tf_data.shape
+plt.imshow(tf.reshape(tfio.experimental.filter.laplacian(tf.cast(tf_data,tf.float32), ksize=[1,3]),[36,1]),cmap='YlGnBu')
+plt.colorbar()
+
+plt.imshow(tf.reshape(tfio.experimental.filter.prewitt(tf.cast(tf_data,tf.float32)),[36,1]),cmap='YlGnBu')
+plt.colorbar()
+
+plt.imshow(tf.reshape(tf.cast(tf_data,tf.float32),[36,1]),cmap='YlGnBu')
+plt.colorbar()
+
+tf_data_test = tf.reshape(data[0][2], [1,1,36,1])
+plt.imshow(tf.reshape(tf_data_test,[36,1]))
+plt.imshow(tf.reshape(tfio.experimental.filter.laplacian(tf.cast(tf_data_test,tf.float32), ksize=[1,3]),[36,1]),cmap='YlGnBu')
+plt.colorbar()
+
+plt.imshow(data[0][1])
+
+plt.imshow(scipy.ndimage.laplace(data[0][1]),cmap='YlGnBu')
+plt.colorbar()
+
+np.std(signal.fftconvolve(np.squeeze(data[0][1]), np.flip(data[0][2])))
+np.max(signal.fftconvolve(np.squeeze(data[0][1]), np.flip(data[0][2])))
+
+plt.imshow(np.expand_dims(signal.fftconvolve(np.squeeze(data[0][1]), np.flip(np.squeeze(data[0][1]))),axis=0))
+plt.colorbar()
+
+np.std(signal.fftconvolve(np.squeeze(data[0][1]), np.flip(np.squeeze(data[0][1]))))
+max = np.max(signal.fftconvolve(np.squeeze(data[0][1]), np.flip(np.squeeze(data[0][1]))))
+max2 = np.max(signal.fftconvolve(np.squeeze(data[0][1]), np.flip(np.squeeze(data[0][2]))))
+plt.plot(np.arange(71),np.expand_dims(signal.fftconvolve(np.squeeze(data[0][1]), np.flip(np.squeeze(data[0][1]))),axis=0)[0,:] / max)
+plt.plot(np.arange(71),np.expand_dims(signal.fftconvolve(np.squeeze(data[0][2]), np.flip(np.squeeze(data[0][1]))),axis=0)[0,:] / max2)
+
+np.std(np.expand_dims(signal.fftconvolve(np.squeeze(data[0][1]), np.flip(np.squeeze(data[0][2]))),axis=0)[0,:] / max2)
+
+tf.reshape(data[0][1],[-1,1,1]).shape
+tf.nn.conv1d(tf.reshape(data[0][1],[1,1,-1]),tf.reshape(data[0][1],[1,1,-1]),[1],padding="VALID")
+
+plt.imshow(tf.reshape(tf.nn.conv1d(tf.reshape(data[0][1],[1,1,-1]),tf.reshape(tf.cast(tf.round(data[0][2]),tf.int32),[1,1,-1]),[1,1,1],padding="VALID"),[36,1]))
+
+plt.imshow(tf.round(tf.reshape(data[0][2],[36,1])))
+plt.imshow(data[0][1])
 # assump_accuracy(tf.expand_dims(tf.stack(prediction)[0],axis=0),tf.expand_dims(tf.squeeze(tf.stack(true)[9]),axis=0))
 assump_accuracy(tf.stack(prediction),tf.squeeze(tf.stack(true)))
 ba = tf.keras.metrics.BinaryAccuracy()
