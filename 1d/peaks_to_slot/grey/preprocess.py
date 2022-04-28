@@ -19,6 +19,9 @@ def import_data():
 
     for timestamp in timestamp_list:
 
+        if timestamp == '1651155833':
+            continue
+
         with open('comsol_results/1dgrey/' + timestamp + '.csv', 'rb') as file:
             results = np.loadtxt(file, delimiter=",", dtype=float)
             num_sims = int(results.shape[0] / 361)

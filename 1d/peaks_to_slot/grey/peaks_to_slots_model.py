@@ -11,7 +11,7 @@ class LWAPredictionModel(tf.keras.Model):
 
         self.adam_optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
         self.batch_size = 128
-        self.epochs = 10
+        self.epochs = 50
 
         self.dense_layers = tf.keras.Sequential()
         # self.dense_layers.add(Dense(1000, activation = 'relu'))
@@ -99,12 +99,17 @@ class LWAPredictionModel(tf.keras.Model):
 
         # return bce(true,prediction) + 0.5*bce_exp(true_pooled, pred_pooled) + (0*bce_exp2(true_pooled_2, pred_pooled_2))
         # return 2*bce(true,prediction) + bce_prewitt(true_prewitt, pred_prewitt) + bce_laplacian(true_laplacian, pred_laplacian)
-        return 2*mse(true, prediction) + 0*mse_laplacian(true_laplacian, pred_laplacian) + 1*mse_prewitt(true_prewitt, pred_prewitt)
+        return 2*mse(true, prediction) + 0.5*mse_laplacian(true_laplacian, pred_laplacian) + 1*mse_prewitt(true_prewitt, pred_prewitt)
         # return mse(true, prediction)
         return mse_prewitt(true_prewitt, pred_prewitt)
 
     def accuracy(self, prediction, true):
         ba = tf.keras.metrics.BinaryAccuracy()
-        prediction = tf.round(prediction)
-        true = tf.round(true)
+
+        prediction = np.where((prediction > 0) & (prediction <= 0.125), 0, prediction)
+        prediction = np.where((prediction > 0.125) & (prediction <= 0.375), 0.25, prediction)
+        prediction = np.where((prediction > 0.375) & (prediction <= 0.625), 0.50, prediction)
+        prediction = np.where((prediction > 0.625) & (prediction <= 0.875), 0.75, prediction)
+        prediction = np.where((prediction > 0.875), 1.00, prediction)
+
         return ba(prediction, true)

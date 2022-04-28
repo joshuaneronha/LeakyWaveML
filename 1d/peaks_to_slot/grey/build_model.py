@@ -35,10 +35,10 @@ def train(model, slots, peaks):
         model.adam_optimizer.apply_gradients(zip(gradients, model.trainable_variables))
 
         loss_list.append(efarx_loss)
-        # acc_list.append(model.accuracy(efarx, slot_batch))
+        acc_list.append(model.accuracy(efarx, slot_batch))
 
     print('Efarx training loss: ', tf.reduce_mean(loss_list))
-    # print('Efarx training accuracy:', tf.reduce_mean(acc_list))
+    print('Efarx training accuracy:', tf.reduce_mean(acc_list))
 
 def test(model, slots, peaks):
     completed = 0
@@ -62,12 +62,12 @@ def test(model, slots, peaks):
         efarx_loss = model.loss_function(efarx, slot_batch)
 
         loss_list.append(efarx_loss)
-        # acc_list.append(model.accuracy(efarx, slot_batch))
+        acc_list.append(model.accuracy(efarx, slot_batch))
         # assump_acc_list.append(model.assump_accuracy(efarx,slot_batch))
 
 
-    # print('Efarx testing loss: ', tf.reduce_mean(loss_list))
-    # print('Efarx testing accuracy:', tf.reduce_mean(acc_list))
+    print('Efarx testing loss: ', tf.reduce_mean(loss_list))
+    print('Efarx testing accuracy:', tf.reduce_mean(acc_list))
     # print('Efarx testing assumption accuracy:', tf.reduce_mean(assump_acc_list))
 
 def main():
