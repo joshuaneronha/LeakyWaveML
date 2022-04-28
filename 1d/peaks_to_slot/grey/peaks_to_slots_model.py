@@ -1,42 +1,43 @@
 import numpy as np
 import tensorflow as tf
 import tensorflow_probability as tfp
-from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, ReLU, Flatten, LeakyReLU, Conv1DTranspose
+from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, ReLU, Flatten, LeakyReLU, Conv1D
 import tensorflow_io as tfio
 
 
 class LWAPredictionModel(tf.keras.Model):
-    def __init__(self, lr = 5e-5):
+    def __init__(self, lr = 1e-4):
         super(LWAPredictionModel, self).__init__()
 
         self.adam_optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
         self.batch_size = 128
-        self.epochs = 50
+        self.epochs = 40
 
         self.dense_layers = tf.keras.Sequential()
         # self.dense_layers.add(Dense(1000, activation = 'relu'))
         # self.dense_layers.add(Dense(800, activation = 'relu'))
-        self.dense_layers.add(Dense(2000))
+        # self.dense_layers.add(Conv1D(128,5))
+        self.dense_layers.add(Dense(3000))
         # self.dense_layers.add(ReLU())
         self.dense_layers.add(LeakyReLU(0.1))
         self.dense_layers.add(Dropout(0.1))
-        self.dense_layers.add(Dense(2000))
+        self.dense_layers.add(Dense(3000))
         self.dense_layers.add(LeakyReLU(0.1))
         self.dense_layers.add(Dropout(0.1))
         # self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(2000))
+        self.dense_layers.add(Dense(3000))
         self.dense_layers.add(LeakyReLU(0.1))
         self.dense_layers.add(Dropout(0.1))
         # self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(2000))
+        self.dense_layers.add(Dense(3000))
         self.dense_layers.add(LeakyReLU(0.1))
         self.dense_layers.add(Dropout(0.1))
         # self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(2000))
+        self.dense_layers.add(Dense(3000))
         self.dense_layers.add(LeakyReLU(0.1))
         self.dense_layers.add(Dropout(0.1))
         # self.dense_layers.add(ReLU())
-        self.dense_layers.add(Dense(2000))
+        self.dense_layers.add(Dense(3000))
         self.dense_layers.add(LeakyReLU(0.1))
         self.dense_layers.add(Dropout(0.1))
 
@@ -99,7 +100,7 @@ class LWAPredictionModel(tf.keras.Model):
 
         # return bce(true,prediction) + 0.5*bce_exp(true_pooled, pred_pooled) + (0*bce_exp2(true_pooled_2, pred_pooled_2))
         # return 2*bce(true,prediction) + bce_prewitt(true_prewitt, pred_prewitt) + bce_laplacian(true_laplacian, pred_laplacian)
-        return 2*mse(true, prediction) + 0.5*mse_laplacian(true_laplacian, pred_laplacian) + 1*mse_prewitt(true_prewitt, pred_prewitt)
+        return 2*mse(true, prediction) + 1*mse_laplacian(true_laplacian, pred_laplacian) + 1*mse_prewitt(true_prewitt, pred_prewitt)
         # return mse(true, prediction)
         return mse_prewitt(true_prewitt, pred_prewitt)
 

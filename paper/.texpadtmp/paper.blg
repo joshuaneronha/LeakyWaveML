@@ -2,7 +2,11 @@ This is BibTeX, Version 0.99d (TeX Live 2021)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.aux
 The style file: ieeetr.bst
-Illegal, another \bibstyle command---line 43 of file /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.aux
+Illegal, another \bibstyle command---line 19 of file /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.aux
+ : \bibstyle
+ :          {ieeetr}
+I'm skipping whatever remains of this command
+Illegal, another \bibstyle command---line 44 of file /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.aux
  : \bibstyle
  :          {plain}
 I'm skipping whatever remains of this command
@@ -50,4 +54,4 @@ warning$ -- 0
 while$ -- 49
 width$ -- 18
 write$ -- 163
-(There was 1 error message)
+(There were 2 error messages)
