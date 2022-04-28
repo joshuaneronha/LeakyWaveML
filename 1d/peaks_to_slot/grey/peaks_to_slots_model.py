@@ -99,7 +99,7 @@ class LWAPredictionModel(tf.keras.Model):
 
         # return bce(true,prediction) + 0.5*bce_exp(true_pooled, pred_pooled) + (0*bce_exp2(true_pooled_2, pred_pooled_2))
         # return 2*bce(true,prediction) + bce_prewitt(true_prewitt, pred_prewitt) + bce_laplacian(true_laplacian, pred_laplacian)
-        return 1*mse(true, prediction) + 0*mse_laplacian(true_laplacian, pred_laplacian) + 1*mse_prewitt(true_prewitt, pred_prewitt)
+        return 2*mse(true, prediction) + 0*mse_laplacian(true_laplacian, pred_laplacian) + 1*mse_prewitt(true_prewitt, pred_prewitt)
         # return mse(true, prediction)
         return mse_prewitt(true_prewitt, pred_prewitt)
 
