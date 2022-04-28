@@ -120,7 +120,7 @@ def main():
         efarx = np.where((efarx > 0.125) & (efarx <= 0.375), 0.25, efarx)
         efarx = np.where((efarx > 0.375) & (efarx <= 0.625), 0.50, efarx)
         efarx = np.where((efarx > 0.625) & (efarx <= 0.875), 0.75, efarx)
-        efarx = np.where((efarx > 0.875) & (efarx <= 1.000), 1.00, efarx)
+        efarx = np.where((efarx > 0.875), 1.00, efarx)
 
         ax[3].imshow(tf.expand_dims(efarx,axis=1))
         save_str = '1d/peaks_to_slot/grey/results/' + str(i) + '.png'
