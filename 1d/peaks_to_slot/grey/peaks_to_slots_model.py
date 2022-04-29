@@ -16,7 +16,8 @@ class LWAPredictionModel(tf.keras.Model):
         self.dense_layers = tf.keras.Sequential()
         # self.dense_layers.add(Dense(1000, activation = 'relu'))
         # self.dense_layers.add(Dense(800, activation = 'relu'))
-        # self.dense_layers.add(Conv1D(128,5))
+        self.dense_layers.add(Conv1D(128,5))
+        self.dense_layers.add(Flatten())
         self.dense_layers.add(Dense(3000))
         # self.dense_layers.add(ReLU())
         self.dense_layers.add(LeakyReLU(0.1))
@@ -44,7 +45,7 @@ class LWAPredictionModel(tf.keras.Model):
         self.dense_layers.add(Dense(36,activation='sigmoid'))
 
     def call(self, input):
-
+        input = tf.expand_dims(input, 2)
         return self.dense_layers(input)
 
     # def assump_accuracy(self, prediction, true):
