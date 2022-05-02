@@ -1,7 +1,7 @@
 import numpy as np
 import tensorflow as tf
 import tensorflow_probability as tfp
-from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, ReLU, Flatten, LeakyReLU, Conv1DTranspose
+from tensorflow.keras.layers import Dense, Dropout, BatchNormalization, ReLU, Flatten, LeakyReLU, Conv1D
 import tensorflow_io as tfio
 
 
@@ -16,6 +16,8 @@ class LWAPredictionModel(tf.keras.Model):
         self.dense_layers = tf.keras.Sequential()
         # self.dense_layers.add(Dense(1000, activation = 'relu'))
         # self.dense_layers.add(Dense(800, activation = 'relu'))
+        self.dense_layers.add(Conv1D(128,5))
+        self.dense_layers.add(Flatten())
         self.dense_layers.add(Dense(2000))
         # self.dense_layers.add(ReLU())
         self.dense_layers.add(LeakyReLU(0.1))
@@ -43,7 +45,7 @@ class LWAPredictionModel(tf.keras.Model):
         self.dense_layers.add(Dense(36,activation='sigmoid'))
 
     def call(self, input):
-
+        input = tf.expand_dims(input, 2)
         return self.dense_layers(input)
 
     def assump_accuracy(self, prediction, true):
@@ -69,23 +71,24 @@ class LWAPredictionModel(tf.keras.Model):
 
         # print(prediction)
         bce = tf.keras.losses.BinaryCrossentropy()
-        bce_prewitt = tf.keras.losses.BinaryCrossentropy()
-        bce_laplacian = tf.keras.losses.BinaryCrossentropy()
-        # bce_exp2 = tf.keras.losses.BinaryCrossentropy()
-
-        true_prewitt = tfio.experimental.filter.prewitt(tf.cast(tf.reshape(true, [-1,1,36,1]),tf.float32))
-        pred_prewitt = tfio.experimental.filter.prewitt(tf.round(tf.cast(tf.reshape(prediction, [-1,1,36,1]),tf.float32)))
-
-        true_laplacian = tfio.experimental.filter.laplacian(tf.cast(tf.reshape(true, [-1,1,36,1]),tf.float32), ksize = [1,3])
-        pred_laplacian = tfio.experimental.filter.laplacian(tf.round(tf.cast(tf.reshape(prediction, [-1,1,36,1]),tf.float32)), ksize = [1,3])
-
+        # bce_prewitt = tf.keras.losses.BinaryCrossentropy()
+        # bce_laplacian = tf.keras.losses.BinaryCrossentropy()
+        # # bce_exp2 = tf.keras.losses.BinaryCrossentropy()
+        #
+        # true_prewitt = tfio.experimental.filter.prewitt(tf.cast(tf.reshape(true, [-1,1,36,1]),tf.float32))
+        # pred_prewitt = tfio.experimental.filter.prewitt(tf.round(tf.cast(tf.reshape(prediction, [-1,1,36,1]),tf.float32)))
+        #
+        # true_laplacian = tfio.experimental.filter.laplacian(tf.cast(tf.reshape(true, [-1,1,36,1]),tf.float32), ksize = [1,3])
+        # pred_laplacian = tfio.experimental.filter.laplacian(tf.round(tf.cast(tf.reshape(prediction, [-1,1,36,1]),tf.float32)), ksize = [1,3])
+        #
 
 
         # tf_data.shape
         # plt.imshow(tf.reshape(tfio.experimental.filter.laplacian(tf.cast(tf_data,tf.float32), ksize=[1,3]),[36,1]),cmap='YlGnBu')
 
         # return bce(true,prediction) + 0.5*bce_exp(true_pooled, pred_pooled) + (0*bce_exp2(true_pooled_2, pred_pooled_2))
-        return 2*bce(true,prediction) + bce_prewitt(true_prewitt, pred_prewitt) + bce_laplacian(true_laplacian, pred_laplacian)
+        # return 2*bce(true,prediction) + bce_prewitt(true_prewitt, pred_prewitt) + bce_laplacian(true_laplacian, pred_laplacian)
+        return bce(true, prediction)
 
     def accuracy(self, prediction, true):
         ba = tf.keras.metrics.BinaryAccuracy()
