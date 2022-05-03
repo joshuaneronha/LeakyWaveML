@@ -39,18 +39,20 @@ with open('1d/peaks_to_slot/constant_power/results/test_data.pkl','rb') as file:
     test_data = pickle.load(file)
     peaks, true, pred = test_data
 
-val_slots, val_peaks = import_val_data('1d/peaks_to_slot/constant_power/results/validation')
+# val_slots, val_peaks = import_val_data('1d/peaks_to_slot/constant_power/results/validation_old')
 
-grey_slots, grey_peaks = import_val_data('1d/peaks_to_slot/constant_power/results/grey_trans')
+val51_slots, val51_peaks = import_val_data('1d/peaks_to_slot/constant_power/results/validation51')
 
-plt.imshow(pred[0])
+plt.imshow(tf.expand_dims(pred[80] > tf.sort(pred[80])[16],1))
+
+plt.imshow(tf.expand_dims(val51_slots[80],1))
 
 len(grey_peaks)
 
-plt.plot(peaks[6])
-plt.plot(val_peaks[6])
-plt.plot(grey_peaks[6])
-plt.legend(['Reference','Binary','Greyscale'])
+plt.plot(peaks[7])
+# plt.plot(val_peaks[7])
+plt.plot(val51_peaks[7])
+plt.legend(['Reference','Binary','Conv'])
 
 # correct / (len(val_slots) * 36)
 # correct = 0
@@ -59,21 +61,21 @@ plt.legend(['Reference','Binary','Greyscale'])
 # val_slots
 
 mse_list_binary = []
-mse_list_grey = []
+# mse_list_grey = []
 mse_list_control = []
 bucket_1 = []
 bucket_2 = []
 bucket_3 = []
 bucket_4 = []
 for i in np.arange(500):
-    mse_b = ((peaks[i] - val_peaks[i]) ** 2).mean()
+    mse_b = ((peaks[i] - val51_peaks[i]) ** 2).mean()
     mse_list_binary.append(mse_b)
 
-    mse_g = ((peaks[i] - grey_peaks[i]) ** 2).mean()
-    mse_list_grey.append(mse_g)
+    # mse_g = ((peaks[i] - grey_peaks[i]) ** 2).mean()
+    # mse_list_grey.append(mse_g)
 
     try:
-        mse_c = ((peaks[i] - val_peaks[i+3]) ** 2).mean()
+        mse_c = ((peaks[i] - val51_peaks[i+3]) ** 2).mean()
         mse_list_control.append(mse_c)
     except:
         pass
@@ -87,9 +89,39 @@ for i in np.arange(500):
     else:
         bucket_4.append(i)
 
+old_bins = np.array([0.00086428, 0.00873865, 0.01661302, 0.02448739, 0.03236176,
+       0.04023613, 0.0481105 , 0.05598487, 0.06385924, 0.07173361,
+       0.07960798, 0.08748235, 0.09535672, 0.10323109, 0.11110546,
+       0.11897984, 0.12685421, 0.13472858, 0.14260295, 0.15047732,
+       0.15835169])
+
+fig, axs = plt.subplots(1,2,tight_layout=True,figsize=(10,4))
+
+N, bins, patches = axs[0].hist(mse_list_binary,bins=old_bins,ec='black',color='#7fcdbb', label='_nolegend_')
+col_list = ['#7fcdbb','#7fcdbb','#1d91c0','#1d91c0','#225ea8','#225ea8','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84']
+
+for i,thispatch in enumerate(patches):
+    thispatch.set_facecolor(col_list[i])
+
+axs[0].set_xlabel('Mean Square Error')
+axs[0].set_ylabel('Count')
+
+N, bins, patches = axs[1].hist(mse_list_control,bins=old_bins,ec='black',color='#7fcdbb', label='_nolegend_')
+col_list = ['#7fcdbb','#7fcdbb','#1d91c0','#1d91c0','#225ea8','#225ea8','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84']
+
+for i,thispatch in enumerate(patches):
+    thispatch.set_facecolor(col_list[i])
+
+axs[1].set_xlabel('Mean Square Error')
+axs[1].set_ylabel('Count')
+
+
+####
+
+
 fig, axs = plt.subplots(2,2,tight_layout=True,figsize=(6,4))
 
-N, bins, patches = axs[0,0].hist(mse_list_binary,bins=20,ec='black',color='#7fcdbb', label='_nolegend_')
+N, bins, patches = axs[0,0].hist(mse_list_binary,bins=old_bins,ec='black',color='#7fcdbb', label='_nolegend_')
 col_list = ['#7fcdbb','#7fcdbb','#1d91c0','#1d91c0','#225ea8','#225ea8','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84']
 
 for i,thispatch in enumerate(patches):

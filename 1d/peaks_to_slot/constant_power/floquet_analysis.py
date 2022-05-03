@@ -63,7 +63,7 @@ lambdaa = 3e8/freq
 k0 = 2*np.pi/lambdaa
 h = 1e-3;
 
-Lambda = np.arange(1e-3, 10e-3, 1e-3)
+Lambda = np.arange(1e-3, 19e-3, 1e-3)
 p = np.arange(-80,81,1)
 
 betaz = np.zeros((len(Lambda),len(p)))
@@ -79,11 +79,12 @@ for i in np.arange(len(Lambda)):
             neff_works[k,:] = [neff[i,j], np.degrees(np.arccos(neff[i,j])), Lambda[i], p[j]];
             k=k+1;
 
-size(neff_works,1) % this number is the total number of possible angles
-neff_works[:61,3].min()
+print(k)
+
+neff_works[:59,3].min()
 
 fig, axs = plt.subplots(1,2,tight_layout=True,figsize=(8,3.5))
-axy = axs[0].scatter(np.arange(61),neff_works[:61,1], c = neff_works[:61,3], cmap = 'GnBu', edgecolors = 'black')
+axy = axs[0].scatter(np.arange(229),neff_works[:229,1], c = neff_works[:229,3], cmap = 'GnBu', edgecolors = 'black')
 axs[0].set_xlabel('Peak Count')
 axs[0].set_ylabel('Angle')
 plt.colorbar(axy)
@@ -93,3 +94,8 @@ plot_profiles(0,1)
 axs[1].set_xlabel('Angle')
 axs[1].set_ylabel('Amplitude (dB)')
 plt.savefig('paper/figures/fig4.eps')
+
+neff_works[:229,1].sort()
+len(np.unique(neff_works[:229,1]))
+
+np.unique(neff_works[:229,1])

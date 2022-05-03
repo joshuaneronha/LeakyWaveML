@@ -1,0 +1,84 @@
+\begin{thebibliography}{10}
+
+\bibitem{McCulloch:1943vq}
+W.~S. McCulloch and W.~Pitts, ``A logical calculus of the ideas immanent in
+  nervous activity,'' {\em The bulletin of mathematical biophysics}, vol.~5,
+  no.~4, pp.~115--133, 1943.
+
+\bibitem{Kim}
+Y.~Kim, ``Application of machine learning to antenna design and radar signal
+  processing: A review,'' in {\em 2018 International Symposium on Antennas and
+  Propagation (ISAP)}, pp.~1--2, 2018.
+
+\bibitem{Massa}
+A.~Massa, D.~Marcantonio, X.~Chen, M.~Li, and M.~Salucci, ``Dnns as applied to
+  electromagnetics, antennas, and propagation---a review,'' {\em IEEE Antennas
+  and Wireless Propagation Letters}, vol.~18, no.~11, pp.~2225--2229, 2019.
+
+\bibitem{8608745}
+H.~M. Yao and L.~J. Jiang, ``Machine learning based neural network solving
+  methods for the fdtd method,'' in {\em 2018 IEEE International Symposium on
+  Antennas and Propagation USNC/URSI National Radio Science Meeting},
+  pp.~2321--2322, 2018.
+
+\bibitem{Nadell:19}
+C.~C. Nadell, B.~Huang, J.~M. Malof, and W.~J. Padilla, ``Deep learning for
+  accelerated all-dielectric metasurface design,'' {\em Opt. Express}, vol.~27,
+  pp.~27523--27535, Sep 2019.
+
+\bibitem{Sun:18}
+Y.~Sun, Z.~Xia, and U.~S. Kamilov, ``Efficient and accurate inversion of
+  multiple scattering with deep learning,'' {\em Opt. Express}, vol.~26,
+  pp.~14678--14688, May 2018.
+
+\bibitem{doi:10.1063/5.0033126}
+H.~Guerboukha, R.~Shrestha, J.~Neronha, O.~Ryan, M.~Hornbuckle, Z.~Fang, and
+  D.~M. Mittleman, ``Efficient leaky-wave antennas at terahertz frequencies
+  generating highly directional beams,'' {\em Applied Physics Letters},
+  vol.~117, no.~26, p.~261103, 2020.
+
+\bibitem{Ghasempour:2020tz}
+Y.~Ghasempour, R.~Shrestha, A.~Charous, E.~Knightly, and D.~M. Mittleman,
+  ``Single-shot link discovery for terahertz wireless networks,'' {\em Nature
+  Communications}, vol.~11, no.~1, p.~2017, 2020.
+
+\bibitem{Karl:2015uh}
+N.~J. Karl, R.~W. McKinney, Y.~Monnai, R.~Mendis, and D.~M. Mittleman,
+  ``Frequency-division multiplexing in the terahertz range using a leaky-wave
+  antenna,'' {\em Nature Photonics}, vol.~9, no.~11, pp.~717--720, 2015.
+
+\bibitem{Ma:2017vo}
+J.~Ma, N.~J. Karl, S.~Bretin, G.~Ducournau, and D.~M. Mittleman,
+  ``Frequency-division multiplexer and demultiplexer for terahertz wireless
+  links,'' {\em Nature Communications}, vol.~8, no.~1, p.~729, 2017.
+
+\bibitem{Amarasinghe:20}
+Y.~Amarasinghe, R.~Mendis, and D.~M. Mittleman, ``Real-time object tracking
+  using a leaky thz waveguide,'' {\em Opt. Express}, vol.~28, pp.~17997--18005,
+  Jun 2020.
+
+\bibitem{Guerboukha:21}
+H.~Guerboukha, Y.~Amarasinghe, R.~Shrestha, A.~Pizzuto, and D.~M. Mittleman,
+  ``High-volume rapid prototyping technique for terahertz metallic
+  metasurfaces,'' {\em Opt. Express}, vol.~29, pp.~13806--13814, Apr 2021.
+
+\bibitem{Deng:21}
+Y.~Deng, S.~Ren, K.~Fan, J.~M. Malof, and W.~J. Padilla, ``Neural-adjoint
+  method for the inverse design of all-dielectric metasurfaces,'' {\em Opt.
+  Express}, vol.~29, pp.~7526--7534, Mar 2021.
+
+\bibitem{9602997}
+E.~Dejband, J.-W. Li, P.-C. Peng, and T.-H. Tan, ``Prediction of thz absorption
+  and inverse design of graphene-based metasurface structure using deep
+  learning,'' in {\em 2021 30th Wireless and Optical Communications Conference
+  (WOCC)}, pp.~21--23, 2021.
+
+\bibitem{Jafar-Zanjani:2018vy}
+S.~Jafar-Zanjani, S.~Inampudi, and H.~Mosallaei, ``Adaptive genetic algorithm
+  for optical metasurfaces design,'' {\em Scientific Reports}, vol.~8, no.~1,
+  p.~11040, 2018.
+
+\bibitem{john_hennig_2022_6312347}
+J.~Hennig, M.~Elfner, and J.~Feder, ``Mph-py/mph: Mph 1.1.5,'' Feb. 2022.
+
+\end{thebibliography}

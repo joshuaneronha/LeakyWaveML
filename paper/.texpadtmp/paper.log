@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=latex 2021.10.14)  28 APR 2022 16:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=latex 2021.10.14)  2 MAY 2022 20:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -346,51 +346,84 @@ Underfull \hbox (badness 10000) in paragraph at lines 23--24
 
  []
 
-[1
 
-]
-File: figures/fig4_labeled2.eps Graphic file (type eps)
- <figures/fig4_labeled2.eps>
-Underfull \hbox (badness 10000) in paragraph at lines 43--44
+Underfull \hbox (badness 10000) in paragraph at lines 25--26
 
  []
 
-[2]
+
+Underfull \hbox (badness 10000) in paragraph at lines 27--28
+
+ []
+
+[1
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 37--38
+
+ []
+
+
+./paper.tex:41: LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.41 \\ A
+          schematic is shown in Figure 1 below. \\
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--42
+
+ []
+
 File: figures/fig5.eps Graphic file (type eps)
- <figures/fig5.eps>
-Overfull \hbox (19.87546pt too wide) in paragraph at lines 50--51
+<figures/fig5.eps>
+File: figures/fig4_labeled2.eps Graphic file (type eps)
+ <figures/fig4_labeled2.eps> [2]
+Underfull \hbox (badness 10000) in paragraph at lines 59--60
+
+ []
+
+File: figures/fig5.eps Graphic file (type eps)
+<figures/fig5.eps>
+Overfull \hbox (19.87546pt too wide) in paragraph at lines 66--67
  [][] 
  []
 
 File: figures/fig2new.eps Graphic file (type eps)
 <figures/fig2new.eps>
-Overfull \hbox (2.43332pt too wide) in paragraph at lines 48--59
+Overfull \hbox (2.43332pt too wide) in paragraph at lines 64--75
 [][] [] 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 63--64
+[3]
+Underfull \hbox (badness 10000) in paragraph at lines 79--80
 
  []
 
 File: figures/fig1.eps Graphic file (type eps)
-<figures/fig1.eps> [3]
+<figures/fig1.eps> [4]
 File: figures/fig3_labeled.eps Graphic file (type eps)
  <figures/fig3_labeled.eps>
 File: figures/fig3b_labeled.eps Graphic file (type eps)
- <figures/fig3b_labeled.eps> [4]
+ <figures/fig3b_labeled.eps> [5]
 File: figures/fig2_labeled.eps Graphic file (type eps)
- <figures/fig2_labeled.eps> (/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.bbl [5]) [6] (/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.aux)
+ <figures/fig2_labeled.eps> (/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.bbl [6] [7]) [8] (/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.aux)
 Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 9808 strings out of 478995
- 151093 string characters out of 5858209
- 468490 words of memory out of 5000000
- 27182 multiletter control sequences out of 15000+600000
+ 9815 strings out of 478995
+ 151201 string characters out of 5858209
+ 469745 words of memory out of 5000000
+ 27189 multiletter control sequences out of 15000+600000
  409537 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  76i,7n,80p,1558b,478s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.dvi (6 pages, 32192 bytes).
+Output written on /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.dvi (8 pages, 40392 bytes).

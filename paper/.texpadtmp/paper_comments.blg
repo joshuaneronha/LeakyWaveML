@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2021)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper_comments.aux
+The style file: ieeetr.bst
+Illegal, another \bibstyle command---line 43 of file /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper_comments.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Database file #1: ../references.bib
+Warning--entry type for "john_hennig_2022_6312347" isn't style-file defined
+--line 292 of file ../references.bib
+You've used 16 entries,
+            1876 wiz_defined-function locations,
+            586 strings with 6801 characters,
+and the built_in function-call counts, 5520 in all, are:
+= -- 559
+> -- 217
+< -- 0
++ -- 78
+- -- 62
+* -- 399
+:= -- 743
+add.period$ -- 16
+call.type$ -- 16
+change.case$ -- 16
+chr.to.int$ -- 0
+cite$ -- 16
+duplicate$ -- 286
+empty$ -- 474
+format.name$ -- 62
+if$ -- 1363
+int.to.chr$ -- 0
+int.to.str$ -- 16
+missing$ -- 15
+newline$ -- 51
+num.names$ -- 16
+pop$ -- 44
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 249
+stack$ -- 0
+substring$ -- 436
+swap$ -- 155
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 49
+width$ -- 18
+write$ -- 163
+(There was 1 error message)
