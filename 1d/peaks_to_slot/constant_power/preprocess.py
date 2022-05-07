@@ -3,8 +3,7 @@ import tensorflow as tf
 import pickle
 import os
 
-floquet_forward = [5,15,24,28,31,34,48,60,61,63,65,68,70,73,76,80,84,86,88,90]
-floquet_back = [270 + (180 - x) for x in [95,99,101,103,106,109,114,117,120,122,126,128,130,132,146]]
+floquet = [5,15,24,28,31,34,48,60,61,63,65,68,70,73,76,80,84,86,88,90] + [95,99,101,103,106,109,114,117,120,122,126,128,130,132,146]
 
 def import_data():
     """
@@ -24,7 +23,7 @@ def import_data():
             num_sims = int(results.shape[0] / 361)
             points = [361 * x for x in np.arange(num_sims + 1)]
             sorted_x = np.array([20*np.log10(results[i:i + 361,1]) for i in points[:-1]])
-            peaks = sorted_x[:,floquet_back + floquet_forward]
+            peaks = sorted_x[:,floquet]
 
             # past_thresh = [index for index,x in enumerate(peaks) if x.max() > 29]
 

@@ -36,7 +36,7 @@ nu_pm = 1e-12*3e8*order_m./(2*b*sqrt(neff^2-cosd(theta_pm).^2));
 hold on 
 plot(theta_pm, nu_pm,'linewidth',2,'color','r')
 axis square
-% colormap(brewermap([],'GnBu'))
+colormap(brewermap([],'GnBu'))
 
 order=-1;
 c=3e8;
@@ -45,4 +45,14 @@ period = 0.95e-3;
 theta_pm_back = linspace(0,150,1400)
 nu_vector=(150:0.1:280);
 nu_backfire = -1e-12*((sqrt(2)*sqrt((8*c^2*b^2*order^2)-(c^2.*period.^2.*cosd(2*theta_pm_back))+(c^2.*period.^2))./(b.*period))-((4*c*order.*cosd(theta_pm_back))./period))./(4*((cosd(theta_pm_back).^2)-1));
-plot(theta_pm_back(:,1:1400),nu_backfire(:,1:1400),'linewidth',1.5,'color','white');
+plot(theta_pm_back(:,1:1400),nu_backfire(:,1:1400),'linewidth',1.5,'color','white')
+
+objective194 = readmatrix('objective194.csv');
+expected194 = readmatrix('expected194.csv');
+
+figure
+semilogy(abs(B(2112,:)) / max(abs(B(2112,:))))
+hold on
+semilogy(objective194(1:180,2) / max(objective194(1:180,2)))
+
+semilogy(expected194(1:180,2) / max(expected194(1:180,2)))
