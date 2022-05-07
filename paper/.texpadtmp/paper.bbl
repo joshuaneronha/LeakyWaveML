@@ -116,4 +116,20 @@ C.~Liu, Q.~Ma, Z.~J. Luo, Q.~R. Hong, Q.~Xiao, H.~C. Zhang, L.~Miao, W.~M. Yu,
 \bibitem{john_hennig_2022_6312347}
 J.~Hennig, M.~Elfner, and J.~Feder, ``Mph-py/mph: Mph 1.1.5,'' Feb. 2022.
 
+\bibitem{molecules26041111}
+A.~R{\'a}cz, D.~Bajusz, and K.~H{\'e}berger, ``Effect of dataset size and
+  train/test split ratios in qsar/qspr multiclass classification,'' {\em
+  Molecules}, vol.~26, no.~4, 2021.
+
+\bibitem{tensorflow2015-whitepaper}
+M.~Abadi, A.~Agarwal, P.~Barham, E.~Brevdo, Z.~Chen, C.~Citro, G.~S. Corrado,
+  A.~Davis, J.~Dean, M.~Devin, S.~Ghemawat, I.~Goodfellow, A.~Harp, G.~Irving,
+  M.~Isard, Y.~Jia, R.~Jozefowicz, L.~Kaiser, M.~Kudlur, J.~Levenberg,
+  D.~Man\'{e}, R.~Monga, S.~Moore, D.~Murray, C.~Olah, M.~Schuster, J.~Shlens,
+  B.~Steiner, I.~Sutskever, K.~Talwar, P.~Tucker, V.~Vanhoucke, V.~Vasudevan,
+  F.~Vi\'{e}gas, O.~Vinyals, P.~Warden, M.~Wattenberg, M.~Wicke, Y.~Yu, and
+  X.~Zheng, ``{TensorFlow}: Large-scale machine learning on heterogeneous
+  systems,'' 2015.
+\newblock Software available from tensorflow.org.
+
 \end{thebibliography}

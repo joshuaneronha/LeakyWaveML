@@ -36,9 +36,9 @@ We train a model to predict the slot geometry of the LWA for a desired far-field
 
 \noindent where $k_0$ is the wave number, $h$ is the height of the waveguide, and $\Lambda$ is the slot periodicity. These different modes peak at different angles defined by $\cos(\theta)=\beta_p/k_0$, given that the excited modes can be consider fast-wave (i.e., $|\beta_p|>k_0$). Our primary objective is to generate multiple beams with specific magnitudes at specific locations. Therefore, instead of a periodic geometry, we consider a non-periodic array of slots. By Fourier decomposition, we note that any non-periodic slot design can be viewed as a linear combination of periodic designs $\beta_p$, each peaking at an angle $\cos(\theta)=\beta_p/k_0$. The strength (amplitude) of individual peaks can be related to the Fourier coefficients of this decomposition. \\
 
-\noindent Our discretized geometry imposes limits on the possible excited Floquet modes, by constraining the values of $\Lambda$. Indeed, due to the discretization, the possible $\Lambda$ are given by $\Lambda=$. Furthermore, due to the fast-wave requirement (i.e., $|\beta_p|>k_0$), only a few select modes will be able to leak out of the waveguide. 
+\noindent Our discretized geometry imposes limits on the possible excited Floquet modes, by constraining the values of $\Lambda$. Indeed, due to the discretization, the possible $\Lambda$ are given by $\Lambda=$. Furthermore, due to the fast-wave requirement (i.e., $|\beta_p|>k_0$), only a few select modes will be able to leak out of the waveguide. \\
 
-\\ A schematic is shown in Figure 1 below. \\
+ A schematic is shown in Figure 1 below. \\
 
 \begin{figure}
 		\centering
@@ -76,7 +76,7 @@ We train a model to predict the slot geometry of the LWA for a desired far-field
 \end{figure}
 
 
-\noindent 25,000 instances of COMSOL simulation data is used as the data source for our deep neural network, with a test-train split of 80-20. Figure 2b above shows the possible values for each peak, giving an approximate range over which we can design peak profiles for this particular geometry. The network, which is built with TensorFlow, has six dense layers, each of which have 2000 neurons and use a LeakyReLU activation function with $\alpha = 0.1$. The model uses the Adam optimizer and has a learning rate of 0.0001 and predicts the output of each individual sub-slot with a sigmoid activation function indicating the probability that a given sub-slot should be transparent. The model architecture is visualized in Figure 3. \\
+\noindent 25,000 instances of COMSOL simulation data is used as the data source for our deep neural network, with a test-train split of 80-20 \cite{molecules26041111}. Figure 2b above shows the possible values for each peak, giving an approximate range over which we can design peak profiles for this particular geometry. The network, which is built with TensorFlow \cite{tensorflow2015-whitepaper}, a popular deep-learning library, has one convolutional layer for feature extraction connected to six sequential fully-connected layers, each of which have 2000 neurons and use a LeakyReLU activation function with $\alpha = 0.1$. The model uses the Adam optimizer and has a learning rate of 0.0001 and predicts the output of each individual sub-slot with a sigmoid activation function indicating the probability that a given sub-slot should be transparent. The model architecture is visualized in Figure 3. \\
 
 \begin{figure}[b]
 	\centering

@@ -118,6 +118,7 @@ axs[1].set_ylabel('Count')
 
 ####
 
+bucket_1
 
 fig, axs = plt.subplots(2,2,tight_layout=True,figsize=(6,4))
 
@@ -131,8 +132,8 @@ axs[0,0].set_xlabel('Mean Square Error')
 axs[0,0].set_ylabel('Count')
 
 ## bucket_1 example (22.8%)
-axs[0,1].plot(peaks[22], color = 'black')
-axs[0,1].plot(val_peaks[22], color = '#7fcdbb')
+axs[0,1].plot(peaks[72], color = 'black')
+axs[0,1].plot(val51_peaks[72], color = '#7fcdbb')
 axs[0,1].set_xlabel('Peak Count')
 axs[0,1].set_ylabel('Amplitude')
 
@@ -171,22 +172,26 @@ def top_16(slot):
     out = [1 if x >= median else 0 for x in slot]
     return out
 
+bucket_1
+
+np.mean(np.square(peaks[194] - val51_peaks[194]))
+
 fig, ax = plt.subplots(1,4,gridspec_kw={'width_ratios': [6, 1, 1, 1]})
-ax[0].plot(peaks[408])
+ax[0].plot(peaks[194])
+ax[0].plot(val51_peaks[194])
 ax[0].set_xlabel('Peak Count')
 ax[0].set_ylabel('Amplitude')
 # ax[0].plot(val_peaks[0])
-ax[1].imshow(tf.expand_dims(true[408],1),cmap='YlGnBu')
+ax[1].imshow(tf.expand_dims(true[194],1),cmap='YlGnBu')
 ax[1].axes.xaxis.set_visible(False)
 ax[1].axes.yaxis.set_visible(False)
-ax[2].imshow(tf.expand_dims(pred[408],1),cmap='YlGnBu')
+ax[2].imshow(tf.expand_dims(pred[194],1),cmap='YlGnBu')
 ax[2].axes.xaxis.set_visible(False)
 ax[2].axes.yaxis.set_visible(False)
-forcmap = ax[3].imshow(tf.expand_dims(top_16(pred[408]),1),cmap='YlGnBu')
+forcmap = ax[3].imshow(tf.expand_dims(top_16(pred[194]),1),cmap='YlGnBu')
 ax[3].axes.xaxis.set_visible(False)
-ax[3].axes.yaxis.set_visible(False)
-# cax = ax[3].inset_axes([1.04, 0.2, 0.05, 0.6], transform=ax[3].transAxes)
-fig.colorbar(forcmap)
+ax[3].axes.yaxis.set_visible(False)# cax = ax[3].inset_axes([1.04, 0.2, 0.05, 0.6], transform=ax[3].transAxes)
+# fig.colorbar(forcmap)
 
 fig.savefig('paper/figures/fig3b.eps')
 

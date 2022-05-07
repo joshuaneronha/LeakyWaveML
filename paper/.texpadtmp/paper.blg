@@ -6,52 +6,52 @@ Illegal, another \bibstyle command---line 19 of file /Users/joshuaneronha/Docume
  : \bibstyle
  :          {ieeetr}
 I'm skipping whatever remains of this command
-Illegal, another \bibstyle command---line 55 of file /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.aux
+Illegal, another \bibstyle command---line 57 of file /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.aux
  : \bibstyle
  :          {plain}
 I'm skipping whatever remains of this command
 Database file #1: ../references.bib
 Warning--entry type for "john_hennig_2022_6312347" isn't style-file defined
---line 368 of file ../references.bib
-You've used 23 entries,
+--line 392 of file ../references.bib
+You've used 25 entries,
             1876 wiz_defined-function locations,
-            629 strings with 8105 characters,
-and the built_in function-call counts, 7899 in all, are:
-= -- 795
-> -- 327
+            637 strings with 9146 characters,
+and the built_in function-call counts, 8715 in all, are:
+= -- 823
+> -- 460
 < -- 0
-+ -- 117
-- -- 94
-* -- 583
-:= -- 1076
-add.period$ -- 23
-call.type$ -- 23
-change.case$ -- 23
++ -- 162
+- -- 137
+* -- 682
+:= -- 1242
+add.period$ -- 26
+call.type$ -- 25
+change.case$ -- 25
 chr.to.int$ -- 0
-cite$ -- 23
-duplicate$ -- 404
-empty$ -- 669
-format.name$ -- 94
-if$ -- 1945
+cite$ -- 25
+duplicate$ -- 417
+empty$ -- 704
+format.name$ -- 137
+if$ -- 2098
 int.to.chr$ -- 0
-int.to.str$ -- 23
-missing$ -- 22
-newline$ -- 72
-num.names$ -- 23
-pop$ -- 54
+int.to.str$ -- 25
+missing$ -- 23
+newline$ -- 79
+num.names$ -- 25
+pop$ -- 63
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 347
+skip$ -- 351
 stack$ -- 0
 substring$ -- 612
-swap$ -- 218
+swap$ -- 219
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 69
-width$ -- 25
-write$ -- 237
+while$ -- 71
+width$ -- 27
+write$ -- 256
 (There were 2 error messages)
