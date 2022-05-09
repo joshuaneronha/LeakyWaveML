@@ -35,13 +35,13 @@ plt.savefig('paper/figures/fig2new.eps')
 
 ###
 
-with open('1d/peaks_to_slot/constant_power/results/test_data.pkl','rb') as file:
+with open('1d/peaks_to_slot/constant_power/results/test_data58.pkl','rb') as file:
     test_data = pickle.load(file)
     peaks, true, pred = test_data
 
 # val_slots, val_peaks = import_val_data('1d/peaks_to_slot/constant_power/results/validation_old')
 
-val51_slots, val51_peaks = import_val_data('1d/peaks_to_slot/constant_power/results/validation51')
+val58_slots, val58_peaks = import_val_data('1d/peaks_to_slot/constant_power/results/validation58')
 
 plt.imshow(tf.expand_dims(pred[80] > tf.sort(pred[80])[16],1))
 
@@ -49,9 +49,9 @@ plt.imshow(tf.expand_dims(val51_slots[80],1))
 
 len(grey_peaks)
 
-plt.plot(peaks[7])
+plt.plot(peaks[9])
 # plt.plot(val_peaks[7])
-plt.plot(val51_peaks[7])
+plt.plot(val58_peaks[9])
 plt.legend(['Reference','Binary','Conv'])
 
 # correct / (len(val_slots) * 36)
@@ -68,14 +68,14 @@ bucket_2 = []
 bucket_3 = []
 bucket_4 = []
 for i in np.arange(500):
-    mse_b = ((peaks[i] - val51_peaks[i]) ** 2).mean()
+    mse_b = ((peaks[i] - val58_peaks[i]) ** 2).mean()
     mse_list_binary.append(mse_b)
 
     # mse_g = ((peaks[i] - grey_peaks[i]) ** 2).mean()
     # mse_list_grey.append(mse_g)
 
     try:
-        mse_c = ((peaks[i] - val51_peaks[i+3]) ** 2).mean()
+        mse_c = ((peaks[i] - val58_peaks[i+3]) ** 2).mean()
         mse_list_control.append(mse_c)
     except:
         pass
@@ -118,7 +118,7 @@ axs[1].set_ylabel('Count')
 
 ####
 
-bucket_1
+bucket_4
 
 fig, axs = plt.subplots(2,2,tight_layout=True,figsize=(6,4))
 
@@ -173,22 +173,42 @@ def top_16(slot):
     return out
 
 bucket_1
-
-np.mean(np.square(peaks[194] - val51_peaks[194]))
-
+np.mean(np.square(peaks[241] - val57_peaks[241]))
 fig, ax = plt.subplots(1,4,gridspec_kw={'width_ratios': [6, 1, 1, 1]})
-ax[0].plot(peaks[194])
-ax[0].plot(val51_peaks[194])
+ax[0].plot(peaks[241])
+ax[0].plot(val57_peaks[241])
 ax[0].set_xlabel('Peak Count')
 ax[0].set_ylabel('Amplitude')
 # ax[0].plot(val_peaks[0])
-ax[1].imshow(tf.expand_dims(true[194],1),cmap='YlGnBu')
+ax[1].imshow(tf.expand_dims(true[241],1),cmap='YlGnBu')
 ax[1].axes.xaxis.set_visible(False)
 ax[1].axes.yaxis.set_visible(False)
-ax[2].imshow(tf.expand_dims(pred[194],1),cmap='YlGnBu')
+ax[2].imshow(tf.expand_dims(pred[241],1),cmap='YlGnBu')
 ax[2].axes.xaxis.set_visible(False)
 ax[2].axes.yaxis.set_visible(False)
-forcmap = ax[3].imshow(tf.expand_dims(top_16(pred[194]),1),cmap='YlGnBu')
+forcmap = ax[3].imshow(tf.expand_dims(top_16(pred[241]),1),cmap='YlGnBu')
+ax[3].axes.xaxis.set_visible(False)
+ax[3].axes.yaxis.set_visible(False)# cax = ax[3].inset_axes([1.04, 0.2, 0.05, 0.6], transform=ax[3].transAxes)
+
+
+
+
+
+np.mean(np.square(peaks[313] - val57_peaks[313]))
+
+fig, ax = plt.subplots(1,4,gridspec_kw={'width_ratios': [6, 1, 1, 1]})
+ax[0].plot(peaks[313])
+ax[0].plot(val57_peaks[313])
+ax[0].set_xlabel('Peak Count')
+ax[0].set_ylabel('Amplitude')
+# ax[0].plot(val_peaks[0])
+ax[1].imshow(tf.expand_dims(true[313],1),cmap='YlGnBu')
+ax[1].axes.xaxis.set_visible(False)
+ax[1].axes.yaxis.set_visible(False)
+ax[2].imshow(tf.expand_dims(pred[313],1),cmap='YlGnBu')
+ax[2].axes.xaxis.set_visible(False)
+ax[2].axes.yaxis.set_visible(False)
+forcmap = ax[3].imshow(tf.expand_dims(top_16(pred[313]),1),cmap='YlGnBu')
 ax[3].axes.xaxis.set_visible(False)
 ax[3].axes.yaxis.set_visible(False)# cax = ax[3].inset_axes([1.04, 0.2, 0.05, 0.6], transform=ax[3].transAxes)
 # fig.colorbar(forcmap)

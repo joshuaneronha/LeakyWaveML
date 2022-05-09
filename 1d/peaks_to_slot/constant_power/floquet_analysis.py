@@ -71,7 +71,7 @@ lambdaa = 3e8/freq
 k0 = 2*np.pi/lambdaa
 h = 1e-3;
 
-Lambda = np.arange(1e-3, 19e-3, 1e-3)
+Lambda = np.arange(1e-3, 10e-3, 1e-3)
 p = np.arange(-80,81,1)
 
 betaz = np.zeros((len(Lambda),len(p)))
@@ -86,8 +86,8 @@ for i in np.arange(len(Lambda)):
         if (neff[i,j] > -1) & (neff[i,j] < 1):
             neff_works[k,:] = [neff[i,j], np.degrees(np.arccos(neff[i,j])), Lambda[i], p[j]];
             k=k+1;
-
-print(k)
+k
+np.round(np.unique(neff_works[0:60,1]))
 
 neff_works[:59,3].min()
 

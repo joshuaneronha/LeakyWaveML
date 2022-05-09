@@ -11,7 +11,7 @@ floquet = list(np.array([  6.,  16.,  24.,  29.,  32.,  34.,  49.,  60.,  62.,  
        101., 104., 106., 110., 114., 118., 120., 123., 126., 129., 131.,
        132., 147.]).astype('int'))
 
-floquet2 = [1 + x for x in floquet]
+# floquet2 = [1 + x for x in floquet]
 
 def import_data():
     """
@@ -31,7 +31,7 @@ def import_data():
             num_sims = int(results.shape[0] / 361)
             points = [361 * x for x in np.arange(num_sims + 1)]
             sorted_x = np.array([20*np.log10(results[i:i + 361,1]) for i in points[:-1]])
-            peaks = sorted_x[:,floquet2]
+            peaks = sorted_x[:,floquet]
 
             # past_thresh = [index for index,x in enumerate(peaks) if x.max() > 29]
 
