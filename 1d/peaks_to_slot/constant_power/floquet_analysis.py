@@ -33,18 +33,11 @@ dataa = import_data()
 dataa.shape
 dataa[3,271:361].shape
 
-def plot_profiles(num,ax):
-
-    axs[ax].plot(np.arange(91,181),np.flip(dataa[num,271:361]),color = '#0c2c84')
-    axs[ax].plot(np.arange(0,91),np.flip(dataa[num,0:91]), color = '#0c2c84')
-
-    axs[ax].scatter([90 - x for x in floquet_forward], dataa[num,floquet_forward],color = '#7fcdbb')
-    axs[ax].scatter([450 - x for x in floquet_back], dataa[num,floquet_back], color = '#7fcdbb')
-
-plot_profiles(14)
-
 floquet_back = [270 + (180 - x) for x in [95,99,101,103,106,109,114,117,120,122,126,128,130,132,146]]
 floquet_back
+
+floquet = [5,15,24,28,31,34,48,60,61,63,65,68,70,73,76,80,84,86,88,90] + [95,99,101,103,106,109,114,117,120,122,126,128,130,132,146]
+
 
 
 floquet_forward = [5,15,24,28,31,34,48,60,61,63,65,68,70,73,76,80,84,86,88,90]
@@ -52,6 +45,21 @@ floquet_back
 floquet_back = [270 + (180 - x) for x in [95,99,101,103,106,109,114,117,120,122,126,128,130,132,146]]
 floquet_back
 [450 - x for x in floquet_back]
+
+def plot_profiles(num):
+
+    plt.plot(np.arange(91,181),np.flip(dataa[num,271:361]),color = '#0c2c84')
+    plt.plot(np.arange(0,91),np.flip(dataa[num,0:91]), color = '#0c2c84')
+
+    plt.scatter([90 - x for x in floquet_forward], dataa[num,floquet_forward],color = '#7fcdbb')
+    plt.scatter([450 - x for x in floquet_back], dataa[num,floquet_back], color = '#7fcdbb')
+
+plot_profiles(14)
+
+plt.plot(np.arange(0,180),dataa[14,0:180], color = '#0c2c84')
+plt.scatter(floquet,dataa[14,floquet])
+
+plt.plot(dataa[14,0:360])
 
 floquet_back_fake = [95,99,101,103,106,109,114,117,120,122,126,128,130,132,146]
 
