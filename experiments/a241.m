@@ -53,9 +53,15 @@ objective241 = readmatrix('objective241.csv');
 expected241 = readmatrix('expected241.csv');
 
 figure
-semilogy(abs(B(2112,:)) / max(abs(B(2112,:))))
+semilogy(7:151,abs(B(2112,1:end-7)) / max(abs(B(2112,1:end-7))))
 hold on
 semilogy(objective241(1:151,2) / max(objective241(1:151,2)))
-semilogy(expected241(1:151,2) / max(expected241(1:151,2)))
+semilogy(expected241(1:151,2) / max(expected241(7:151,2)))
 
 legend('Experimental','Objective','Expected')
+
+floquet = [5,15,24,28,31,34,48,60,61,63,65,68,70,73,76,80,84,86,88,90,95,99,101,103,106,109,114,117,120,122,126,128,130,132,146];
+
+for i=1:length(floquet)
+    xline(floquet(i))
+end
