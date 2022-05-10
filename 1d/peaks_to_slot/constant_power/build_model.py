@@ -6,6 +6,16 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import argparse
 import pickle
+import random
+
+a = np.array([3,2,5,6])
+b = np.array([1,4,7,6])
+c = np.array([5,6,4,2])
+
+train_test_split(a,b,test_size=0.5,random_state=431432)
+train_test_split(a,c,test_size=0.5,random_state=42132)
+
+
 
 parser = argparse.ArgumentParser(description='Build a deep learning model based on COMSOL simulations.')
 
@@ -72,9 +82,12 @@ def test(model, slots, peaks):
 
 def main():
 
-    slots, peaks = import_data()
+    slots, peaks, waves = import_data()
 
-    slot_train, slot_test, peaks_train, peaks_test = train_test_split(slots, peaks, test_size=0.2)
+    state = random.randint(0,100000)
+
+    slot_train, slot_test, peaks_train, peaks_test = train_test_split(slots, peaks, test_size=0.2, random_state = state)
+    _, _, waves_train, waves_test = train_test_split(slots, waves, test_size=0.2, random_state = state)
     print(peaks_train.shape)
     print(peaks_test.shape)
 
@@ -91,7 +104,7 @@ def main():
     # peak_sim = []
 
     output = Model.call(peaks_test)
-    saved_data = [peaks_test, slot_test, output]
+    saved_data = [peaks_test, slot_test, output, waves_test]
 
     with open('1d/peaks_to_slot/constant_power/results/test_data.pkl', 'wb') as f:
         pickle.dump(saved_data, f)

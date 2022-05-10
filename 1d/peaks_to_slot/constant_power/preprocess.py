@@ -21,6 +21,7 @@ def import_data():
     slots_list = []
     peaks_list = []
     max_list = []
+    wave_list = []
 
     timestamp_list = list(set([x.split('.')[0] for x in os.listdir('comsol_results/1dconstantslots')]))
 
@@ -41,6 +42,7 @@ def import_data():
             normalized = (peaks.T / peaks.max(axis=1)).T# TEMP:
             # normalized = (peaks / peaks.max(axis=0))
             peaks_list.append(normalized)
+            wave_list.append((sorted_x.T / sorted_x.max(axis=1)).T)
             # peaks_list.append(normalized)
             # peaks_list.append(peaks)
             # max_list.append(np.concatenate([max,max,max,max,max,max],axis=1))
@@ -51,7 +53,7 @@ def import_data():
             slots_list.append(slots)
 
     # return np.concatenate(slots_list), np.concatenate([np.concatenate(peaks_list), np.concatenate(max_list)],axis=1)
-    return np.concatenate(slots_list), np.concatenate(peaks_list)
+    return np.concatenate(slots_list), np.concatenate(peaks_list), np.concatenate(wave_list)
 
 
 def import_val_data(path):
