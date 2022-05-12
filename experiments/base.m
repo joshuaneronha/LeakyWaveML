@@ -4,7 +4,7 @@ close all
 
 Files=dir('baselwa');
 N = length(Files);
-[t,w]=textread(Files(3).name,'%f%f','headerlines',6);  % read first for size
+[t,w]=textread(strcat('baselwa/',Files(3).name),'%f%f','headerlines',6);  % read first for size
 T=zeros(length(t),N-2); W=T; f=T; B=T;   % preallocate space for time,waveform vectors
 T(:,1)=t;
 W(:,1)=w;
@@ -14,10 +14,10 @@ t = T(:,1);
 fmax = 0.5/(t(2)-t(1));
 f(:,1) = linspace(-fmax,fmax,size(W,1));
 
-for k = 4:N
+for k = 3:N
     name = Files(k).name;
     x = split(name,'.');
-    [T(:,str2double(x(1)) + 1),W(:,str2double(x(1)) + 1)]=textread(name,'%f%f','headerlines',6);
+    [T(:,str2double(x(1)) + 1),W(:,str2double(x(1)) + 1)]=textread(strcat('baselwa/',name),'%f%f','headerlines',6);
     
     B(:,str2double(x(1)) + 1) = fftshift(fft(W(:,str2double(x(1)) + 1)));
     t = T(:,str2double(x(1)) + 1);
@@ -34,6 +34,9 @@ b = 1e-3; % slit height
 neff = 1; % effective refractive index between the plates
 nu_pm = 1e-12*3e8*order_m./(2*b*sqrt(neff^2-cosd(theta_pm).^2));
 hold on 
-plot(theta_pm, nu_pm,'linewidth',2,'color','r')
+plot(theta_pm, nu_pm,'linewidth',3,'color','#f7a400')
 axis square
-% colormap(brewermap([],'GnBu'))
+ylabel('Frequency (THz)')
+xlabel('Angle (degrees)')
+legend('n=0')
+colormap(flipud(brewermap([],'GnBu')))

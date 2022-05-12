@@ -3,8 +3,13 @@ import tensorflow as tf
 import pickle
 import os
 
-floquet_forward = [5,15,24,28,31,34,48,60,61,63,65,68,70,73,76,80,84,86,88,90]
-floquet_back = [270 + (180 - x) for x in [95,99,101,103,106,109,114,117,120,122,126,128,130,132,146]]
+# floquet_forward = [5,15,24,28,31,34,48,60,61,63,65,68,70,73,76,80,84,86,88,90]
+# floquet_back = [270 + (180 - x) for x in [95,99,101,103,106,109,114,117,120,122,126,128,130,132,146]]
+
+floquet = list(np.array([  6.,  16.,  24.,  29.,  32.,  34.,  49.,  60.,  62.,  63.,  66.,
+        69.,  71.,  73.,  77.,  81.,  84.,  86.,  89.,  90.,  95., 100.,
+       101., 104., 106., 110., 114., 118., 120., 123., 126., 129., 131.,
+       132., 147.]).astype('int'))
 
 def import_data():
     """
@@ -14,6 +19,8 @@ def import_data():
     slots_list = []
     peaks_list = []
     max_list = []
+    wave_list = []
+
 
     timestamp_list = list(set([x.split('.')[0] for x in os.listdir('comsol_results/1dgrey/')]))
 
@@ -27,7 +34,7 @@ def import_data():
             num_sims = int(results.shape[0] / 361)
             points = [361 * x for x in np.arange(num_sims + 1)]
             sorted_x = np.array([20*np.log10(results[i:i + 361,1]) for i in points[:-1]])
-            peaks = sorted_x[:,floquet_back + floquet_forward]
+            peaks = sorted_x[:,floquet]
 
             # past_thresh = [index for index,x in enumerate(peaks) if x.max() > 29]
 
@@ -37,6 +44,7 @@ def import_data():
             normalized = (peaks.T / peaks.max(axis=1)).T# TEMP:
             # normalized = (peaks / peaks.max(axis=0))
             peaks_list.append(normalized)
+            wave_list.append((sorted_x.T / sorted_x.max(axis=1)).T)
             # peaks_list.append(normalized)
             # peaks_list.append(peaks)
             # max_list.append(np.concatenate([max,max,max,max,max,max],axis=1))
@@ -49,7 +57,7 @@ def import_data():
 
 
     # return np.concatenate(slots_list), np.concatenate([np.concatenate(peaks_list), np.concatenate(max_list)],axis=1)
-    return np.concatenate(slots_list), np.concatenate(peaks_list)
+    return np.concatenate(slots_list), np.concatenate(peaks_list), np.concatenate(wave_list)
 
 
 def import_val_data(path):
@@ -60,13 +68,14 @@ def import_val_data(path):
     slots_list = []
     peaks_list = []
     max_list = []
+    wave_list = []
 
     with open(path + '.csv', 'rb') as file:
             results = np.loadtxt(file, delimiter=",", dtype=float)
             num_sims = int(results.shape[0] / 361)
             points = [361 * x for x in np.arange(num_sims + 1)]
             sorted_x = np.array([20*np.log10(results[i:i + 361,1]) for i in points[:-1]])
-            peaks = sorted_x[:,floquet_back + floquet_forward]
+            peaks = sorted_x[:,floquet]
 
             # past_thresh = [index for index,x in enumerate(peaks) if x.max() > 29]
 
@@ -76,6 +85,7 @@ def import_val_data(path):
             normalized = (peaks.T / peaks.max(axis=1)).T# TEMP:
             # normalized = (peaks / peaks.max(axis=0))
             peaks_list.append(normalized)
+            wave_list.append((sorted_x.T / sorted_x.max(axis=1)).T)
             # peaks_list.append(normalized)
             # peaks_list.append(peaks)
             # max_list.append(np.concatenate([max,max,max,max,max,max],axis=1))
@@ -88,7 +98,7 @@ def import_val_data(path):
         slots_list.append([])
 
     # return np.concatenate(slots_list), np.concatenate([np.concatenate(peaks_list), np.concatenate(max_list)],axis=1)
-    return np.concatenate(slots_list), np.concatenate(peaks_list)
+    return np.concatenate(slots_list), np.concatenate(peaks_list), np.concatenate(wave_list)
 
 def get_next_batch(input_array, label_array, start_index, batch_size):
     """

@@ -8,15 +8,6 @@ import argparse
 import pickle
 import random
 
-a = np.array([3,2,5,6])
-b = np.array([1,4,7,6])
-c = np.array([5,6,4,2])
-
-train_test_split(a,b,test_size=0.5,random_state=431432)
-train_test_split(a,c,test_size=0.5,random_state=42132)
-
-
-
 parser = argparse.ArgumentParser(description='Build a deep learning model based on COMSOL simulations.')
 
 def train(model, slots, peaks):

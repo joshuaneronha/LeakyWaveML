@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import argparse
 import pickle
+import random
 
 parser = argparse.ArgumentParser(description='Build a deep learning model based on COMSOL simulations.')
 
@@ -72,9 +73,12 @@ def test(model, slots, peaks):
 
 def main():
 
-    slots, peaks = import_data()
+    slots, peaks, waves = import_data()
 
-    slot_train, slot_test, peaks_train, peaks_test = train_test_split(slots, peaks, test_size=0.2)
+    state = random.randint(0,100000)
+
+    slot_train, slot_test, peaks_train, peaks_test = train_test_split(slots, peaks, test_size=0.2, random_state = state)
+    _, _, waves_train, waves_test = train_test_split(slots, waves, test_size=0.2, random_state = state)
     print(peaks_train.shape)
     print(peaks_test.shape)
 
@@ -91,45 +95,45 @@ def main():
     peak_sim = []
 
     output = Model.call(peaks_test)
-    saved_data = [peaks_test, slot_test, output]
+    saved_data = [peaks_test, slot_test, output, waves_test]
 
     with open('1d/peaks_to_slot/grey/results/test_data.pkl', 'wb') as f:
         pickle.dump(saved_data, f)
 
-
-    # for random in [36, 185, 234, 368, 492, 567, 698, 722, 813, 922]:
-    for i in np.arange(10):
-
-        random = np.random.randint(0,slot_test.shape[0])
-
-        efarx = Model.call(tf.expand_dims(peaks_test[random],0))
-        # print(tf.expand_dims(peaks_test[random],0).shape)
-        efarx = tf.squeeze(efarx)
-
-        truedesign = tf.expand_dims(slot_test[random],axis = 1)
-
-        fig = plt.figure()
-        ax = fig.subplots(1,4, gridspec_kw={'width_ratios': [3, 1, 1, 1]})
-        ax[0].plot(peaks_test[random])
-        ax[1].imshow(truedesign)
-        ax[2].imshow(tf.expand_dims(efarx,axis=1))
-
-        efarx = efarx.numpy()
-
-        efarx = np.where((efarx > 0) & (efarx <= 0.125), 0, efarx)
-        efarx = np.where((efarx > 0.125) & (efarx <= 0.375), 0.25, efarx)
-        efarx = np.where((efarx > 0.375) & (efarx <= 0.625), 0.50, efarx)
-        efarx = np.where((efarx > 0.625) & (efarx <= 0.875), 0.75, efarx)
-        efarx = np.where((efarx > 0.875), 1.00, efarx)
-
-        ax[3].imshow(tf.expand_dims(efarx,axis=1))
-        save_str = '1d/peaks_to_slot/grey/results/' + str(i) + '.png'
-        fig.savefig(save_str)
-
-        peak_sim.append([peaks_test[random],truedesign, efarx])
-
-    with open('1d/peaks_to_slot/grey/results/generated_slots.pkl', 'wb') as f:
-        pickle.dump(peak_sim, f)
+    #
+    # # for random in [36, 185, 234, 368, 492, 567, 698, 722, 813, 922]:
+    # for i in np.arange(10):
+    #
+    #     random = np.random.randint(0,slot_test.shape[0])
+    #
+    #     efarx = Model.call(tf.expand_dims(peaks_test[random],0))
+    #     # print(tf.expand_dims(peaks_test[random],0).shape)
+    #     efarx = tf.squeeze(efarx)
+    #
+    #     truedesign = tf.expand_dims(slot_test[random],axis = 1)
+    #
+    #     fig = plt.figure()
+    #     ax = fig.subplots(1,4, gridspec_kw={'width_ratios': [3, 1, 1, 1]})
+    #     ax[0].plot(peaks_test[random])
+    #     ax[1].imshow(truedesign)
+    #     ax[2].imshow(tf.expand_dims(efarx,axis=1))
+    #
+    #     efarx = efarx.numpy()
+    #
+    #     efarx = np.where((efarx > 0) & (efarx <= 0.125), 0, efarx)
+    #     efarx = np.where((efarx > 0.125) & (efarx <= 0.375), 0.25, efarx)
+    #     efarx = np.where((efarx > 0.375) & (efarx <= 0.625), 0.50, efarx)
+    #     efarx = np.where((efarx > 0.625) & (efarx <= 0.875), 0.75, efarx)
+    #     efarx = np.where((efarx > 0.875), 1.00, efarx)
+    #
+    #     ax[3].imshow(tf.expand_dims(efarx,axis=1))
+    #     save_str = '1d/peaks_to_slot/grey/results/' + str(i) + '.png'
+    #     fig.savefig(save_str)
+    #
+    #     peak_sim.append([peaks_test[random],truedesign, efarx])
+    #
+    # with open('1d/peaks_to_slot/grey/results/generated_slots.pkl', 'wb') as f:
+    #     pickle.dump(peak_sim, f)
     # #
     # peaks_of_interest = np.array([20,20,20,20,20,20,
     #                             20,20,20,20,20,20,

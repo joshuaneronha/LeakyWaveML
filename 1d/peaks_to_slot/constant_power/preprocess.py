@@ -64,6 +64,7 @@ def import_val_data(path):
     slots_list = []
     peaks_list = []
     max_list = []
+    wave_list = []
 
     with open(path + '.csv', 'rb') as file:
             results = np.loadtxt(file, delimiter=",", dtype=float)
@@ -80,6 +81,7 @@ def import_val_data(path):
             normalized = (peaks.T / peaks.max(axis=1)).T# TEMP:
             # normalized = (peaks / peaks.max(axis=0))
             peaks_list.append(normalized)
+            wave_list.append((sorted_x.T / sorted_x.max(axis=1)).T)
             # peaks_list.append(normalized)
             # peaks_list.append(peaks)
             # max_list.append(np.concatenate([max,max,max,max,max,max],axis=1))
@@ -92,7 +94,7 @@ def import_val_data(path):
         slots_list.append([])
 
     # return np.concatenate(slots_list), np.concatenate([np.concatenate(peaks_list), np.concatenate(max_list)],axis=1)
-    return np.concatenate(slots_list), np.concatenate(peaks_list)
+    return np.concatenate(slots_list), np.concatenate(peaks_list), np.concatenate(wave_list)
 
 def get_next_batch(input_array, label_array, start_index, batch_size):
     """

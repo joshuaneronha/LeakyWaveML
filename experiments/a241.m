@@ -4,7 +4,7 @@ close all
 
 Files=dir('binarywaveguide241');
 N = length(Files);
-[t,w]=textread(Files(3).name,'%f%f','headerlines',6);  % read first for size
+[t,w]=textread(strcat('binarywaveguide241/',Files(3).name),'%f%f','headerlines',6);  % read first for size
 T=zeros(length(t),N-2); W=T; f=T; B=T;   % preallocate space for time,waveform vectors
 T(:,1)=t;
 W(:,1)=w;
@@ -14,10 +14,10 @@ t = T(:,1);
 fmax = 0.5/(t(2)-t(1));
 f(:,1) = linspace(-fmax,fmax,size(W,1));
 
-for k = 4:N
+for k = 3:N
     name = Files(k).name;
     x = split(name,'.');
-    [T(:,str2double(x(1)) + 1),W(:,str2double(x(1)) + 1)]=textread(name,'%f%f','headerlines',6);
+    [T(:,str2double(x(1)) + 1),W(:,str2double(x(1)) + 1)]=textread(strcat('binarywaveguide241/',name),'%f%f','headerlines',6);
     
     B(:,str2double(x(1)) + 1) = fftshift(fft(W(:,str2double(x(1)) + 1)));
     t = T(:,str2double(x(1)) + 1);
@@ -39,7 +39,7 @@ hold on
 plot(theta_pm, nu_pm,'linewidth',2,'color','#F7A400')
 axis square
 colormap(flipud(brewermap([],'GnBu')))
-
+legend('Data','n=0')
 order=-1;
 c=3e8;
 period = 0.95e-3;
@@ -53,15 +53,25 @@ objective241 = readmatrix('objective241.csv');
 expected241 = readmatrix('expected241.csv');
 
 figure
-semilogy(7:151,abs(B(2112,1:end-7)) / max(abs(B(2112,1:end-7))))
+% semilogy(7:151,abs(B(2112,1:end-7)) / max(abs(B(2112,1:end-7))))
 hold on
-semilogy(objective241(1:151,2) / max(objective241(1:151,2)))
-semilogy(expected241(1:151,2) / max(expected241(7:151,2)))
+% semilogy(objective241(1:151,2) / max(objective241(1:151,2)))
+% semilogy(expected241(1:151,2) / max(expected241(7:151,2)))
+
+plot(7:151,mag2db(abs(B(2112,1:end-7)) / max(abs(B(2112,1:end-7)))))
+plot(mag2db(objective241(1:151,2) / max(objective241(1:151,2))))
+plot(mag2db(expected241(1:151,2) / max(expected241(7:151,2))))
 
 legend('Experimental','Objective','Expected')
 
-floquet = [5,15,24,28,31,34,48,60,61,63,65,68,70,73,76,80,84,86,88,90,95,99,101,103,106,109,114,117,120,122,126,128,130,132,146];
+% floquet = [5,15,24,28,31,34,48,60,61,63,65,68,70,73,76,80,84,86,88,90,95,99,101,103,106,109,114,117,120,122,126,128,130,132,146];
+% 
+% for i=1:length(floquet)
+%     xline(floquet(i))
+% end
 
-for i=1:length(floquet)
-    xline(floquet(i))
-end
+figure
+polarplot(deg2rad(7:151),abs(mag2db(abs(B(2112,1:end-7)) / max(abs(B(2112,1:end-7))))))
+hold on
+polarplot(deg2rad(1:151),abs(mag2db(objective241(1:151,2) / max(objective241(1:151,2)))))
+polarplot(deg2rad(1:151),abs(mag2db(expected241(1:151,2) / max(expected241(7:151,2)))))

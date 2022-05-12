@@ -12,6 +12,11 @@ plt.rcParams['axes.linewidth'] = 2
 
 from preprocess import import_data, import_val_data
 
+floquet = list(np.array([  6.,  16.,  24.,  29.,  32.,  34.,  49.,  60.,  62.,  63.,  66.,
+        69.,  71.,  73.,  77.,  81.,  84.,  86.,  89.,  90.,  95., 100.,
+       101., 104., 106., 110., 114., 118., 120., 123., 126., 129., 131.,
+       132., 147.]).astype('int'))
+
 ###
 
 slots, peaks = import_data()
@@ -35,13 +40,13 @@ plt.savefig('paper/figures/fig2new.eps')
 
 ###
 
-with open('1d/peaks_to_slot/constant_power/results/test_data58.pkl','rb') as file:
+with open('1d/peaks_to_slot/constant_power/results/test_data510.pkl','rb') as file:
     test_data = pickle.load(file)
-    peaks, true, pred = test_data
+    peaks, true, pred, waves = test_data
 
 # val_slots, val_peaks = import_val_data('1d/peaks_to_slot/constant_power/results/validation_old')
 
-val58_slots, val58_peaks = import_val_data('1d/peaks_to_slot/constant_power/results/validation58')
+val510_slots, val510_peaks, val510_waves = import_val_data('1d/peaks_to_slot/constant_power/results/validation510')
 
 plt.imshow(tf.expand_dims(pred[80] > tf.sort(pred[80])[16],1))
 
@@ -51,7 +56,7 @@ len(grey_peaks)
 
 plt.plot(peaks[9])
 # plt.plot(val_peaks[7])
-plt.plot(val58_peaks[9])
+plt.plot(val59_peaks[9])
 plt.legend(['Reference','Binary','Conv'])
 
 # correct / (len(val_slots) * 36)
@@ -68,14 +73,14 @@ bucket_2 = []
 bucket_3 = []
 bucket_4 = []
 for i in np.arange(500):
-    mse_b = ((peaks[i] - val58_peaks[i]) ** 2).mean()
+    mse_b = ((peaks[i] - val510_peaks[i]) ** 2).mean()
     mse_list_binary.append(mse_b)
 
     # mse_g = ((peaks[i] - grey_peaks[i]) ** 2).mean()
     # mse_list_grey.append(mse_g)
 
     try:
-        mse_c = ((peaks[i] - val58_peaks[i+3]) ** 2).mean()
+        mse_c = ((peaks[i] - val510_peaks[i+3]) ** 2).mean()
         mse_list_control.append(mse_c)
     except:
         pass
@@ -115,6 +120,7 @@ for i,thispatch in enumerate(patches):
 axs[1].set_xlabel('Mean Square Error')
 axs[1].set_ylabel('Count')
 
+bucket_1
 
 ####
 
@@ -172,29 +178,37 @@ def top_16(slot):
     out = [1 if x >= median else 0 for x in slot]
     return out
 
-bucket_1
-np.mean(np.square(peaks[241] - val57_peaks[241]))
-fig, ax = plt.subplots(1,4,gridspec_kw={'width_ratios': [6, 1, 1, 1]})
-ax[0].plot(peaks[241])
-ax[0].plot(val57_peaks[241])
-ax[0].set_xlabel('Peak Count')
-ax[0].set_ylabel('Amplitude')
-# ax[0].plot(val_peaks[0])
-ax[1].imshow(tf.expand_dims(true[241],1),cmap='YlGnBu')
-ax[1].axes.xaxis.set_visible(False)
-ax[1].axes.yaxis.set_visible(False)
-ax[2].imshow(tf.expand_dims(pred[241],1),cmap='YlGnBu')
-ax[2].axes.xaxis.set_visible(False)
-ax[2].axes.yaxis.set_visible(False)
-forcmap = ax[3].imshow(tf.expand_dims(top_16(pred[241]),1),cmap='YlGnBu')
-ax[3].axes.xaxis.set_visible(False)
-ax[3].axes.yaxis.set_visible(False)# cax = ax[3].inset_axes([1.04, 0.2, 0.05, 0.6], transform=ax[3].transAxes)
+bucket_4
+
+def plot_instance(val):
+
+    fig, ax = plt.subplots(1,5,gridspec_kw={'width_ratios': [6, 1, 1, 1, 6]},figsize=(12,4))
+    ax[0].plot(peaks[val])
+    ax[0].plot(val510_peaks[val])
+    ax[0].set_xlabel('Peak Count')
+    ax[0].set_ylabel('Amplitude')
+    # ax[0].plot(val_peaks[0])
+    ax[1].imshow(tf.expand_dims(true[val],1),cmap='YlGnBu')
+    ax[1].axes.xaxis.set_visible(False)
+    ax[1].axes.yaxis.set_visible(False)
+    ax[2].imshow(tf.expand_dims(pred[val],1),cmap='YlGnBu')
+    ax[2].axes.xaxis.set_visible(False)
+    ax[2].axes.yaxis.set_visible(False)
+    forcmap = ax[3].imshow(tf.expand_dims(top_16(pred[val]),1),cmap='YlGnBu')
+    ax[3].axes.xaxis.set_visible(False)
+    ax[3].axes.yaxis.set_visible(False)# cax = ax[3].inset_axes([1.04, 0.2, 0.05, 0.6], transform=ax[3].transAxes)
+    ax[4].plot(waves[val][0:181])
+    ax[4].plot(val510_waves[val][0:181])
+    ax[4].scatter(floquet, waves[val][floquet],color='green')
+
+    plt.title('MSE = ' + str(np.round(np.mean(np.square(peaks[val] - val510_peaks[val])),5)))
 
 
 
+plot_instance(487)
 
 
-np.mean(np.square(peaks[313] - val57_peaks[313]))
+
 
 fig, ax = plt.subplots(1,4,gridspec_kw={'width_ratios': [6, 1, 1, 1]})
 ax[0].plot(peaks[313])

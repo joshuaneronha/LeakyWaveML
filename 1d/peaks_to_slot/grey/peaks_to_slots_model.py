@@ -11,7 +11,7 @@ class LWAPredictionModel(tf.keras.Model):
 
         self.adam_optimizer = tf.keras.optimizers.Adam(learning_rate=lr)
         self.batch_size = 128
-        self.epochs = 40
+        self.epochs = 35
 
         self.dense_layers = tf.keras.Sequential()
         # self.dense_layers.add(Dense(1000, activation = 'relu'))
@@ -75,35 +75,37 @@ class LWAPredictionModel(tf.keras.Model):
         # print(prediction)
 
         mse =  tf.keras.losses.MeanSquaredError()
-        mse_prewitt =  tf.keras.losses.MeanSquaredError()
-        mse_laplacian =  tf.keras.losses.MeanSquaredError()
-        # bce_prewitt = tf.keras.losses.BinaryCrossentropy()
-        # bce_laplacian = tf.keras.losses.BinaryCrossentropy()
-        # bce_exp2 = tf.keras.losses.BinaryCrossentropy()
-
-        # pred_filters = tf.clip_by_values(prediction,0.125,1)
+        # mse_prewitt =  tf.keras.losses.MeanSquaredError()
+        # mse_laplacian =  tf.keras.losses.MeanSquaredError()
+        # # bce_prewitt = tf.keras.losses.BinaryCrossentropy()
+        # # bce_laplacian = tf.keras.losses.BinaryCrossentropy()
+        # # bce_exp2 = tf.keras.losses.BinaryCrossentropy()
         #
-        true_prewitt = tfio.experimental.filter.prewitt(tf.cast(tf.reshape(true, [-1,1,36,1]),tf.float32))
-        pred_prewitt = tfio.experimental.filter.prewitt(tf.cast(tf.reshape(prediction, [-1,1,36,1]),tf.float32))
-        # print(mse_prewitt(true_prewitt, pred_prewitt))
-        # # pred_prewitt = tfio.experimental.filter.prewitt(tf.round(tf.cast(tf.reshape(prediction, [-1,1,36,1]),tf.float32)))
+        # # pred_filters = tf.clip_by_values(prediction,0.125,1)
         # #
-
-        # print(true_prewitt)
-        # print(pred_prewitt)
-
-        true_laplacian = tfio.experimental.filter.laplacian(tf.cast(tf.reshape(true, [-1,1,36,1]),tf.float32), ksize = [1,3])
-        pred_laplacian = tfio.experimental.filter.laplacian(tf.cast(tf.reshape(prediction, [-1,1,36,1]),tf.float32), ksize = [1,3])
+        # true_prewitt = tfio.experimental.filter.prewitt(tf.cast(tf.reshape(true, [-1,1,36,1]),tf.float32))
+        # pred_prewitt = tfio.experimental.filter.prewitt(tf.cast(tf.reshape(prediction, [-1,1,36,1]),tf.float32))
+        # # print(mse_prewitt(true_prewitt, pred_prewitt))
+        # # # pred_prewitt = tfio.experimental.filter.prewitt(tf.round(tf.cast(tf.reshape(prediction, [-1,1,36,1]),tf.float32)))
+        # # #
+        #
+        # # print(true_prewitt)
+        # # print(pred_prewitt)
+        #
+        # true_laplacian = tfio.experimental.filter.laplacian(tf.cast(tf.reshape(true, [-1,1,36,1]),tf.float32), ksize = [1,3])
+        # pred_laplacian = tfio.experimental.filter.laplacian(tf.cast(tf.reshape(prediction, [-1,1,36,1]),tf.float32), ksize = [1,3])
         # pred_laplacian = tfio.experimental.filter.laplacian(tf.round(tf.cast(tf.reshape(prediction, [-1,1,36,1]),tf.float32)), ksize = [1,3])
 
         # tf_data.shape
         # plt.imshow(tf.reshape(tfio.experimental.filter.laplacian(tf.cast(tf_data,tf.float32), ksize=[1,3]),[36,1]),cmap='YlGnBu')
 
+
+
         # return bce(true,prediction) + 0.5*bce_exp(true_pooled, pred_pooled) + (0*bce_exp2(true_pooled_2, pred_pooled_2))
         # return 2*bce(true,prediction) + bce_prewitt(true_prewitt, pred_prewitt) + bce_laplacian(true_laplacian, pred_laplacian)
-        return 2*mse(true, prediction) + 1*mse_laplacian(true_laplacian, pred_laplacian) + 1*mse_prewitt(true_prewitt, pred_prewitt)
-        # return mse(true, prediction)
-        return mse_prewitt(true_prewitt, pred_prewitt)
+        # return 2*mse(true, prediction) + 1*mse_laplacian(true_laplacian, pred_laplacian) + 1*mse_prewitt(true_prewitt, pred_prewitt)
+        return mse(true, prediction)
+        # return mse_prewitt(true_prewitt, pred_prewitt)
 
     def accuracy(self, prediction, true):
         ba = tf.keras.metrics.BinaryAccuracy()
