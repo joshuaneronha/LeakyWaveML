@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=latex 2021.10.14)  12 MAY 2022 12:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=latex 2021.10.14)  16 MAY 2022 19:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -363,61 +363,67 @@ Underfull \hbox (badness 10000) in paragraph at lines 37--38
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 39--40
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--42
-
- []
-
 File: figures/fig5.eps Graphic file (type eps)
 <figures/fig5.eps>
 File: figures/fig4_labeled2.eps Graphic file (type eps)
  <figures/fig4_labeled2.eps> [2]
-Underfull \hbox (badness 10000) in paragraph at lines 59--60
+Underfull \hbox (badness 10000) in paragraph at lines 62--63
 
  []
 
-File: figures/fig5.eps Graphic file (type eps)
-<figures/fig5.eps>
-Overfull \hbox (19.87546pt too wide) in paragraph at lines 66--67
- [][] 
- []
 
-File: figures/fig2new.eps Graphic file (type eps)
-<figures/fig2new.eps>
-Overfull \hbox (2.43332pt too wide) in paragraph at lines 64--75
-[][] [] 
+Underfull \hbox (badness 10000) in paragraph at lines 64--65
+
  []
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 79--80
+File: figures/fig1.eps Graphic file (type eps)
+ <figures/fig1.eps>
+Underfull \hbox (badness 10000) in paragraph at lines 72--73
 
  []
 
-File: figures/fig1.eps Graphic file (type eps)
-<figures/fig1.eps> [4]
-File: figures/fig3_labeled.eps Graphic file (type eps)
- <figures/fig3_labeled.eps>
-File: figures/fig3b_labeled.eps Graphic file (type eps)
- <figures/fig3b_labeled.eps> [5]
-File: figures/fig2_labeled.eps Graphic file (type eps)
- <figures/fig2_labeled.eps>
+[4]
+File: figures/fig6a.eps Graphic file (type eps)
+ <figures/fig6a.eps>
+File: figures/fig7_left_477.eps Graphic file (type eps)
+ <figures/fig7_left_477.eps>
+File: figures/fig7_right_108.eps Graphic file (type eps)
+ <figures/fig7_right_108.eps>
+Underfull \hbox (badness 10000) in paragraph at lines 98--99
+
+ []
+
+[5]
 File: figures/exp-fig1.eps Graphic file (type eps)
- <figures/exp-fig1.eps> [6] (/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.bbl [7] [8]) [9] (/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.aux)
+ <figures/exp-fig1.eps>
+File: figures/fig8.eps Graphic file (type eps)
+ <figures/fig8.eps>
+Overfull \hbox (36.13498pt too wide) in paragraph at lines 112--113
+ [][] 
+ []
+
+[6]
+File: figures/histboxgrey.eps Graphic file (type eps)
+ <figures/histboxgrey.eps>
+Underfull \hbox (badness 10000) in paragraph at lines 127--128
+
+ []
+
+File: figures/grey_example_71.eps Graphic file (type eps)
+<figures/grey_example_71.eps>
+File: figures/grey_example_127.eps Graphic file (type eps)
+ <figures/grey_example_127.eps> [7] (/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.bbl [8] [9]) [10] (/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.aux)
 Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 9823 strings out of 478995
- 151348 string characters out of 5858209
- 469833 words of memory out of 5000000
- 27196 multiletter control sequences out of 15000+600000
+ 9833 strings out of 478995
+ 151607 string characters out of 5858209
+ 470835 words of memory out of 5000000
+ 27203 multiletter control sequences out of 15000+600000
  409537 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 76i,7n,80p,1558b,478s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 76i,7n,80p,1287b,438s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.dvi (9 pages, 43304 bytes).
+Output written on /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.dvi (10 pages, 50772 bytes).

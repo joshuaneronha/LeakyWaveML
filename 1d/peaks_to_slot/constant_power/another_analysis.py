@@ -5,7 +5,7 @@ import numpy as np
 sys.path.append('/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/1d/peaks_to_slot/constant_power')
 import pickle
 import tensorflow as tf
-
+plt.hist()
 mpl.rcParams['font.family'] = 'Arial'
 plt.rcParams['font.size'] = 12
 plt.rcParams['axes.linewidth'] = 2
@@ -44,6 +44,8 @@ with open('1d/peaks_to_slot/constant_power/results/test_data510.pkl','rb') as fi
     test_data = pickle.load(file)
     peaks, true, pred, waves = test_data
 
+true
+top_16(pred)
 # val_slots, val_peaks = import_val_data('1d/peaks_to_slot/constant_power/results/validation_old')
 
 val510_slots, val510_peaks, val510_waves = import_val_data('1d/peaks_to_slot/constant_power/results/validation510')
@@ -59,11 +61,11 @@ plt.plot(peaks[9])
 plt.plot(val59_peaks[9])
 plt.legend(['Reference','Binary','Conv'])
 
-# correct / (len(val_slots) * 36)
-# correct = 0
-# for i in np.arange(len(val_slots)):
-#     correct += (val_slots[i] == true[i]).sum()
-# val_slots
+correct / (len(val510_slots) * 36)
+correct = 0
+for i in np.arange(len(val510_slots)):
+    correct += (val510_slots[i] == true[i]).sum()
+
 
 mse_list_binary = []
 # mse_list_grey = []
@@ -94,31 +96,36 @@ for i in np.arange(500):
     else:
         bucket_4.append(i)
 
-old_bins = np.array([0.00086428, 0.00873865, 0.01661302, 0.02448739, 0.03236176,
-       0.04023613, 0.0481105 , 0.05598487, 0.06385924, 0.07173361,
-       0.07960798, 0.08748235, 0.09535672, 0.10323109, 0.11110546,
-       0.11897984, 0.12685421, 0.13472858, 0.14260295, 0.15047732,
-       0.15835169])
+# old_bins = np.array([0.00086428, 0.00873865, 0.01661302, 0.02448739, 0.03236176,
+#        0.04023613, 0.0481105 , 0.05598487, 0.06385924, 0.07173361,
+#        0.07960798, 0.08748235, 0.09535672, 0.10323109, 0.11110546,
+#        0.11897984, 0.12685421, 0.13472858, 0.14260295, 0.15047732,
+#        0.15835169])
 
-fig, axs = plt.subplots(1,2,tight_layout=True,figsize=(10,4))
+fig, axs = plt.subplots(1,1,tight_layout=True,figsize=(5.5,4))
 
-N, bins, patches = axs[0].hist(mse_list_binary,bins=old_bins,ec='black',color='#7fcdbb', label='_nolegend_')
-col_list = ['#7fcdbb','#7fcdbb','#1d91c0','#1d91c0','#225ea8','#225ea8','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84']
+N, bins, patches = axs.hist(mse_list_binary,bins=15,ec='black',color='#7fcdbb', label='_nolegend_')
+# col_list = ['#7fcdbb','#7fcdbb','#1d91c0','#1d91c0','#225ea8','#225ea8','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84']
+#
+for i,thispatch in enumerate(patches):
+    # thispatch.set_facecolor(col_list[i])
+    thispatch.set_alpha(0.75)
+
+axs.set_xlabel('Mean Square Error')
+axs.set_ylabel('Count')
+
+N, bins, patches = axs.hist(mse_list_control,bins=bins,ec='black',color='#1d91c0', label='_nolegend_')
+# col_list = ['#7fcdbb','#7fcdbb','#1d91c0','#1d91c0','#225ea8','#225ea8','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84']
 
 for i,thispatch in enumerate(patches):
-    thispatch.set_facecolor(col_list[i])
+    thispatch.set_alpha(0.5)
 
-axs[0].set_xlabel('Mean Square Error')
-axs[0].set_ylabel('Count')
+axs.legend(['Model','Random'])
 
-N, bins, patches = axs[1].hist(mse_list_control,bins=old_bins,ec='black',color='#7fcdbb', label='_nolegend_')
-col_list = ['#7fcdbb','#7fcdbb','#1d91c0','#1d91c0','#225ea8','#225ea8','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84']
+plt.savefig('paper/figures/binary_histogram.png')
 
-for i,thispatch in enumerate(patches):
-    thispatch.set_facecolor(col_list[i])
-
-axs[1].set_xlabel('Mean Square Error')
-axs[1].set_ylabel('Count')
+# axs[1].set_xlabel('Mean Square Error')
+# axs[1].set_ylabel('Count')
 
 bucket_1
 
@@ -199,43 +206,61 @@ def plot_instance(val):
     ax[3].axes.yaxis.set_visible(False)# cax = ax[3].inset_axes([1.04, 0.2, 0.05, 0.6], transform=ax[3].transAxes)
     ax[4].plot(waves[val][0:181])
     ax[4].plot(val510_waves[val][0:181])
-    ax[4].scatter(floquet, waves[val][floquet],color='green')
+    # ax[4].scatter(floquet, waves[val][floquet],color='green')
 
-    plt.title('MSE = ' + str(np.round(np.mean(np.square(peaks[val] - val510_peaks[val])),5)))
-
-
-
-plot_instance(487)
+    # plt.title('MSE = ' + str(np.round(np.mean(np.square(peaks[val] - val510_peaks[val])),5)))
 
 
+plt.scatter(np.arange(35),np.square(np.abs(peaks[477] - val510_peaks[477])))
 
+plot_instance(33)
 
-fig, ax = plt.subplots(1,4,gridspec_kw={'width_ratios': [6, 1, 1, 1]})
-ax[0].plot(peaks[313])
-ax[0].plot(val57_peaks[313])
-ax[0].set_xlabel('Peak Count')
-ax[0].set_ylabel('Amplitude')
-# ax[0].plot(val_peaks[0])
-ax[1].imshow(tf.expand_dims(true[313],1),cmap='YlGnBu')
-ax[1].axes.xaxis.set_visible(False)
-ax[1].axes.yaxis.set_visible(False)
-ax[2].imshow(tf.expand_dims(pred[313],1),cmap='YlGnBu')
-ax[2].axes.xaxis.set_visible(False)
-ax[2].axes.yaxis.set_visible(False)
-forcmap = ax[3].imshow(tf.expand_dims(top_16(pred[313]),1),cmap='YlGnBu')
-ax[3].axes.xaxis.set_visible(False)
-ax[3].axes.yaxis.set_visible(False)# cax = ax[3].inset_axes([1.04, 0.2, 0.05, 0.6], transform=ax[3].transAxes)
-# fig.colorbar(forcmap)
+plot_instance(477)
 
-fig.savefig('paper/figures/fig3b.eps')
+def plot_instance_beta(val):
 
-fig, axs = plt.subplots(1, 1, tight_layout=True)
-N, bins2, patches = plt.hist(mse_list_control,bins=bins,ec='black',color='#7fcdbb')
-fig.show()
+    fig, ax = plt.subplots(1,4,gridspec_kw={'width_ratios': [1, 1, 1, 10]},figsize=(8,4))
+    ax[0].imshow(tf.expand_dims(true[val],1),cmap='YlGnBu')
+    ax[0].axes.xaxis.set_visible(False)
+    ax[0].axes.yaxis.set_visible(False)
+    ax[1].imshow(tf.expand_dims(pred[val],1),cmap='YlGnBu')
+    ax[1].axes.xaxis.set_visible(False)
+    ax[1].axes.yaxis.set_visible(False)
+    forcmap = ax[2].imshow(tf.expand_dims(top_16(pred[val]),1),cmap='YlGnBu')
+    ax[2].axes.xaxis.set_visible(False)
+    ax[2].axes.yaxis.set_visible(False)# cax = ax[3].inset_axes([1.04, 0.2, 0.05, 0.6], transform=ax[3].transAxes)
+    ax[3].plot(waves[val][0:181])
+    ax[3].plot(val510_waves[val][0:181])
 
-col_list = ['#7fcdbb','#7fcdbb','#1d91c0','#1d91c0','#225ea8','#225ea8','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84']
+plot_instance_beta(477)
 
-for i,thispatch in enumerate(patches):
-    thispatch.set_facecolor(col_list[i])
 #
+# fig, ax = plt.subplots(1,4,gridspec_kw={'width_ratios': [6, 1, 1, 1]})
+# ax[0].plot(peaks[313])
+# ax[0].plot(val57_peaks[313])
+# ax[0].set_xlabel('Peak Count')
+# ax[0].set_ylabel('Amplitude')
+# # ax[0].plot(val_peaks[0])
+# ax[1].imshow(tf.expand_dims(true[313],1),cmap='YlGnBu')
+# ax[1].axes.xaxis.set_visible(False)
+# ax[1].axes.yaxis.set_visible(False)
+# ax[2].imshow(tf.expand_dims(pred[313],1),cmap='YlGnBu')
+# ax[2].axes.xaxis.set_visible(False)
+# ax[2].axes.yaxis.set_visible(False)
+# forcmap = ax[3].imshow(tf.expand_dims(top_16(pred[313]),1),cmap='YlGnBu')
+# ax[3].axes.xaxis.set_visible(False)
+# ax[3].axes.yaxis.set_visible(False)# cax = ax[3].inset_axes([1.04, 0.2, 0.05, 0.6], transform=ax[3].transAxes)
+# # fig.colorbar(forcmap)
 #
+# fig.savefig('paper/figures/fig3b.eps')
+#
+# fig, axs = plt.subplots(1, 1, tight_layout=True)
+# N, bins2, patches = plt.hist(mse_list_control,bins=bins,ec='black',color='#7fcdbb')
+# fig.show()
+#
+# col_list = ['#7fcdbb','#7fcdbb','#1d91c0','#1d91c0','#225ea8','#225ea8','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84','#0c2c84']
+#
+# for i,thispatch in enumerate(patches):
+#     thispatch.set_facecolor(col_list[i])
+# #
+# #
