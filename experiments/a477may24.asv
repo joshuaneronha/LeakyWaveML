@@ -33,7 +33,6 @@ end
 
 base = readmatrix('expected477_base.csv');
 pec_back = readmatrix('expected477_PEC_back.csv');
-pec_some = readmatrix('expected477_PEC_test.csv');
 
 % figure
 % % semilogy(7:151,abs(B(2112,1:end-7)) / max(abs(B(2112,1:end-7))))
@@ -107,16 +106,6 @@ period = 0.95e-3;
 % 
 %% plotting
 figure
-
-polarplot(deg2rad(4:151),mag2db(abs(B(2113,1:151-3)) / max(abs(B(2113,1:151-3)))),'Color','b','LineWidth',2)
-hold on
-% polarplot(deg2rad(1:151),mag2db(base(1:151,2) / max(base(1:151,2))),'Color','r','LineWidth',2)
-% polarplot(deg2rad(1:151),mag2db(pec_back(1:151,2) / max(pec_back(1:151,2))),'Color','g','LineWidth',2)
-polarplot(deg2rad(1:151),mag2db(pec_some(1:151,2) / max(pec_some(1:151,2))),'Color','black','LineWidth',2)
-
-legend('Experiment','Base Sim','PEC Back Sim','location','southwest')
-% polarplot(deg2rad(1:151),mag2db(pec_back(1:151,2) / max(pec_back(1:151,2))),'Color','g','LineWidth',2)
-
 % polarplot(deg2rad(15:151),mag2db(abs(B(2112,1:151-14)) / max(abs(B(2112,1:151-14)))),'Color','#0c2c84','LineWidth',2)
 % hold on
 % polarplot(deg2rad(1:151),mag2db(objective241(1:151,2) / max(objective241(1:151,2))),'Color','r','LineWidth',2)
@@ -137,7 +126,7 @@ pax.ThetaZeroLocation = 'right';
 rlim([-30 0])
 thetalim([0 180])
 thetaticks(0:30:180)
-% legend('Experimental','Objective','Simulation','location','southwest')
+legend('Experimental','Objective','Simulation','location','southwest')
 
 % 
 % figure
@@ -170,7 +159,7 @@ thetaticks(0:30:180)
 % end
 % 
 % polarplot(deg2rad(4:151),mag2db(abs(B(2112,1:end-4)) / max(abs(B(2112,1:end-4)))),'Color','red','LineWidth',2)
-% %%loc
-% [pks_manual,locs_manual] = findpeaks(mag2db(abs(B(2112,1:151-14)) / max(abs(B(2112,1:151-14)))),deg2rad(15:151),'SortStr','descend');
-% [pks_shift, locs_shift] = findpeaks(mag2db(abs(B(2112,1:151)) / max(abs(B(2112,1:151)))),real(solvedthetap(1:151)),'SortStr','descend');
-% [pks_obj, locs_obj] = findpeaks(mag2db(objective241(1:151,2) / max(objective241(1:151,2))),deg2rad(1:151),'SortStr','descend');
+%%loc
+[pks_manual,locs_manual] = findpeaks(mag2db(abs(B(2112,1:151-14)) / max(abs(B(2112,1:151-14)))),deg2rad(15:151),'SortStr','descend');
+[pks_shift, locs_shift] = findpeaks(mag2db(abs(B(2112,1:151)) / max(abs(B(2112,1:151)))),real(solvedthetap(1:151)),'SortStr','descend');
+[pks_obj, locs_obj] = findpeaks(mag2db(objective241(1:151,2) / max(objective241(1:151,2))),deg2rad(1:151),'SortStr','descend');
