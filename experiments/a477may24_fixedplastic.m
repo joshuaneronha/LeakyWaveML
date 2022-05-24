@@ -2,15 +2,9 @@
 clc
 close all
 
-<<<<<<< Updated upstream
-Files=dir('binarywaveguide477/');
-N = length(Files);
-[t,w]=textread(strcat('binarywaveguide477/',Files(3).name),'%f%f','headerlines',6);  % read first for size
-=======
 Files=dir('binarywaveguide477-furtherplastic/');
 N = length(Files);
 [t,w]=textread(strcat('binarywaveguide477-furtherplastic/',Files(3).name),'%f%f','headerlines',6);  % read first for size
->>>>>>> Stashed changes
 T=zeros(length(t),N-2); W=T; f=T; B=T;   % preallocate space for time,waveform vectors
 T(:,1)=t;
 W(:,1)=w;
@@ -24,11 +18,7 @@ f(:,1) = linspace(-fmax,fmax,size(W,1));
 for k = 3:N
     name = Files(k).name;
     x = split(name,'.');
-<<<<<<< Updated upstream
-    [T(:,str2double(x(1)) + 1),W(:,str2double(x(1)) + 1)]=textread(strcat('binarywaveguide477/',name),'%f%f','headerlines',6);
-=======
     [T(:,str2double(x(1)) + 1),W(:,str2double(x(1)) + 1)]=textread(strcat('binarywaveguide477-furtherplastic/',name),'%f%f','headerlines',6);
->>>>>>> Stashed changes
     
     B(:,str2double(x(1)) + 1) = fftshift(fft(W(:,str2double(x(1)) + 1)));
     t = T(:,str2double(x(1)) + 1);
@@ -41,9 +31,8 @@ end
 % nu_backfire = -1e-12*((sqrt(2)*sqrt((8*c^2*b^2*order^2)-(c^2.*period.^2.*cosd(2*theta_pm_back))+(c^2.*period.^2))./(b.*period))-((4*c*order.*cosd(theta_pm_back))./period))./(4*((cosd(theta_pm_back).^2)-1));
 % plot(theta_pm_back(:,1:1400),nu_backfire(:,1:1400),'linewidth',1.5,'color','white')
 
-base = readmatrix('expected477_base.csv');
-pec_back = readmatrix('expected477_PEC_back.csv');
-pec_some = readmatrix('expected477_PEC_test.csv');
+objective241 = readmatrix('objective477.csv');
+expected241 = readmatrix('expected477.csv');
 
 % figure
 % % semilogy(7:151,abs(B(2112,1:end-7)) / max(abs(B(2112,1:end-7))))
@@ -63,11 +52,7 @@ pec_some = readmatrix('expected477_PEC_test.csv');
 % %     xline(floquet(i))
 % % end
 % figure
-<<<<<<< Updated upstream
-% 
-=======
 
->>>>>>> Stashed changes
 % r = 0.12;
 % x = -0.042;
 % theta = linspace(0,150*(pi/180),151);
@@ -113,7 +98,7 @@ nu_pm = 1e-12*3e8*order_m./(2*b*sqrt(neff^2-cosd(theta_pm).^2));
 hold on 
 plot(theta_pm, nu_pm,'linewidth',2,'color','#F7A400')
 axis square
-% colormap(flipud(brewermap([],'GnBu')))
+colormap(flipud(brewermap([],'GnBu')))
 legend('Data','n=0')
 order=-1;
 c=3e8;
@@ -121,21 +106,6 @@ period = 0.95e-3;
 % 
 %% plotting
 figure
-<<<<<<< Updated upstream
-
-polarplot(deg2rad(4:151),mag2db(abs(B(2113,1:151-3)) / max(abs(B(2113,1:151-3)))),'Color','b','LineWidth',2)
-hold on
-% polarplot(deg2rad(1:151),mag2db(base(1:151,2) / max(base(1:151,2))),'Color','r','LineWidth',2)
-% polarplot(deg2rad(1:151),mag2db(pec_back(1:151,2) / max(pec_back(1:151,2))),'Color','g','LineWidth',2)
-polarplot(deg2rad(1:151),mag2db(pec_some(1:151,2) / max(pec_some(1:151,2))),'Color','black','LineWidth',2)
-
-legend('Experiment','Base Sim','PEC Back Sim','location','southwest')
-% polarplot(deg2rad(1:151),mag2db(pec_back(1:151,2) / max(pec_back(1:151,2))),'Color','g','LineWidth',2)
-
-% polarplot(deg2rad(15:151),mag2db(abs(B(2112,1:151-14)) / max(abs(B(2112,1:151-14)))),'Color','#0c2c84','LineWidth',2)
-% hold on
-% polarplot(deg2rad(1:151),mag2db(objective241(1:151,2) / max(objective241(1:151,2))),'Color','r','LineWidth',2)
-=======
 polarplot(deg2rad(4:151),mag2db(abs(B(2111,1:151-3)) / max(abs(B(2111,1:151-3)))),'Color','#0c2c84','LineWidth',2)
 hold on
 % polarplot(deg2rad(1:151),mag2db(objective241(1:151,2) / max(objective241(1:151,2))),'Color','r','LineWidth',2)
@@ -144,12 +114,7 @@ polarplot(deg2rad(1:151),mag2db(expected241(1:151,2) / max(expected241(1:151,2))
 % polarplot(deg2rad(4:151),mag2db(abs(B(2110,1:151-3)) / max(abs(B(2110,1:151-3)))),'Color','g','LineWidth',2)
 % polarplot(solvedthetap(1:151),mag2db(abs(B(2112,1:151)) / max(abs(B(2112,1:151)))),'Color','g','LineWidth',2)
 % polarplot(deg2rad(1:151),mag2db(abs(B(2112,1:151)) / max(abs(B(2112,1:151)))),'Color','g','LineWidth',2)
->>>>>>> Stashed changes
 % 
-% % polarplot(deg2rad(1:151),mag2db(expected241(1:151,2) / max(expected241(1:151,2))),'Color','r','LineWidth',2)
-% polarplot(solvedthetap(1:151),mag2db(abs(B(2112,1:151)) / max(abs(B(2112,1:151)))),'Color','g','LineWidth',2)
-% % polarplot(deg2rad(1:151),mag2db(abs(B(2112,1:151)) / max(abs(B(2112,1:151)))),'Color','g','LineWidth',2)
-% % 
 % polarplot(deg2rad(15:151),mag2db(abs(B(2111,1:151-14)) / max(abs(B(2111,1:151-14)))),'Color','r','LineWidth',2)
 % 
 hold on
@@ -162,7 +127,7 @@ pax.ThetaZeroLocation = 'right';
 rlim([-30 0])
 thetalim([0 180])
 thetaticks(0:30:180)
-% legend('Experimental','Objective','Simulation','location','southwest')
+legend('Experimental','Objective','Simulation','location','southwest')
 
 % 
 % figure
