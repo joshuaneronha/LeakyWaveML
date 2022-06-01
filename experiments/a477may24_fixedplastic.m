@@ -32,7 +32,8 @@ end
 % plot(theta_pm_back(:,1:1400),nu_backfire(:,1:1400),'linewidth',1.5,'color','white')
 
 objective241 = readmatrix('objective477.csv');
-expected241 = readmatrix('expected477.csv');
+expected241 = readmatrix('expected477_base.csv');
+random = readmatrix('expected241.csv');
 
 % figure
 % % semilogy(7:151,abs(B(2112,1:end-7)) / max(abs(B(2112,1:end-7))))
@@ -111,6 +112,8 @@ hold on
 % polarplot(deg2rad(1:151),mag2db(objective241(1:151,2) / max(objective241(1:151,2))),'Color','r','LineWidth',2)
 
 polarplot(deg2rad(1:151),mag2db(expected241(1:151,2) / max(expected241(1:151,2))),'Color','r','LineWidth',2)
+polarplot(deg2rad(1:151),mag2db(random(1:151,2) / max(random(1:151,2))),'Color','g','LineWidth',2)
+% polarplot(deg2rad(1:151),mag2db(objective241(1:151,2) / max(objective241(1:151,2))),'Color','g','LineWidth',2)
 % polarplot(deg2rad(4:151),mag2db(abs(B(2110,1:151-3)) / max(abs(B(2110,1:151-3)))),'Color','g','LineWidth',2)
 % polarplot(solvedthetap(1:151),mag2db(abs(B(2112,1:151)) / max(abs(B(2112,1:151)))),'Color','g','LineWidth',2)
 % polarplot(deg2rad(1:151),mag2db(abs(B(2112,1:151)) / max(abs(B(2112,1:151)))),'Color','g','LineWidth',2)
@@ -127,7 +130,7 @@ pax.ThetaZeroLocation = 'right';
 rlim([-30 0])
 thetalim([0 180])
 thetaticks(0:30:180)
-legend('Experimental','Objective','Simulation','location','southwest')
+legend('Experimental','Simulation','location','southwest')
 
 % 
 % figure
