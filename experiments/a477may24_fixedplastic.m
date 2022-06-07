@@ -112,7 +112,7 @@ hold on
 % polarplot(deg2rad(1:151),mag2db(objective241(1:151,2) / max(objective241(1:151,2))),'Color','r','LineWidth',2)
 
 polarplot(deg2rad(1:151),mag2db(expected241(1:151,2) / max(expected241(1:151,2))),'Color','r','LineWidth',2)
-polarplot(deg2rad(1:151),mag2db(random(1:151,2) / max(random(1:151,2))),'Color','g','LineWidth',2)
+% polarplot(deg2rad(1:151),mag2db(random(1:151,2) / max(random(1:151,2))),'Color','g','LineWidth',2)
 % polarplot(deg2rad(1:151),mag2db(objective241(1:151,2) / max(objective241(1:151,2))),'Color','g','LineWidth',2)
 % polarplot(deg2rad(4:151),mag2db(abs(B(2110,1:151-3)) / max(abs(B(2110,1:151-3)))),'Color','g','LineWidth',2)
 % polarplot(solvedthetap(1:151),mag2db(abs(B(2112,1:151)) / max(abs(B(2112,1:151)))),'Color','g','LineWidth',2)
@@ -131,7 +131,7 @@ rlim([-30 0])
 thetalim([0 180])
 thetaticks(0:30:180)
 legend('Experimental','Simulation','location','southwest')
-
+set(gcf,'color','w');
 % 
 % figure
 
