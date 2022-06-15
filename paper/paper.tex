@@ -47,14 +47,14 @@ We train a model to predict the slot geometry of the LWA for a desired far-field
 
 \begin{figure}
 		\centering
-		\includegraphics[width = 6in]{figures/fig5.eps}
+		\includegraphics[width = 6in]{figures/fig5pdf}
 		\caption{The leaky wave antenna geometry. The left panel shows the binary case, where dark-colored sub-slots represent transparent areas while light colors indicate metallic boundaries. In the right panel, the boundary conditions are no longer discretized and can take on some intermediate value of transparency, as seen by the sub-slots with colors between light and dark.}
 \end{figure}
 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=6in]{figures/fig4_labeled2.eps}
+	\includegraphics[width=6in]{figures/fig4_labeled2pdf}
 	\caption{The left panel shows the possible Floquet modes from any linear combination of modes predicted by Equation 1; as expected, the positive modes occur in forward scattering (< 90$\deg$) and the negative modes in back-scattering. The right panel shows these predicted Floquet modes overlaid on a sample peak profile generated in COMSOL.}
 \end{figure}
 
@@ -65,7 +65,7 @@ We train a model to predict the slot geometry of the LWA for a desired far-field
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=6in]{figures/fig1.eps}
+	\includegraphics[width=6in]{figures/fig1pdf}
 	\caption{Neural network architecture schematic; peaks are used as the input data and passed through six hidden layers to predict the ideal slot design that will yield the closest possible signal.}
 \end{figure}
 
@@ -81,7 +81,7 @@ For some given peak geometry, the model returns each individual sub-slot's proba
 \noindent However, what determines the usefulness of our model is not the similarity of the slot but the similarity of the signal it generates to the objective. In order to consider the accuracy and usefulness of our model, we extract the predicted slot geometries, choose the top 16 slots based on the probabilities, and pass 500 of these new generated slots into our COMSOL model in order to compare the signal from the ML-generated slot to the originally desired peak profile. We then compare the peak profiles to the objective signal and calculate using the mean square error (MSE), as shown in the left panel of Figure 4 below; the shape of the distribution matches that of similar work \cite{Nadell:19} and is significantly better than the control, indicating significant predictive value. The right panel of Figure 4 shows the wide range of far-field magnitudes at different peaks.
 
 \begin{figure}[H]
-	\includegraphics[width=6.5in]{figures/fig6a.eps}
+	\includegraphics[width=6.5in]{figures/fig6apdf}
 		\caption{The left panel shows the mean square error histogram and verifies the model's predictive value while the right panel shows the wide array of possible values at each peak.}
 \end{figure}
 
@@ -90,8 +90,7 @@ For some given peak geometry, the model returns each individual sub-slot's proba
 
 \begin{figure}[H]
 	\centering
-	\subfloat{{\includegraphics[height=2.1in]{figures/fig7_left_477.eps}}}
-	\subfloat{{\includegraphics[height=2.1in]{figures/fig7_right_108.eps}}}
+	\includegraphics[height=2.1in]{figures/fig7pdf}
 	\caption{Model predictions for two different peak profiles. The left-most slot design is the randomly generated slot used to generate this profile, the center plot shows the sigmoid probabilities of a transparent sub-slot, and the right-most plot shows the top 16 sub-slots from the probabilities. The MSEs of the left and right predictions are 0.0155 and 0.0250, respectively.}
 \end{figure}
 
@@ -101,7 +100,7 @@ For some given peak geometry, the model returns each individual sub-slot's proba
 
 \begin{figure}[H]
 	\centering
-	\includegraphics{figures/exp-fig1.eps}
+	\includegraphics{figures/exp-fig1pdf}
 	\caption{Experimental time-domain spectroscopy (TDS) measurements for two different slot designs, the left with only one periodicity and the right with a linear combination of periodicities.}
 \end{figure}
 
@@ -109,7 +108,7 @@ For some given peak geometry, the model returns each individual sub-slot's proba
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[height=2in]{figures/477exp.eps}
+	\includegraphics[height=2in]{figures/477exppdf}
 	\caption{Polar plots of experimental versus simulation data for both the objective and predicted slot; overall, the plots indicate excellent agreement, particularly at the peaks of highest magnitude.}
 \end{figure}
 
@@ -120,7 +119,7 @@ For some given peak geometry, the model returns each individual sub-slot's proba
 \noindent This second scheme significantly expands the scope of the problem because each sub-slot can take one of five values instead of just two: fully metallic, 25\% transparent, 50\% transparent, 75\% transparent, and 100\% transparent. We again generate approximately 20,000 samples using numerical simulation where each sub-slot can take on these values using a transition boundary layer. This significantly increases the number of degrees of freedom within the model, as we see in the right panel of Figure 8 below; the range of values at each peak is broader than is seen than in Figure 4.
 
 \begin{figure}[H]
-	\includegraphics[width=6.5in]{figures/histboxgrey.eps}
+	\includegraphics[width=6.5in]{figures/histboxgreypdf}
 		\caption{The left panel shows the mean square error histogram and verifies the model's predictive value while the right panel shows the wide array of possible values at each peak.}
 \end{figure}
 
@@ -129,12 +128,12 @@ For some given peak geometry, the model returns each individual sub-slot's proba
 
 \noindent Like before in Figure 5, we can plot some of the model-generated slots and the resulting far-field patterns in order to get an idea of what sort of slots the model is producing, which we plot in Figure 9 below. Overall, we see close agreement between the objective and ML-predicted slots, particularly at the largest peaks and the overall profile of the wave.
 
-\begin{figure}[H]
-	\centering
-	\subfloat{{\includegraphics[height=2.1in]{figures/grey_example_71.eps}}}
-	\subfloat{{\includegraphics[height=2.1in]{figures/grey_example_127.eps}}}
-	\caption{Model predictions for two different peak profiles using the greyscale scheme. The left slot design is the randomly generated greyscale slot used to generate the objective, the center plot shows the ideal transparency of each sub-slot, and the right plot shows those rounded into the buckets used in the simulation. The MSEs of the left and right predictions are 0.0127 and 0.0113.}
-\end{figure}
+%\begin{figure}[H]
+%	\centering
+%	\subfloat{{\includegraphics[height=2.1in]{figures/grey_example_71.eps}}}
+%	\subfloat{{\includegraphics[height=2.1in]{figures/grey_example_127.eps}}}
+%	\caption{Model predictions for two different peak profiles using the greyscale scheme. The left slot design is the randomly generated greyscale slot used to generate the objective, the center plot shows the ideal transparency of each sub-slot, and the right plot shows those rounded into the buckets used in the simulation. The MSEs of the left and right predictions are 0.0127 and 0.0113.}
+%\end{figure}
 
 \noindent As before, we are interested in comparing the results of our model and numerical simulations to experimental data. However, this is slightly more complicated experimental method -- we need to actually experimentally generate semi-transparent slots. We do this by using the aforementioned hot-stamping technique but instead of using black ink for metallic slots and the absence of ink for transparent slots, we calibrate our TDS system using ``grey'' slots, the idea being that changing the ink color within the greyscale spectrum will directly correlate with the amount of metal deposited on the surface of the antenna. We first calibrate shades of grey with transmission values, then using the shades of grey that conform to 25\%, 50\%, and 75\% transparency, we produce our LWAs using the exact same methodology as in the binary case.
 

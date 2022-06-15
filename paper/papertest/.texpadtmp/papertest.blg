@@ -1,0 +1,77 @@
+This is BibTeX, Version 0.99d (TeX Live 2021)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/papertest/.texpadtmp/papertest.aux
+The style file: ieeetr.bst
+Illegal, another \bibstyle command---line 19 of file /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/papertest/.texpadtmp/papertest.aux
+ : \bibstyle
+ :          {ieeetr}
+I'm skipping whatever remains of this command
+Illegal, another \bibstyle command---line 47 of file /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/papertest/.texpadtmp/papertest.aux
+ : \bibstyle
+ :          {plain}
+I'm skipping whatever remains of this command
+Database file #1: ../references.bib
+Warning--I didn't find a database entry for "McCulloch:1943vq"
+Warning--I didn't find a database entry for "Kim"
+Warning--I didn't find a database entry for "Massa"
+Warning--I didn't find a database entry for "9395365"
+Warning--I didn't find a database entry for "8608745"
+Warning--I didn't find a database entry for "Nadell:19"
+Warning--I didn't find a database entry for "Sun:18"
+Warning--I didn't find a database entry for "8322184"
+Warning--I didn't find a database entry for "DBLP:journals/corr/OSheaEC17"
+Warning--I didn't find a database entry for "6556051"
+Warning--I didn't find a database entry for "doi:10.1063/1.5014037"
+Warning--I didn't find a database entry for "Ghasempour:2020tz"
+Warning--I didn't find a database entry for "doi:10.1063/5.0033126"
+Warning--I didn't find a database entry for "Karl:2015uh"
+Warning--I didn't find a database entry for "Ma:2017vo"
+Warning--I didn't find a database entry for "Amarasinghe:20"
+Warning--I didn't find a database entry for "Amarasinghe:21"
+Warning--I didn't find a database entry for "Guerboukha:21"
+Warning--I didn't find a database entry for "Deng:21"
+Warning--I didn't find a database entry for "9602997"
+Warning--I didn't find a database entry for "Jafar-Zanjani:2018vy"
+Warning--I didn't find a database entry for "Liu:2022tg"
+You've used 0 entries,
+            1876 wiz_defined-function locations,
+            514 strings with 4096 characters,
+and the built_in function-call counts, 20 in all, are:
+= -- 0
+> -- 0
+< -- 0
++ -- 0
+- -- 0
+* -- 2
+:= -- 9
+add.period$ -- 0
+call.type$ -- 0
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 0
+duplicate$ -- 0
+empty$ -- 1
+format.name$ -- 0
+if$ -- 1
+int.to.chr$ -- 0
+int.to.str$ -- 0
+missing$ -- 0
+newline$ -- 3
+num.names$ -- 0
+pop$ -- 0
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 1
+stack$ -- 0
+substring$ -- 0
+swap$ -- 0
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 0
+width$ -- 0
+write$ -- 2
+(There were 2 error messages)
