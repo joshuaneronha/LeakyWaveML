@@ -162,11 +162,14 @@ def plot_instance_beta(val):
     ax[3].plot(waves[val][0:181],color='#0c2c84')
     ax[3].plot(grey_wves[val][0:181],color='#7fcdbb')
 
-    print('MSE = ' + str(losses.mse(peaks[val], grey_peaks[val])),5)
-bucket_1
+    print('MSE = ' + str(losses.mse(waves[val][0:181], grey_wves[val][0:181])),5)
+bucket_4
 np.mean(np.square(peaks[127] - grey_peaks[127]))
 mse_list_grey[127]
-plot_instance_beta(71)
+plot_instance_beta(488)
+
+np.savetxt('experiments/expected488grey.csv',grey_wves[488])
+
 plt.savefig('paper/figures/grey71.eps')
 
 bucket_3
