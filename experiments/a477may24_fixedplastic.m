@@ -33,7 +33,8 @@ end
 
 objective241 = readmatrix('objective477.csv');
 expected241 = readmatrix('expected477_base.csv');
-random = readmatrix('expected241.csv');
+% grey477 = readmatrix('477grey.csv');
+% random = readmatrix('expected241.csv');
 
 % figure
 % % semilogy(7:151,abs(B(2112,1:end-7)) / max(abs(B(2112,1:end-7))))
@@ -97,9 +98,9 @@ b = 1e-3; % slit height
 neff = 1; % effective refractive index between the plates
 nu_pm = 1e-12*3e8*order_m./(2*b*sqrt(neff^2-cosd(theta_pm).^2));
 hold on 
-plot(theta_pm, nu_pm,'linewidth',2,'color','#F7A400')
+plot(theta_pm, nu_pm,'linewidth',2,'color','red')
 axis square
-colormap(flipud(brewermap([],'GnBu')))
+% colormap(flipud(brewermap([],'GnBu')))
 legend('Data','n=0')
 order=-1;
 c=3e8;
@@ -107,13 +108,14 @@ period = 0.95e-3;
 % 
 %% plotting
 figure
-polarplot(deg2rad(4:151),mag2db(abs(B(2111,1:151-3)) / max(abs(B(2111,1:151-3)))),'Color','#0c2c84','LineWidth',2)
+polarplot(deg2rad(4:151),mag2db(abs(B(2111,1:151-3)) / max(abs(B(2111,1:151-3)))),'Color','#f7a400','LineWidth',2)
 hold on
 % polarplot(deg2rad(1:151),mag2db(objective241(1:151,2) / max(objective241(1:151,2))),'Color','r','LineWidth',2)
+% polarplot(deg2rad(1:151),mag2db(grey477(1:151,2) / max(grey477(1:151,2))),'Color','#0c2c84','LineWidth',2)
 
-polarplot(deg2rad(1:151),mag2db(expected241(1:151,2) / max(expected241(1:151,2))),'Color','r','LineWidth',2)
+polarplot(deg2rad(1:151),mag2db(expected241(1:151,2) / max(expected241(1:151,2))),'Color','#1d91c0','LineWidth',2)
 % polarplot(deg2rad(1:151),mag2db(random(1:151,2) / max(random(1:151,2))),'Color','g','LineWidth',2)
-% polarplot(deg2rad(1:151),mag2db(objective241(1:151,2) / max(objective241(1:151,2))),'Color','g','LineWidth',2)
+polarplot(deg2rad(1:151),mag2db(objective241(1:151,2) / max(objective241(1:151,2))),'Color','#0c2c84','LineWidth',2)
 % polarplot(deg2rad(4:151),mag2db(abs(B(2110,1:151-3)) / max(abs(B(2110,1:151-3)))),'Color','g','LineWidth',2)
 % polarplot(solvedthetap(1:151),mag2db(abs(B(2112,1:151)) / max(abs(B(2112,1:151)))),'Color','g','LineWidth',2)
 % polarplot(deg2rad(1:151),mag2db(abs(B(2112,1:151)) / max(abs(B(2112,1:151)))),'Color','g','LineWidth',2)
@@ -130,7 +132,7 @@ pax.ThetaZeroLocation = 'right';
 rlim([-30 0])
 thetalim([0 180])
 thetaticks(0:30:180)
-legend('Experimental','Simulation','location','southwest')
+legend('Experimental','Expected','Objective','location','southwest')
 set(gcf,'color','w');
 % 
 % figure

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=latex 2021.10.14)  16 MAY 2022 19:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=latex 2021.10.14)  15 JUN 2022 11:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -363,10 +363,35 @@ Underfull \hbox (badness 10000) in paragraph at lines 37--38
 
  []
 
-File: figures/fig5.eps Graphic file (type eps)
-<figures/fig5.eps>
-File: figures/fig4_labeled2.eps Graphic file (type eps)
- <figures/fig4_labeled2.eps> [2]
+
+./paper.tex:50: LaTeX Error: File `figures/fig5pdf' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.50 ...ludegraphics[width = 6in]{figures/fig5pdf}
+                                                  
+I could not locate the file with any of these extensions:
+.eps,.ps,.eps.gz,.ps.gz,.eps.Z,.mps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+./paper.tex:57: LaTeX Error: File `figures/fig4_labeled2pdf' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.57 ...phics[width=6in]{figures/fig4_labeled2pdf}
+                                                  
+I could not locate the file with any of these extensions:
+.eps,.ps,.eps.gz,.ps.gz,.eps.Z,.mps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[2]
 Underfull \hbox (badness 10000) in paragraph at lines 62--63
 
  []
@@ -376,54 +401,147 @@ Underfull \hbox (badness 10000) in paragraph at lines 64--65
 
  []
 
-[3]
-File: figures/fig1.eps Graphic file (type eps)
- <figures/fig1.eps>
+
+./paper.tex:68: LaTeX Error: File `figures/fig1pdf' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.68 	\includegraphics[width=6in]{figures/fig1pdf}
+                                                  
+I could not locate the file with any of these extensions:
+.eps,.ps,.eps.gz,.ps.gz,.eps.Z,.mps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 72--73
 
  []
 
-[4]
-File: figures/fig6a.eps Graphic file (type eps)
- <figures/fig6a.eps>
-File: figures/fig7_left_477.eps Graphic file (type eps)
- <figures/fig7_left_477.eps>
-File: figures/fig7_right_108.eps Graphic file (type eps)
- <figures/fig7_right_108.eps>
+[3]
+
+./paper.tex:84: LaTeX Error: File `figures/fig6apdf' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.84 ...udegraphics[width=6.5in]{figures/fig6apdf}
+                                                  
+I could not locate the file with any of these extensions:
+.eps,.ps,.eps.gz,.ps.gz,.eps.Z,.mps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+./paper.tex:93: LaTeX Error: File `figures/fig7_left_477pdf' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.93 ...[height=2.1in]{figures/fig7_left_477pdf}}}
+                                                  
+I could not locate the file with any of these extensions:
+.eps,.ps,.eps.gz,.ps.gz,.eps.Z,.mps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+./paper.tex:94: LaTeX Error: File `figures/fig7_right_108pdf' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.94 ...height=2.1in]{figures/fig7_right_108pdf}}}
+                                                  
+I could not locate the file with any of these extensions:
+.eps,.ps,.eps.gz,.ps.gz,.eps.Z,.mps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 98--99
 
  []
 
-[5]
-File: figures/exp-fig1.eps Graphic file (type eps)
- <figures/exp-fig1.eps>
-File: figures/fig8.eps Graphic file (type eps)
- <figures/fig8.eps>
-Overfull \hbox (36.13498pt too wide) in paragraph at lines 112--113
- [][] 
- []
 
-[6]
-File: figures/histboxgrey.eps Graphic file (type eps)
- <figures/histboxgrey.eps>
+./paper.tex:104: LaTeX Error: File `figures/exp-fig1pdf' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.104 	\includegraphics{figures/exp-fig1pdf}
+                                            
+I could not locate the file with any of these extensions:
+.eps,.ps,.eps.gz,.ps.gz,.eps.Z,.mps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[4]
+
+LaTeX Warning: File `figures/477exppdf.eps' not found on input line 112.
+
+
+./paper.tex:112: LaTeX Error: File `figures/477exppdf.eps' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.112 ...aphics[height=2in]{figures/477exppdf.eps}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+./paper.tex:112: LaTeX Error: Cannot determine size of graphic in figures/477exppdf.eps (no BoundingBox).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.112 ...aphics[height=2in]{figures/477exppdf.eps}
+                                                  
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+File: figures/477exppdf.eps Graphic file (type eps)
+<figures/477exppdf.eps>
+
+./paper.tex:123: LaTeX Error: File `figures/histboxgreypdf' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.123 ...hics[width=6.5in]{figures/histboxgreypdf}
+                                                  
+I could not locate the file with any of these extensions:
+.eps,.ps,.eps.gz,.ps.gz,.eps.Z,.mps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
 Underfull \hbox (badness 10000) in paragraph at lines 127--128
 
  []
 
-File: figures/grey_example_71.eps Graphic file (type eps)
-<figures/grey_example_71.eps>
-File: figures/grey_example_127.eps Graphic file (type eps)
- <figures/grey_example_127.eps> [7] (/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.bbl [8] [9]) [10] (/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.aux)
+[5] (/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.bbl [6] [7]) [8] (/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.aux)
 Package rerunfilecheck Info: File `paper.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 9833 strings out of 478995
- 151607 string characters out of 5858209
- 470835 words of memory out of 5000000
- 27203 multiletter control sequences out of 15000+600000
+ 9885 strings out of 478995
+ 152569 string characters out of 5858209
+ 470833 words of memory out of 5000000
+ 27234 multiletter control sequences out of 15000+600000
  409537 words of font info for 48 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  76i,7n,80p,1287b,438s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.dvi (10 pages, 50772 bytes).
+Output written on /Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/paper/.texpadtmp/paper.dvi (8 pages, 48360 bytes).

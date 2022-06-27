@@ -86,18 +86,50 @@ for i in np.arange(len(Lambda)):
         if (neff[i,j] > -1) & (neff[i,j] < 1):
             neff_works[k,:] = [neff[i,j], np.degrees(np.arccos(neff[i,j])), Lambda[i], p[j]];
             k=k+1;
-k
+
 np.round(np.unique(neff_works[0:60,1]))
 
-neff_works[:59,3].min()
+neff_works[59,3]
 
 fig, axs = plt.subplots(1,2,tight_layout=True,figsize=(8,3.5))
-axy = axs[0].scatter(np.arange(229),neff_works[:229,1], c = neff_works[:229,3], cmap = 'GnBu', edgecolors = 'black')
+axy = axs[0].scatter(np.arange(59),neff_works[:59,1], c = neff_works[:59,3], cmap = 'GnBu', edgecolors = 'black')
 axs[0].set_xlabel('Peak Count')
 axs[0].set_ylabel('Angle')
 plt.colorbar(axy)
 axy.set_clim([-8,2])
 axs[0].set_ylim([0, 180])
+
+
+np.round(neff_works[:59,3])
+
+np.concatenate([neff_works[:59,3],neff_works[:59,1]],axis=1)
+
+plt.imshow()
+
+plt.scatter(neff_works[:59,1],neff_works[:59,3],c='#ffffd9',s=200,marker='s')
+
+plt.scatter(neff_works[:59,1],neff_works[:59,3],c='#ffffd9',s=200,marker='s')
+ax = plt.axes()
+ax.set_facecolor("#0c2c84")
+
+base_array = np.zeros((151,11))
+
+for i in np.arange(155):
+    for j in np.arange(-9,4):
+        for check in np.arange(60):
+            if (i == np.round(neff_works[check,1])) and (j == neff_works[check,3]):
+                base_array[i,j] = 1
+            else:
+                pass
+
+plt.pcolor(base_array.T,cmap='YlGnBu')
+
+base_array.sum()
+base_array[i,j] = 1
+plt.pcolor(np.arange(151),np.arange(-8,2),(neff_works[:59,3],neff_works[:59,1]))
+ax = plt.axes()
+ax.set_facecolor("orange")
+
 plot_profiles(0,1)
 axs[1].set_xlabel('Angle')
 axs[1].set_ylabel('Amplitude (dB)')

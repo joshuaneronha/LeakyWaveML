@@ -2,9 +2,9 @@ clear all
 clc
 close all
 
-Files=dir('newbaseperiodic');
+Files=dir('newbaseperiodic/');
 N = length(Files);
-[t,w]=textread(strcat('newbaseperiodic/',Files(3).name),'%f%f','headerlines',6);  % read first for size
+[t,w]=textread(strcat('newbaseperiodic/',Files(4).name),'%f%f','headerlines',6);  % read first for size
 T=zeros(length(t),N-2); W=T; f=T; B=T;   % preallocate space for time,waveform vectors
 T(:,1)=t;
 W(:,1)=w;
@@ -14,7 +14,7 @@ t = T(:,1);
 fmax = 0.5/(t(2)-t(1));
 f(:,1) = linspace(-fmax,fmax,size(W,1));
 
-for k = 3:N
+for k = 4:N
     name = Files(k).name;
     x = split(name,'.');
     [T(:,str2double(x(1)) + 1),W(:,str2double(x(1)) + 1)]=textread(strcat('newbaseperiodic/',name),'%f%f','headerlines',6);
@@ -34,9 +34,9 @@ b = 1e-3; % slit height
 neff = 1; % effective refractive index between the plates
 nu_pm = 1e-12*3e8*order_m./(2*b*sqrt(neff^2-cosd(theta_pm).^2));
 hold on 
-plot(theta_pm, nu_pm,'linewidth',3,'color','#f7a400')
+plot(theta_pm, nu_pm,'linewidth',3,'color','red')
 axis square
-colormap(flipud(brewermap([],'GnBu')))
+% colormap(flipud(brewermap([],'GnBu')))
 
 order=-1;
 c=3e8;

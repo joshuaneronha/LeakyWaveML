@@ -8,3 +8,4 @@ run.py
 1d/peaks_to_slot/results/model/variables/variables.data-00000-of-00001
 1d/peaks_to_slot/results/model/saved_model.pb
 1d/peaks_to_slot/results/model/keras_metadata.pb
+paper/figures/setup.eps
