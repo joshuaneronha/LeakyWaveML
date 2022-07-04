@@ -110,9 +110,10 @@ period = 0.95e-3;
 figure
 polarplot(deg2rad(1:151),mag2db(abs(B(2112,1:151)) / max(abs(B(2112,1:151)))),'Color','#f7a400','LineWidth',2)
 hold on
-% polarplot(deg2rad(1:151),mag2db(objective241(1:151,2) / max(objective241(1:151,2))),'Color','r','LineWidth',2)
-
 polarplot(deg2rad(1:151),mag2db(expected241(1:151,2) / max(expected241(1:151,2))),'Color','#1d91c0','LineWidth',2)
+polarplot(deg2rad(1:151),mag2db(objective241(1:151,2) / max(objective241(1:151,2))),'Color','#0c2c84','LineWidth',2)
+
+
 % polarplot(deg2rad(1:151),mag2db(expected241cont(1:151,2) / max(expected241cont(1:151,2))),'Color','g','LineWidth',2)
 % polarplot(deg2rad(1:151),mag2db(random(1:151,1) / max(random(1:151,1))),'Color','g','LineWidth',2)
 % polarplot(deg2rad(1:151),mag2db(objective241(1:151,2) / max(objective241(1:151,2))),'Color','g','LineWidth',2)
@@ -132,7 +133,7 @@ pax.ThetaZeroLocation = 'right';
 rlim([-30 0])
 thetalim([0 180])
 thetaticks(0:30:180)
-legend('Experimental','Simulation','Random','location','southwest')
+legend('Experimental','Expected','Objective','location','southwest')
 set(gcf,'color','w');
 % 
 % figure

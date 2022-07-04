@@ -5,7 +5,8 @@ import numpy as np
 sys.path.append('/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/1d/peaks_to_slot/constant_power')
 import pickle
 import tensorflow as tf
-plt.hist()
+from statsmodels.stats.weightstats import ztest
+stats
 mpl.rcParams['font.family'] = 'Arial'
 plt.rcParams['font.size'] = 12
 plt.rcParams['axes.linewidth'] = 2
@@ -35,12 +36,7 @@ plt.xlabel('Peak Count')
 plt.ylabel('Amplitude (normalized)')
 plt.ylim([-0.4,1])
 
-cmap = mpl.cm.get_cmap('GnBu')
-
-for index, patch in enumerate(boxplot['boxes']):
-    patch.set_facecolor(cmap(index / 36))
-
-plt.savefig('paper/figures/boxbinary.eps')
+plt.savefig('paper/figures/boxbinarymono.svg')
 
 ###
 
@@ -70,6 +66,7 @@ correct = 0
 for i in np.arange(len(val510_slots)):
     correct += (val510_slots[i] == true[i]).sum()
 
+val510_slots
 
 mse_list_binary = []
 # mse_list_grey = []
@@ -106,6 +103,17 @@ for i in np.arange(500):
 #        0.07960798, 0.08748235, 0.09535672, 0.10323109, 0.11110546,
 #        0.11897984, 0.12685421, 0.13472858, 0.14260295, 0.15047732,
 #        0.15835169])
+
+ztest(mse_list_binary, mse_list_control,value=0,alternative='two-sided')
+np.mean(mse_list_binary)
+np.mean(mse_list_control)
+ pred = np.array(pred)
+for i in np.arange(len(pred)):
+    pred[i,:] = top_16(pred[i,:])
+
+ba = tf.keras.metrics.BinaryAccuracy()
+ba(true,pred)
+
 bins
 bucket_2
 tf.stack(mse_list_binary).numpy()
@@ -130,7 +138,7 @@ for i,thispatch in enumerate(patches):
 axs.legend(['Model','Random'])
 # plt.ylim([0, 115])
 
-plt.savefig('paper/figures/binary_histogram.svg')
+plt.savefig('paper/figures/binary_histogramnew.svg')
 bins
 # axs[1].set_xlabel('Mean Square Error')
 # axs[1].set_ylabel('Count')
@@ -138,7 +146,7 @@ bins
 bucket_2
 
 ####
-
+top_16(pred)
 bucket_4
 
 fig, axs = plt.subplots(2,2,tight_layout=True,figsize=(6,4))

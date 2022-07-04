@@ -15,8 +15,7 @@
 \global\let\hyper@last\relax 
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand*\HyPL@Entry[1]{}
-\bibstyle{ieeetr}
-\bibstyle{ieeetr}
+\bibstyle{naturemag}
 \citation{McCulloch:1943vq}
 \citation{Kim}
 \citation{Massa}
@@ -44,20 +43,20 @@
 \citation{Liu:2022tg}
 \citation{Jafar-Zanjani:2018vy}
 \citation{6556051}
-\newlabel{eq:special}{{{1}}{2}{Methodology}{section*.2}{}}
 \citation{john_hennig_2022_6312347}
 \citation{molecules26041111}
 \citation{tensorflow2015-whitepaper}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Leaky wave antenna geometry. The antenna is a simple parallel-plate waveguide with non-uniformly periodic sub-slots. a) The binary case, where dark sub-slots represent transparency and light sub-slots represent opaqueness. b) The grey case, when in addition to transparent and metallic sub-slots, there are also partially transparent slots.\relax }}{3}{figure.caption.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Floquet theory predictions for geometry. a) Numerical simulations for uniformly periodic LWAs with four different values of $\Lambda $; each peaks at different angles, indicating how we use superposition of modes to generate a wide array of possible angles. Note that all periods have a maximum around 48 degrees, which is the primary mode for a LWA of these dimensions. b) The possible Floquet modes from any linear combination of modes predicted by Equation 1; as expected, the positive modes occur in forward scattering and the negative modes in back-scattering. \relax }}{3}{figure.caption.5}\protected@file@percent }
 \citation{Guerboukha:21}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The leaky wave antenna geometry. The left panel shows the binary case, where dark-colored sub-slots represent transparent areas while light colors indicate metallic boundaries. In the right panel, the boundary conditions are no longer discretized and can take on some intermediate value of transparency, as seen by the sub-slots with colors between light and dark.\relax }}{3}{figure.caption.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces The left panel shows the possible Floquet modes from any linear combination of modes predicted by Equation 1; as expected, the positive modes occur in forward scattering (< 90$\qopname  \relax o{deg}$) and the negative modes in back-scattering. The right panel shows these predicted Floquet modes overlaid on a sample peak profile generated in COMSOL.\relax }}{3}{figure.caption.4}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Neural network architecture schematic; peaks are used as the input data and passed through six hidden layers to predict the ideal slot design that will yield the closest possible signal.\relax }}{3}{figure.caption.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Neural network architecture schematic. The amplitudes at the angle of each possible Floquet mode are used as the input data and passed through one convolutional layer and six hidden layers within a neural network architecture to predict the slot design that will yield the closest possible signal. Full network parameters can be found in the code\relax }}{4}{figure.caption.6}\protected@file@percent }
 \citation{Nadell:19}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces The left panel shows the mean square error histogram and verifies the model's predictive value while the right panel shows the wide array of possible values at each peak.\relax }}{4}{figure.caption.8}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Model predictions for two different peak profiles. The left-most slot design is the randomly generated slot used to generate this profile, the center plot shows the sigmoid probabilities of a transparent sub-slot, and the right-most plot shows the top 16 sub-slots from the probabilities. The MSEs of the left and right predictions are 0.0155 and 0.0250, respectively.\relax }}{4}{figure.caption.9}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Experimental time-domain spectroscopy (TDS) measurements for two different slot designs, the left with only one periodicity and the right with a linear combination of periodicities.\relax }}{5}{figure.caption.10}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Polar plots of experimental versus simulation data for both the objective and predicted slot; overall, the plots indicate excellent agreement, particularly at the peaks of highest magnitude.\relax }}{5}{figure.caption.11}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces The left panel shows the mean square error histogram and verifies the model's predictive value while the right panel shows the wide array of possible values at each peak.\relax }}{5}{figure.caption.13}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces a) sample hot-stamped binary antenna; b) sample hot-stamped greyscale antenna; c) experimental setup, where the LWA is mounted on a rotation stage between a transmitter and receiver connected to a terahertz time-domain spectroscopy system\relax }}{5}{figure.caption.8}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Model predictions for two different peak profiles. The left slot design is the randomly generated slot used to generate the objective profile and the right slot design is what the model predicted for the objective far-field signal. The numerically-calculated far-field signal generated by the predicted slot is overlaid the objective signal. The MSEs of the left and right examples are 0.0155 and 0.0250, respectively.\relax }}{5}{figure.caption.11}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces a) Mean square error (MSE) histogram. The horizontal displacement between the two histograms shows that the model predicts significantly more accurate antenna geometries than the control. b) Box plot of the possible values at each peak. A wide array of values are possible at each peak, indicating that the model may be effective over a wide range of far-field signals.\relax }}{6}{figure.caption.12}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Experimental time-domain spectroscopy (TDS) measurements for two different slot designs, the left with only one periodicity and the right with a linear combination of periodicities. In the left panel, we see two discrete modes, whereas in the right panel we see a wide array of lower-power modes, as we would expect from a non-uniformly periodic slot.\relax }}{6}{figure.caption.13}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Comparison of experimental and numerical results for non-uniform periodic slot. The experimental signal is what was measured for the given slot using TDS, the expected is what we expect for the antenna geometry the model predicts, and the objective is the desired signal.\relax }}{6}{figure.caption.14}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces The left panel shows the mean square error histogram and verifies the model's predictive value while the right panel shows the wide array of possible values at each peak.\relax }}{7}{figure.caption.16}\protected@file@percent }
 \bibstyle{plain}
 \bibdata{references.bib}
 \bibcite{McCulloch:1943vq}{1}
@@ -85,4 +84,4 @@
 \bibcite{john_hennig_2022_6312347}{23}
 \bibcite{molecules26041111}{24}
 \bibcite{tensorflow2015-whitepaper}{25}
-\gdef \@abspage@last{8}
+\gdef \@abspage@last{10}

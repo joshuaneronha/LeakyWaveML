@@ -2,59 +2,66 @@ import sys
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
-sys.path.append('/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/1d/peaks_to_slot/grey')
+sys.path.append('/Users/joshuaneronha/Documents/Brown/Research/LeakyWaveML/1d/peaks_to_slot/3grey')
 import pickle
 import tensorflow as tf
 from tensorflow import losses
+from statsmodels.stats.weightstats import ztest
 
 mpl.rcParams['font.family'] = 'Arial'
 plt.rcParams['font.size'] = 12
 plt.rcParams['axes.linewidth'] = 2
 
-from preprocess import import_data, import_val_data
+from preprocess import import_data, import_val_data, import_data_bin
 
 ###
 
 slots, peaks, signals = import_data()
+slotsbin, peaksbin, signalsbin = import_data()
 
 peaks.shape
 # selected_peaks = peaks[peaks[:,1] <0 ]
 
 fig, axs = plt.subplots(1,1,tight_layout=True,figsize=(6,4))
 
-boxplot = axs.boxplot(peaks, sym = '', patch_artist = True)
+boxplot1 = axs.boxplot(peaks, sym = '', patch_artist = True)
+axs2 = axs.twinx()
+axs2.set_ylim(axs.get_ylim())
 plt.xticks(np.arange(0,36,5),np.arange(0,36,5))
 plt.xlabel('Peak Count')
 plt.ylabel('Amplitude (normalized)')
+boxplot2= axs2.boxplot(peaksbin, sym = '', patch_artist = True)
 
-cmap = mpl.cm.get_cmap('GnBu')
+# cmap = mpl.cm.get_cmap('GnBu')
+#
+for index, patch in enumerate(boxplot1['boxes']):
+    patch.set_facecolor('blue')
 
-for index, patch in enumerate(boxplot['boxes']):
-    patch.set_facecolor(cmap(index / 36))
+for index, patch in enumerate(boxplot2['boxes']):
+    patch.set_facecolor('red')
 
-plt.savefig('paper/figures/boxgrey.eps')
+plt.setp(boxplot1['whiskers'], color='blue')
+plt.setp(boxplot2['whiskers'], color='red')
+
+ plt.savefig('paper/figures/box3grey.svg')
 
 ###
-with open('1d/peaks_to_slot/grey/results/test_data_simp.pkl','rb') as file:
+with open('1d/peaks_to_slot/3grey/results/test_data627.pkl','rb') as file:
     test_data = pickle.load(file)
     peaks, true, pred, waves = test_data
 
-    predb = np.where((pred > 0) & (pred <= 0.125), 0, pred)
-    predb = np.where((predb > 0.125) & (predb <= 0.375), 0.25, predb)
-    predb = np.where((predb > 0.375) & (predb <= 0.625), 0.50, predb)
-    predb = np.where((predb > 0.625) & (predb <= 0.875), 0.75, predb)
-    predb = np.where((predb > 0.875), 1.00, predb)
+    predb = np.where((pred > 0) & (pred <= 0.333), 0, pred)
+    predb = np.where((predb > 0.333) & (predb <= 0.666), 0.50, predb)
+    predb = np.where((predb > 0.666), 1.00, predb)
 
-grey_slots, grey_peaks, grey_wves = import_val_data('1d/peaks_to_slot/grey/results/simplelosstest')
+val_slots, val_peaks, val_wves = import_val_data('1d/peaks_to_slot/3grey/results/test627')
 
-grey_slots
 
-with open('1d/peaks_to_slot/grey/results/test_data.pkl','rb') as file:
-    test_data = pickle.load(file)
-    diff_real_peaks, diff_true, diff_pred = test_data
-
-diff_slots, diff_peaks = import_val_data('1d/peaks_to_slot/grey/results/difflosstest')
-
+(true.astype('float32') == predb).sum() / np.size(predb)
+true.astype('float32')
+len(predb)
+ ba = tf.keras.metrics.BinaryAccuracy()
+ ba(predb,true.astype('float32'))
 def test(i):
 
     plt.plot(peaks[i])
@@ -93,23 +100,23 @@ bucket_4 = []
 for i in np.arange(500):
 
     # mse_g = np.mean(np.square(peaks[i] - grey_peaks[i]))
-    mse_g = losses.mse(waves[i][0:181], grey_wves[i][0:181])
+    mse_g = losses.mse(waves[i][0:181], val_wves[i][0:181])
     mse_list_grey.append(mse_g)
     #
     # mse_d = ((diff_real_peaks[i] - diff_peaks[i]) ** 2).mean()
     # mse_list_diff.append(mse_d)
 
     try:
-        mse_c = losses.mse(waves[i+1][0:181], grey_wves[i][0:181])
+        mse_c = losses.mse(waves[i+1][0:181], val_wves[i][0:181])
         mse_list_control.append(mse_c)
     except:
         pass
 
-    if mse_g < 0.0166:
+    if mse_g < 0.02:
         bucket_1.append(i)
-    elif mse_g < 0.03236:
+    elif mse_g < 0.04:
         bucket_2.append(i)
-    elif mse_g < 0.04811:
+    elif mse_g < 0.06:
         bucket_3.append(i)
     else:
         bucket_4.append(i)
@@ -137,9 +144,16 @@ N, bins, patches = axs.hist(tf.stack(mse_list_control).numpy(),bins=bins,ec='bla
 for i,thispatch in enumerate(patches):
     thispatch.set_alpha(0.5)
 
-plt.ylim([0, 95])
+plt.ylim([0,95])
 axs.legend(['Model','Random'])
+
+plt.savefig('paper/figures/3grey_histogram.svg')
+
+np.mean(mse_list_grey)
+np.mean(mse_list_control)
 # plt.ylim([0, 100])
+
+ztest(mse_list_grey, mse_list_control,value=0,alternative='two-sided')
 
 plt.savefig('paper/figures/grey_histogram.svg')
 
@@ -160,14 +174,21 @@ def plot_instance_beta(val):
     ax[2].axes.xaxis.set_visible(False)
     ax[2].axes.yaxis.set_visible(False)# cax = ax[3].inset_axes([1.04, 0.2, 0.05, 0.6], transform=ax[3].transAxes)
     ax[3].plot(waves[val][0:181],color='#0c2c84')
-    ax[3].plot(grey_wves[val][0:181],color='#7fcdbb')
+    ax[3].plot(val_wves[val][0:181],color='#7fcdbb')
 
-    print('MSE = ' + str(losses.mse(waves[val][0:181], grey_wves[val][0:181])),5)
+    print('MSE = ' + str(losses.mse(waves[val][0:181], val_wves[val][0:181])),5)
 bucket_4
 np.mean(np.square(peaks[127] - grey_peaks[127]))
 mse_list_grey[127]
-plot_instance_beta(488)
+plot_instance_beta(34)
+plt.savefig('paper/figures/34forthefig.svg')
 
+plt.plot(waves[34])
+
+data34 = np.loadtxt('1d/peaks_to_slot/3grey/results/test627.csv',delimiter=',')[12274:12274+361]
+np.savetxt('experiments/sim34.csv',data34)
+data34[360,1]
+plt.semilogy(data34[:,1])
 np.savetxt('experiments/expected488grey.csv',grey_wves[488])
 
 plt.savefig('paper/figures/grey71.eps')
