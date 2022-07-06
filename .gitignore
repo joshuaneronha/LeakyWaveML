@@ -1,7 +1,6 @@
 
 baseline.mph
 run.py
-*.mph
 1d/peaks_to_slot/results/model_weights.index
 1d/peaks_to_slot/results/model_weights.data-00000-of-00001
 1d/peaks_to_slot/results/model/variables/variables.index
@@ -10,3 +9,4 @@ run.py
 1d/peaks_to_slot/results/model/keras_metadata.pb
 paper/figures/setup.eps
 paper
+check.mph
